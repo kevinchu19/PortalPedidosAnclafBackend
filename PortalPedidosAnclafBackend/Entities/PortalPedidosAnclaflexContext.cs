@@ -19,11 +19,14 @@ namespace PortalPedidosAnclafBackend.Entities
 
         public virtual DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<Clientesdireccionesentrega> Clientesdireccionesentregas { get; set; }
+        public virtual DbSet<Listasdeprecio> Listasdeprecios { get; set; }
         public virtual DbSet<Pedido> Pedidos { get; set; }
         public virtual DbSet<Pedidositem> Pedidositems { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,13 +50,13 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
-                entity.Property(e => e.DireccioFacturacion)
-                    .IsRequired()
+                entity.Property(e => e.DireccionEntrega)
                     .HasColumnType("varchar(120)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
-                entity.Property(e => e.DireccionEntrega)
+                entity.Property(e => e.DireccionFacturacion)
+                    .IsRequired()
                     .HasColumnType("varchar(120)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
@@ -106,7 +109,7 @@ namespace PortalPedidosAnclafBackend.Entities
 
             modelBuilder.Entity<Clientesdireccionesentrega>(entity =>
             {
-                entity.HasKey(e => new { e.IdCliente, e.IdEntrega })
+                entity.HasKey(e => new { e.IdCliente, e.Id })
                     .HasName("PRIMARY")
                     .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
 
@@ -117,7 +120,7 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
-                entity.Property(e => e.IdEntrega)
+                entity.Property(e => e.Id)
                     .HasColumnType("varchar(6)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
@@ -156,6 +159,43 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasForeignKey(d => d.IdCliente)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Cliente");
+            });
+
+            modelBuilder.Entity<Listasdeprecio>(entity =>
+            {
+                entity.HasKey(e => new { e.Id, e.Fecha, e.Idproducto })
+                    .HasName("PRIMARY")
+                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0 });
+
+                entity.ToTable("listasdeprecio");
+
+                entity.HasIndex(e => e.Idproducto, "FK_ListasDePrecio_Productos");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("varchar(6)")
+                    .HasColumnName("id")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Fecha)
+                    .HasColumnType("date")
+                    .HasColumnName("fecha");
+
+                entity.Property(e => e.Idproducto)
+                    .HasColumnType("varchar(40)")
+                    .HasColumnName("idproducto")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Precio)
+                    .HasPrecision(10)
+                    .HasColumnName("precio");
+
+                entity.HasOne(d => d.IdproductoNavigation)
+                    .WithMany(p => p.Listasdeprecios)
+                    .HasForeignKey(d => d.Idproducto)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ListasDePrecio_Productos");
             });
 
             modelBuilder.Entity<Pedido>(entity =>

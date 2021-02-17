@@ -8,7 +8,7 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
 {
     public interface IRepository<TEntity> where TEntity: class
     {
-        Task<TEntity> Get(int id);
+        Task<TEntity> Get(string id);
         Task<IEnumerable<TEntity>> GetAll(int skip, int take);
         
         Task Add(TEntity entity);

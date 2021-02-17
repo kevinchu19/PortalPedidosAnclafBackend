@@ -13,7 +13,7 @@ namespace PortalPedidosAnclafBackend.Entities
         }
 
         public string IdCliente { get; set; }
-        public string IdEntrega { get; set; }
+        public string Id { get; set; }
         public string Descripcion { get; set; }
         public string DireccionEntrega { get; set; }
         public string Paisentrega { get; set; }

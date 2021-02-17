@@ -16,7 +16,7 @@ namespace PortalPedidosAnclafBackend.Repositories
         {
             Context = context;
         }
-        public async Task<TEntity> Get(int id) => await Context.Set<TEntity>().FindAsync(id);
+        public async Task<TEntity> Get(string id) => await Context.Set<TEntity>().FindAsync(id);
 
         public async Task<IEnumerable<TEntity>> GetAll(int skip, int take) => await Context.Set<TEntity>()
                                                                                     .Skip(skip)

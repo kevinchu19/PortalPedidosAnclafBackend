@@ -17,6 +17,8 @@ using PortalPedidosAnclafBackend.Entities;
 using PortalPedidosAnclafBackend.Repositories;
 using PortalPedidosAnclafBackend.Repositories.Interfaces;
 using PortalPedidosAnclafBackend.Repositories.Persistance;
+using AutoMapper;
+using PortalPedidosAnclafBackend.Models;
 
 namespace PortalPedidosAnclafBackend
 {
@@ -46,10 +48,18 @@ namespace PortalPedidosAnclafBackend
                new MySqlServerVersion(new Version(8, 0, 23)),
                mySqlOptions => mySqlOptions
                 .CharSetBehavior(CharSetBehavior.NeverAppend))
+                .EnableSensitiveDataLogging()
                );
 
             //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddAutoMapper(configuration =>
+            {
+                configuration.CreateMap<Cliente, ClienteTypehead>()
+                .ForMember(dest => dest.Descripcion, opt => opt.MapFrom(src => src.RazonSocial));
+            }
+                , typeof(Startup));
 
             services.AddControllers();
         }

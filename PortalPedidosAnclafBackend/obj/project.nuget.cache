@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "U/HHidbx/NbQ+DCqsDUqcq3/bggIp4D+E57sVvsFD75Je6ApeQx57x5Lq4zQ2w8XhPFeLZIhnk0LkysaBXbyLg==",
+  "dgSpecHash": "9yWlcEIQ6pwGDU81lXAKE66+3JXxIgYpOhRdSBClSUJJRNA0Bl4LEANs1V39YNIw6zm0Sq68jKdANvWslTihFw==",
   "success": true,
   "projectFilePath": "C:\\Users\\ktchu\\source\\repos\\PortalPedidosAnclafBackend\\PortalPedidosAnclafBackend\\PortalPedidosAnclafBackend.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ktchu\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\ktchu\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\entityframework\\5.0.0\\entityframework.5.0.0.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
@@ -35,6 +37,7 @@
     "C:\\Users\\ktchu\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\system.data.entity.repository\\2.0.0.1\\system.data.entity.repository.2.0.0.1.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
+    "C:\\Users\\ktchu\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
   ],
   "logs": [

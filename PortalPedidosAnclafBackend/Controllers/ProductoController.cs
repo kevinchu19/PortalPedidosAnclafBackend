@@ -24,7 +24,12 @@ namespace PortalPedidosAnclafBackend.Controllers
         {
             return  Ok(await Repository.Productos.GetByTermino(termino, skip, take));
         }
-
+        
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Producto>> Get(string id, string listaPrecios)
+        {
+            return Ok(await Repository.Productos.GetByIdYListaPrecios(id, listaPrecios));
+        }
     }
 
 }

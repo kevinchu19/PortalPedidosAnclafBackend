@@ -40,3 +40,5 @@ C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBacken
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Debug\netcoreapp3.1\System.Data.Entity.Repository.dll
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Debug\netcoreapp3.1\PortalPedidosAnclafBackend.csproj.CoreCompileInputs.cache
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Debug\netcoreapp3.1\PortalPedidosAnclafBackend.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
