@@ -23,7 +23,8 @@ namespace PortalPedidosAnclafBackend.Entities
         public virtual DbSet<Pedido> Pedidos { get; set; }
         public virtual DbSet<Pedidositem> Pedidositems { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
-
+        
+        public virtual DbSet<Provincia> Provincias { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
         }
@@ -43,10 +44,20 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasColumnType("varchar(15)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
+                
+                entity.Property(e => e.LocalidadEntrega)
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
 
                 entity.Property(e => e.CodigoPostalFacturacion)
                     .IsRequired()
                     .HasColumnType("varchar(15)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.LocalidadFacturacion)
+                    .HasColumnType("varchar(100)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
@@ -127,6 +138,11 @@ namespace PortalPedidosAnclafBackend.Entities
 
                 entity.Property(e => e.CodigoPostalEntrega)
                     .HasColumnType("varchar(15)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.LocalidadEntrega)
+                    .HasColumnType("varchar(100)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
@@ -310,6 +326,40 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCollation("utf8_bin");
 
                 entity.Property(e => e.Precio).HasPrecision(10);
+            });
+            modelBuilder.Entity<Provincia>(entity =>
+            {
+                entity.ToTable("provincias");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("varchar(6)")
+                    .HasColumnName("id")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasColumnType("varchar(60)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.HasMany(d => d.IdClienteFacturacionNavigation)
+                   .WithOne(p => p.ProvinciaFacturacionNavigation)
+                   .HasForeignKey(d => d.ProvinciaFacturacion)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("FK_Clientes_Provincias_Facturacion");
+
+                entity.HasMany(d => d.IdClienteEntregaNavigation)
+                   .WithOne(p => p.ProvinciaEntregaNavigation)
+                   .HasForeignKey(d => d.ProvinciaEntrega)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("FK_Clientes_Provincias_Entrega");
+
+                entity.HasMany(d => d.IdClienteNavigation)
+                   .WithOne(p => p.ProvinciaEntregaNavigation)
+                   .HasForeignKey(d => d.ProvinciaEntrega)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("FK_ClientesDireccionesEntrega_Provincias");
             });
 
             OnModelCreatingPartial(modelBuilder);

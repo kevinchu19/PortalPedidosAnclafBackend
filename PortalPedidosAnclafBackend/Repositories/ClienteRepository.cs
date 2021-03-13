@@ -18,5 +18,6 @@ namespace PortalPedidosAnclafBackend.Repositories
         {
             return await Context.Set<Cliente>().Where(c => c.RazonSocial.ToUpper().Contains(termino.ToUpper())).Skip(skip).Take(take).ToListAsync();
         }
+        
     }
 }

@@ -20,6 +20,8 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
 
         private IProductoRepository _productos { get;  set; }
 
+        private IProvinciaRepository _provincias { get; set; }
+
 
         public UnitOfWork(PortalPedidosAnclaflexContext context)
         {
@@ -84,6 +86,18 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
                     _productos = new ProductoRepository(Context);
                 }
                 return _productos;
+            }
+        }
+
+        public IProvinciaRepository Provincias
+        {
+            get
+            {
+                if (_provincias== null)
+                {
+                    _provincias= new ProvinciaRepository(Context);
+                }
+                return _provincias;
             }
         }
 

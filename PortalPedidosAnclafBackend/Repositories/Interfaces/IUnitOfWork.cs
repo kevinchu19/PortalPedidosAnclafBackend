@@ -12,6 +12,7 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
         IPedidoRepository Pedidos { get; }
         IPedidoItemRepository PedidosItems { get; }
         IProductoRepository Productos { get; }
+        IProvinciaRepository Provincias { get; }
 
         Task<int> Complete();
     }
