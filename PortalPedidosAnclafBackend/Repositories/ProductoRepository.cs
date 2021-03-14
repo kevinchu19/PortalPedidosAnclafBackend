@@ -15,13 +15,22 @@ namespace PortalPedidosAnclafBackend.Repositories
 
         public async Task<IEnumerable<Producto>> GetByTermino(string termino, int skip, int take)
         {
-            return await Context.Set<Producto>().Where(c => c.Descripcion.ToUpper().Contains(termino.ToUpper()) ||
-                                                            c.Id.ToUpper().Contains(termino.ToUpper())).Skip(skip).Take(take).ToListAsync();
+            //return await Context.Set<Producto>().Where(c => c.Descripcion.ToUpper().Contains(termino.ToUpper()) ||
+            //                                                c.Id.ToUpper().Contains(termino.ToUpper())).Skip(skip).Take(take).ToListAsync();
+            string[] palabras = termino.Split(' ');
+            string query = "SELECT * FROM productos where 1=1 ";
+            foreach (var palabra in palabras)
+            {
+                query = query + $"and ((UPPER(id) like '%{palabra.ToUpper()}%') or (UPPER(descripcion) like '%{palabra.ToUpper()}%'))";
+            }
+            
+            return await Context.Set<Producto>().FromSqlRaw(query).Skip(skip).Take(take).ToListAsync();
         }
 
         public async Task<Producto> GetByIdYListaPrecios(string id, string listaPrecios)
         {
             return await Context.Set<Producto>()
+                                
                                             .Where(producto => producto.Id == id)
                                             .Select(producto => new Producto()
                                             {

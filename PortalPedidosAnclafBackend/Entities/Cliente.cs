@@ -28,6 +28,7 @@ namespace PortalPedidosAnclafBackend.Entities
         public string LocalidadEntrega { get; set; }
         public string ProvinciaEntrega { get; set; }
         public string ListaPrecios { get; set; }
+        public string TransportistaRedespacho { get; set; }
         public virtual ICollection<Clientesdireccionesentrega> Clientesdireccionesentregas { get; set; }
         public virtual ICollection<Pedido> Pedidos { get; set; }
 
@@ -35,3 +36,5 @@ namespace PortalPedidosAnclafBackend.Entities
         public Provincia ProvinciaEntregaNavigation { get; set; }
     }
 }
+
+

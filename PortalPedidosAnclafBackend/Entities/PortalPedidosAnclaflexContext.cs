@@ -23,8 +23,10 @@ namespace PortalPedidosAnclafBackend.Entities
         public virtual DbSet<Pedido> Pedidos { get; set; }
         public virtual DbSet<Pedidositem> Pedidositems { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
-        
         public virtual DbSet<Provincia> Provincias { get; set; }
+        public virtual DbSet<Vendedores> Vendedores { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Transportistasredespacho> Transportistasredespachos { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
         }
@@ -116,6 +118,11 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasColumnType("varchar(6)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
+
+                entity.Property(e => e.TransportistaRedespacho)
+                    .HasColumnType("varchar(6)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
             });
 
             modelBuilder.Entity<Clientesdireccionesentrega>(entity =>
@@ -174,7 +181,7 @@ namespace PortalPedidosAnclafBackend.Entities
                     .WithMany(p => p.Clientesdireccionesentregas)
                     .HasForeignKey(d => d.IdCliente)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Cliente");
+                    .HasConstraintName("FK_DireccionesEntrega_Clientes");
             });
 
             modelBuilder.Entity<Listasdeprecio>(entity =>
@@ -263,11 +270,42 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
+                entity.Property(e => e.TransportistaRedespacho)
+                    .IsRequired()
+                    .HasColumnType("varchar(6)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+                    
+                entity.Property(e => e.RetiradeFabrica)
+                        .IsRequired()
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+                    
+                entity.Property(e => e.Observacion)
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+                    
+                entity.Property(e => e.ObservacionLogistica)
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+                    
+                entity.Property(e => e.EsBarrioCerrado)
+                        .IsRequired()
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+                
+
                 entity.HasOne(d => d.IdClienteNavigation)
-                    .WithMany(p => p.Pedidos)
-                    .HasForeignKey(d => d.IdCliente)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Pedidos_Cliente");
+                            .WithMany(p => p.Pedidos)
+                            .HasForeignKey(d => d.IdCliente)
+                            .OnDelete(DeleteBehavior.ClientSetNull)
+                            .HasConstraintName("FK_Pedidos_Cliente");
 
                 entity.HasOne(d => d.IdNavigation)
                     .WithMany(p => p.Pedidos)
@@ -361,6 +399,79 @@ namespace PortalPedidosAnclafBackend.Entities
                    .OnDelete(DeleteBehavior.ClientSetNull)
                    .HasConstraintName("FK_ClientesDireccionesEntrega_Provincias");
             });
+
+            modelBuilder.Entity<Vendedores>(entity =>
+            {
+                entity.ToTable("vendedores");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("varchar(6)")
+                    .HasColumnName("id")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasColumnType("varchar(6)")
+                    .HasColumnName("descripcion")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+            });
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.ToTable("usuarios");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("varchar(120)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasColumnType("varchar(60)")
+                    .HasColumnName("descripcion")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Idcliente)
+                    .HasColumnType("varchar(20)")
+                    .HasColumnName("idcliente")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Idvendedor)
+                    .HasColumnType("varchar(6)")
+                    .HasColumnName("idvendedor")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasColumnType("varchar(60)")
+                    .HasColumnName("password")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+            });
+
+            modelBuilder.Entity<Transportistasredespacho>(entity =>
+            {
+                entity.ToTable("transportistasredespacho");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("varchar(6)")
+                    .HasColumnName("id")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasColumnType("varchar(60)")
+                    .HasColumnName("descripcion")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+            });
+
 
             OnModelCreatingPartial(modelBuilder);
         }

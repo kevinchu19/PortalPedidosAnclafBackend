@@ -22,6 +22,7 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
 
         private IProvinciaRepository _provincias { get; set; }
 
+        private IUsuarioRepository _usuarios{ get; set; }
 
         public UnitOfWork(PortalPedidosAnclaflexContext context)
         {
@@ -98,6 +99,18 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
                     _provincias= new ProvinciaRepository(Context);
                 }
                 return _provincias;
+            }
+        }
+
+        public IUsuarioRepository Usuarios
+        {
+            get
+            {
+                if (_usuarios == null)
+                {
+                    _usuarios = new UsuarioRepository(Context);
+                }
+                return _usuarios;
             }
         }
 
