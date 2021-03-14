@@ -15,7 +15,9 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
         public async Task<IEnumerable<Clientesdireccionesentrega>> GetByKeyParameter(string termino, string keyParameter, int skip, int take)
         {
 
-            return await Context.Set<Clientesdireccionesentrega>().Where(c => (termino == null || c.Descripcion.ToUpper().Contains(termino.ToUpper())) &&
+            return await Context.Set<Clientesdireccionesentrega>().Where(c => (termino == null || 
+                                                                               c.Descripcion.ToUpper().Contains(termino.ToUpper())||
+                                                                               c.Id.ToUpper().Contains(termino.ToUpper()) ) &&
                                                                               c.IdCliente == keyParameter.ToUpper())
                                                                  .Skip(skip).Take(take).ToListAsync();
         }
