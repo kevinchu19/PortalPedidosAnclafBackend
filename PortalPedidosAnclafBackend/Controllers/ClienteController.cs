@@ -24,10 +24,10 @@ namespace PortalPedidosAnclafBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cliente>>> GetByTermino(string termino, int skip, int take)
+        public async Task<ActionResult<IEnumerable<Cliente>>> GetByTerminoAndKeyParameter(string termino, string keyParameter, int skip, int take)
         {
             var clientes = Mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteTypehead>>
-                (await Repository.Clientes.GetByTermino(termino, skip, take));
+                (await Repository.Clientes.GetByTerminoAndKeyParameter(termino, keyParameter , skip, take));
 
             return Ok(clientes);
         }

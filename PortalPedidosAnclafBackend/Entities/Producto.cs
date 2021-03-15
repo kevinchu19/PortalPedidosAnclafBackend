@@ -15,9 +15,9 @@ namespace PortalPedidosAnclafBackend.Entities
 
         public string Id { get; set; }
         public string Descripcion { get; set; }
-        public decimal? Precio { get; set; }
-        public decimal? Bonificacion { get; set; }
-
+        public string TipoProducto { get; set; }
+        public string Rubro1 { get; set; }
+        public string Rubro2 { get; set; }
         public virtual ICollection<Listasdeprecio> Listasdeprecios { get; set; }
         public virtual ICollection<Pedidositem> Pedidositems { get; set; }
     }

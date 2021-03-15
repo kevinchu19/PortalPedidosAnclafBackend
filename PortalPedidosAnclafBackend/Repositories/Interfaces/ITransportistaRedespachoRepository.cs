@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace PortalPedidosAnclafBackend.Repositories.Interfaces
 {
-    public interface IClienteRepository: IRepository<Cliente>
+    public interface ITransportistaRedespachoRepository : IRepository<Transportistasredespacho>
     {
-        Task<IEnumerable<Cliente>> GetByTerminoAndKeyParameter(string termino, string keyParameter, int skip, int take);
+        Task<IEnumerable<Transportistasredespacho>> GetByTermino(string termino, int skip, int take);
     }
 }

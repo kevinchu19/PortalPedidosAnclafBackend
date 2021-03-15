@@ -1,4 +1,5 @@
 ﻿using PortalPedidosAnclafBackend.Entities;
+using PortalPedidosAnclafBackend.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
     public interface IProductoRepository : IRepository<Producto>
     {
         Task<IEnumerable<Producto>> GetByTermino(string termino, int skip, int take);
-        Task<Producto> GetByIdYListaPrecios(string id, string listaPrecios);
+        Task<ProductoDTO> GetByIdYListaPrecios(string id, string listaPrecios, string grupoBonificacion);
 
     }
 

@@ -57,6 +57,11 @@ namespace PortalPedidosAnclafBackend
             });
 
 
+            services.AddControllersWithViews()
+                    .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -81,6 +86,12 @@ namespace PortalPedidosAnclafBackend
             {
                 configuration.CreateMap<Cliente, ClienteTypehead>()
                 .ForMember(dest => dest.Descripcion, opt => opt.MapFrom(src => src.RazonSocial));
+                
+                configuration.CreateMap<Pedido, PedidoDTO>()
+                .ReverseMap();
+
+                configuration.CreateMap<Pedidositem, PedidoItemsDTO>()
+                .ReverseMap();
             }
                 , typeof(Startup));
 

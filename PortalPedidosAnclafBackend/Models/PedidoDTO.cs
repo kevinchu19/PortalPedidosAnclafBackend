@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-#nullable disable
-
-namespace PortalPedidosAnclafBackend.Entities
+namespace PortalPedidosAnclafBackend.Models
 {
-    public partial class Pedido
+    public class PedidoDTO
     {
-        public Pedido()
-        {
-            Pedidositems = new HashSet<Pedidositem>();
-        }
-
         public int Id { get; set; }
         public string IdCliente { get; set; }
         public string IdClienteEntrega { get; set; }
@@ -24,12 +19,13 @@ namespace PortalPedidosAnclafBackend.Entities
         public string TransportistaRedespacho { get; set; }
         public string Observacion { get; set; }
         public string ObservacionLogistica { get; set; }
+        public string IdVendedor { get; set; }
+
+        public DateTime Fecha { get; set; }
         public Int16 RetiradeFabrica { get; set; }
         public Int16 EsBarrioCerrado { get; set; }
-        public string IdVendedor { get; set; }
-        public DateTime Fecha { get; set; }
-        public virtual Cliente IdClienteNavigation { get; set; }
-        public virtual Clientesdireccionesentrega IdNavigation { get; set; }
-        public virtual ICollection<Pedidositem> Pedidositems { get; set; }
+
+        public List<PedidoItemsDTO> Items { get; set; }
+
     }
 }

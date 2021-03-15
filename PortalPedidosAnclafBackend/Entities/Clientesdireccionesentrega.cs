@@ -20,6 +20,7 @@ namespace PortalPedidosAnclafBackend.Entities
         public string CodigoPostalEntrega { get; set; }
         public string LocalidadEntrega { get; set; }
         public string ProvinciaEntrega { get; set; }
+        public string TransportistaRedespacho { get; set; }
 
         public virtual Cliente IdClienteNavigation { get; set; }
 

@@ -29,6 +29,8 @@ namespace PortalPedidosAnclafBackend.Entities
         public string ProvinciaEntrega { get; set; }
         public string ListaPrecios { get; set; }
         public string TransportistaRedespacho { get; set; }
+        public string IdVendedor { get; set; }
+        public string GrupoBonificacion { get; set; }
         public virtual ICollection<Clientesdireccionesentrega> Clientesdireccionesentregas { get; set; }
         public virtual ICollection<Pedido> Pedidos { get; set; }
 

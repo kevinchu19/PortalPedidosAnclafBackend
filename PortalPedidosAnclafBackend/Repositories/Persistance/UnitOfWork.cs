@@ -24,6 +24,8 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
 
         private IUsuarioRepository _usuarios{ get; set; }
 
+        private ITransportistaRedespachoRepository _transportistasRedespacho { get; set; }
+
         public UnitOfWork(PortalPedidosAnclaflexContext context)
         {
             Context = context;
@@ -114,6 +116,17 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
             }
         }
 
+        public ITransportistaRedespachoRepository TransportistaRedespacho
+        {
+            get
+            {
+                if (_transportistasRedespacho == null)
+                {
+                    _transportistasRedespacho = new TransportistaRedespachoRepository(Context);
+                }
+                return _transportistasRedespacho;
+            }
+        }
         public async Task<int> Complete()
         {
             return await Context.SaveChangesAsync();

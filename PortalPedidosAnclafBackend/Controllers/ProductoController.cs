@@ -26,9 +26,9 @@ namespace PortalPedidosAnclafBackend.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<Producto>> Get(string id, string listaPrecios)
+        public async Task<ActionResult<Producto>> Get(string id, string listaPrecios, string grupoBonificacion)
         {
-            return Ok(await Repository.Productos.GetByIdYListaPrecios(id, listaPrecios));
+            return Ok(await Repository.Productos.GetByIdYListaPrecios(id, listaPrecios, grupoBonificacion));
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortalPedidosAnclafBackend.Entities;
+using PortalPedidosAnclafBackend.Models;
 using PortalPedidosAnclafBackend.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,24 +28,50 @@ namespace PortalPedidosAnclafBackend.Repositories
             return await Context.Set<Producto>().FromSqlRaw(query).Skip(skip).Take(take).ToListAsync();
         }
 
-        public async Task<Producto> GetByIdYListaPrecios(string id, string listaPrecios)
+        public async Task<ProductoDTO> GetByIdYListaPrecios(string id, string listaPrecio, string grupoBonificacion)
         {
             return await Context.Set<Producto>()
                                 
                                             .Where(producto => producto.Id == id)
-                                            .Select(producto => new Producto()
+                                            .Select(producto => new ProductoDTO()
                                             {
                                                 Id = producto.Id,
                                                 Descripcion = producto.Descripcion,
                                                 Precio = Context.Set<Listasdeprecio>()
                                                         .Where(preciolista => preciolista.Idproducto == producto.Id &&
                                                                               preciolista.Fecha <= DateTime.Now &&
-                                                                              preciolista.Id == listaPrecios)
+                                                                              preciolista.Id == listaPrecio)
                                                         .OrderByDescending(c=> c.Fecha)
                                                         .Take(1)
-                                                        .Select(c => (c.Precio))
+                                                        .Select(c => (c.Precio!=null?c.Precio:0))
                                                         .FirstOrDefault(),
-                                                Bonificacion = 0
+                                                Bonificacion1 = Context.Set<Bonificacion>()
+                                                                        .Where(bonificacion => bonificacion.Idgrupobonificacion == grupoBonificacion &&
+                                                                                                        bonificacion.Tipoproducto == producto.TipoProducto &&
+                                                                                                        (bonificacion.Idnumerorubro == 1 && bonificacion.Valorrubro == producto.Rubro1 ||
+                                                                                                         bonificacion.Idnumerorubro == 2 && bonificacion.Valorrubro == producto.Rubro2
+                                                                                                        ))
+                                                                        .Take(1)
+                                                                        .Select(c => (c.Bonificacion1 != null ? c.Bonificacion1: 0))
+                                                                        .FirstOrDefault(),
+                                                Bonificacion2 = Context.Set<Bonificacion>()
+                                                                        .Where(bonificacion => bonificacion.Idgrupobonificacion == grupoBonificacion &&
+                                                                                                        bonificacion.Tipoproducto == producto.TipoProducto &&
+                                                                                                        (bonificacion.Idnumerorubro == 1 && bonificacion.Valorrubro == producto.Rubro1 ||
+                                                                                                         bonificacion.Idnumerorubro == 2 && bonificacion.Valorrubro == producto.Rubro2
+                                                                                                        ))
+                                                                        .Take(1)
+                                                                        .Select(c => (c.Bonificacion2 != null ? c.Bonificacion2 : 0))
+                                                                        .FirstOrDefault(),
+                                                Bonificacion3 = Context.Set<Bonificacion>()
+                                                                        .Where(bonificacion => bonificacion.Idgrupobonificacion == grupoBonificacion &&
+                                                                                                        bonificacion.Tipoproducto == producto.TipoProducto &&
+                                                                                                        (bonificacion.Idnumerorubro == 1 && bonificacion.Valorrubro == producto.Rubro1 ||
+                                                                                                         bonificacion.Idnumerorubro == 2 && bonificacion.Valorrubro == producto.Rubro2
+                                                                                                        ))
+                                                                        .Take(1)
+                                                                        .Select(c => (c.Bonificacion3 != null ? c.Bonificacion3 : 0))
+                                                                        .FirstOrDefault()
                                             })   
                                             .FirstOrDefaultAsync();
         }

@@ -27,6 +27,8 @@ namespace PortalPedidosAnclafBackend.Entities
         public virtual DbSet<Vendedores> Vendedores { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Transportistasredespacho> Transportistasredespachos { get; set; }
+
+        public virtual DbSet<Bonificacion> Bonificaciones { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
         }
@@ -123,6 +125,13 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasColumnType("varchar(6)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
+
+
+                entity.Property(e => e.GrupoBonificacion)
+                    .HasColumnType("varchar(6)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
             });
 
             modelBuilder.Entity<Clientesdireccionesentrega>(entity =>
@@ -176,6 +185,11 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasColumnType("varchar(6)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
+                
+                entity.Property(e => e.TransportistaRedespacho)
+                   .HasColumnType("varchar(6)")
+                   .HasCharSet("utf8")
+                   .HasCollation("utf8_bin");
 
                 entity.HasOne(d => d.IdClienteNavigation)
                     .WithMany(p => p.Clientesdireccionesentregas)
@@ -209,10 +223,6 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasColumnName("idproducto")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
-
-                entity.Property(e => e.Precio)
-                    .HasPrecision(10)
-                    .HasColumnName("precio");
 
                 entity.HasOne(d => d.IdproductoNavigation)
                     .WithMany(p => p.Listasdeprecios)
@@ -299,7 +309,16 @@ namespace PortalPedidosAnclafBackend.Entities
                         .HasColumnType("smallint")
                         .HasCharSet("utf8")
                         .HasCollation("utf8_bin");
-                
+
+                entity.Property(e => e.IdVendedor)
+                    .HasColumnType("varchar(6)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Fecha)
+                    .HasColumnType("datetime")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
 
                 entity.HasOne(d => d.IdClienteNavigation)
                             .WithMany(p => p.Pedidos)
@@ -332,6 +351,12 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCollation("utf8_bin");
 
                 entity.Property(e => e.Precio).HasPrecision(10);
+                
+                entity.Property(e => e.Bonificacion1).HasPrecision(10);
+                
+                entity.Property(e => e.Bonificacion2).HasPrecision(10);
+                
+                entity.Property(e => e.Bonificacion3).HasPrecision(10);
 
                 entity.HasOne(d => d.IdPedidoNavigation)
                     .WithMany(p => p.Pedidositems)
@@ -355,15 +380,27 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
-                entity.Property(e => e.Bonificacion).HasPrecision(10);
-
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
                     .HasColumnType("varchar(60)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
-                entity.Property(e => e.Precio).HasPrecision(10);
+                entity.Property(e => e.TipoProducto)
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+                
+                entity.Property(e => e.Rubro1)
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Rubro2)
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+                
             });
             modelBuilder.Entity<Provincia>(entity =>
             {
@@ -472,6 +509,44 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCollation("utf8_bin");
             });
 
+            modelBuilder.Entity<Bonificacion>(entity =>
+            {
+                entity.ToTable("bonificaciones");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Bonificacion1)
+                    .HasPrecision(10, 2)
+                    .HasColumnName("bonificacion1");
+
+                entity.Property(e => e.Bonificacion2)
+                    .HasPrecision(10, 2)
+                    .HasColumnName("bonificacion2");
+
+                entity.Property(e => e.Bonificacion3)
+                    .HasPrecision(10, 2)
+                    .HasColumnName("bonificacion3");
+
+                entity.Property(e => e.Idgrupobonificacion)
+                    .HasColumnType("varchar(6)")
+                    .HasColumnName("idgrupobonificacion")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Idnumerorubro).HasColumnName("idnumerorubro");
+
+                entity.Property(e => e.Tipoproducto)
+                    .HasColumnType("varchar(45)")
+                    .HasColumnName("tipoproducto")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Valorrubro)
+                    .HasColumnType("varchar(45)")
+                    .HasColumnName("valorrubro")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+            });
 
             OnModelCreatingPartial(modelBuilder);
         }
