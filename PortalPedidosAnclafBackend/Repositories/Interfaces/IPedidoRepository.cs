@@ -8,5 +8,6 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
 {
     public interface IPedidoRepository: IRepository<Pedido>
     {
+        Task<IEnumerable<Pedido>> GetByIdCliente(string idCliente,int skip, int take);
     }
 }

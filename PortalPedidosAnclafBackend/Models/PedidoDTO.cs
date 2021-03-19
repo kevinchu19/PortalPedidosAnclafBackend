@@ -25,7 +25,7 @@ namespace PortalPedidosAnclafBackend.Models
         public Int16 RetiradeFabrica { get; set; }
         public Int16 EsBarrioCerrado { get; set; }
 
-        public List<PedidoItemsDTO> Items { get; set; }
+        public ICollection<PedidoItemsDTO> Items { get; set; }
 
     }
 }

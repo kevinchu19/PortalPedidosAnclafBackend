@@ -90,7 +90,7 @@ namespace PortalPedidosAnclafBackend
                 configuration.CreateMap<Pedido, PedidoDTO>()
                 .ReverseMap();
 
-                configuration.CreateMap<Pedidositem, PedidoItemsDTO>()
+                configuration.CreateMap<Pedidositem,PedidoItemsDTO>()
                 .ReverseMap();
             }
                 , typeof(Startup));

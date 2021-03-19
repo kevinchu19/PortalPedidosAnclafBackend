@@ -281,31 +281,26 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCollation("utf8_bin");
 
                 entity.Property(e => e.TransportistaRedespacho)
-                    .IsRequired()
                     .HasColumnType("varchar(6)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
                     
                 entity.Property(e => e.RetiradeFabrica)
-                        .IsRequired()
                         .HasColumnType("smallint")
                         .HasCharSet("utf8")
                         .HasCollation("utf8_bin");
                     
                 entity.Property(e => e.Observacion)
-                        .IsRequired()
                         .HasColumnType("longtext")
                         .HasCharSet("utf8")
                         .HasCollation("utf8_bin");
                     
                 entity.Property(e => e.ObservacionLogistica)
-                        .IsRequired()
                         .HasColumnType("longtext")
                         .HasCharSet("utf8")
                         .HasCollation("utf8_bin");
                     
                 entity.Property(e => e.EsBarrioCerrado)
-                        .IsRequired()
                         .HasColumnType("smallint")
                         .HasCharSet("utf8")
                         .HasCollation("utf8_bin");
@@ -358,8 +353,10 @@ namespace PortalPedidosAnclafBackend.Entities
                 
                 entity.Property(e => e.Bonificacion3).HasPrecision(10);
 
+                entity.Property(e => e.Bonificacion).HasPrecision(10);
+
                 entity.HasOne(d => d.IdPedidoNavigation)
-                    .WithMany(p => p.Pedidositems)
+                    .WithMany(p => p.Items)
                     .HasForeignKey(d => d.IdPedido)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PedidosItems_Pedidos");

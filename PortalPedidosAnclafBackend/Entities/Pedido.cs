@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -7,11 +8,7 @@ namespace PortalPedidosAnclafBackend.Entities
 {
     public partial class Pedido
     {
-        public Pedido()
-        {
-            Pedidositems = new HashSet<Pedidositem>();
-        }
-
+        [Key]
         public int Id { get; set; }
         public string IdCliente { get; set; }
         public string IdClienteEntrega { get; set; }
@@ -30,6 +27,6 @@ namespace PortalPedidosAnclafBackend.Entities
         public DateTime Fecha { get; set; }
         public virtual Cliente IdClienteNavigation { get; set; }
         public virtual Clientesdireccionesentrega IdNavigation { get; set; }
-        public virtual ICollection<Pedidositem> Pedidositems { get; set; }
+        public virtual ICollection<Pedidositem> Items { get; set; }
     }
 }

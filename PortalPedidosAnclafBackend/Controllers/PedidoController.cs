@@ -27,21 +27,13 @@ namespace PortalPedidosAnclafBackend.Controllers
         public async Task<ActionResult<IEnumerable<PedidoDTO>>> Post([FromBody] PedidoDTO json)
         {
             var pedido = Mapper.Map<PedidoDTO, Pedido>(json);
-            var pedidoItems = Mapper.Map<List<PedidoItemsDTO>, List<Pedidositem>>(json.Items);
             
             await Repository.Pedidos.Add(pedido);
-            int PostHeaderOk = await Repository.Complete();
+            int PostPedidoOk = await Repository.Complete();
 
-            if (PostHeaderOk > 0)
+            if (PostPedidoOk > 0)
             {
-                foreach (var item in pedidoItems)
-                {
-                    item.IdPedido = pedido.Id;
-                }
-                await Repository.PedidosItems.AddRange(pedidoItems);
-                int PostItemsOk = await Repository.Complete();
-
-                return Ok(pedido);
+                return Ok(Mapper.Map<Pedido, PedidoDTO>(pedido));
             }
             else
             {
@@ -51,10 +43,13 @@ namespace PortalPedidosAnclafBackend.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Pedido>>> Get(string id)
+        [HttpGet]
+        public async Task<ActionResult<PedidoDTO>> Get(string idCliente, int skip, int take)
         {
-            return Ok(await Repository.Pedidos.Get(id));
+            var pedidos = Mapper.Map<IEnumerable<Pedido>, IEnumerable<PedidoDTO> >
+                (await Repository.Pedidos.GetByIdCliente(idCliente, skip, take));
+
+            return Ok(pedidos);
         }
 
     }
