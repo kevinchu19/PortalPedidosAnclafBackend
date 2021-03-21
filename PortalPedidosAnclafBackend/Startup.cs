@@ -22,6 +22,7 @@ using PortalPedidosAnclafBackend.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace PortalPedidosAnclafBackend
 {
@@ -105,7 +106,13 @@ namespace PortalPedidosAnclafBackend
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
+
             //app.UseAuthentication();
             app.UseHttpsRedirection();
 
