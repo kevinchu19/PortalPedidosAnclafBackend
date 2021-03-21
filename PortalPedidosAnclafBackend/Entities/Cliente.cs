@@ -11,6 +11,7 @@ namespace PortalPedidosAnclafBackend.Entities
         {
             Clientesdireccionesentregas = new HashSet<Clientesdireccionesentrega>();
             Pedidos = new HashSet<Pedido>();
+            Usuarios = new HashSet<Usuario>();
         }
 
         public string Id { get; set; }
@@ -33,7 +34,7 @@ namespace PortalPedidosAnclafBackend.Entities
         public string GrupoBonificacion { get; set; }
         public virtual ICollection<Clientesdireccionesentrega> Clientesdireccionesentregas { get; set; }
         public virtual ICollection<Pedido> Pedidos { get; set; }
-
+        public virtual ICollection<Usuario> Usuarios { get; set; }
         public Provincia ProvinciaFacturacionNavigation { get; set; }
         public Provincia ProvinciaEntregaNavigation { get; set; }
     }

@@ -54,10 +54,10 @@ namespace PortalPedidosAnclafBackend.Controllers
                 });
             }
 
-            return GenerarToken(_usuario.Id, _usuario.Idcliente, _usuario.Idvendedor);
+            return GenerarToken(_usuario.Id, _usuario.Idcliente, _usuario.Idvendedor, _usuario.Descripcion);
         }
 
-        private IActionResult GenerarToken(string usuario, string cliente, string vendedor)
+        private IActionResult GenerarToken(string usuario, string cliente, string vendedor, string descripcion)
         {
             var key = Configuration["key"];
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -69,7 +69,8 @@ namespace PortalPedidosAnclafBackend.Controllers
                 {
                     new Claim(JwtRegisteredClaimNames.UniqueName, usuario),
                     new Claim("cliente", string.IsNullOrEmpty(cliente)?"":cliente),
-                    new Claim("vendedor", string.IsNullOrEmpty(vendedor)?"":vendedor)
+                    new Claim("vendedor", string.IsNullOrEmpty(vendedor)?"":vendedor),
+                    new Claim("descripcion", string.IsNullOrEmpty(descripcion)?"":descripcion)
                 }),
                 Expires = expiration,
                 SigningCredentials = new SigningCredentials(

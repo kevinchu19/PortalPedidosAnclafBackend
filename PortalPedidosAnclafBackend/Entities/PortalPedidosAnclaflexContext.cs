@@ -486,6 +486,17 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasColumnName("password")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
+
+                entity.HasOne(d => d.IdClienteNavigation)
+                    .WithMany(p => p.Usuarios)
+                    .HasForeignKey(d => d.Idcliente)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Usuarios_Clientes");
+                entity.HasOne(d => d.IdVendedorNavigation)
+                    .WithMany(p => p.Usuarios)
+                    .HasForeignKey(d => d.Idvendedor)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Usuarios_Vendedores");
             });
 
             modelBuilder.Entity<Transportistasredespacho>(entity =>

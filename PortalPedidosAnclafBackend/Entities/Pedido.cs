@@ -8,7 +8,11 @@ namespace PortalPedidosAnclafBackend.Entities
 {
     public partial class Pedido
     {
-        [Key]
+        public Pedido()
+        {
+            Items = new HashSet<Pedidositem>();
+        }
+       
         public int Id { get; set; }
         public string IdCliente { get; set; }
         public string IdClienteEntrega { get; set; }

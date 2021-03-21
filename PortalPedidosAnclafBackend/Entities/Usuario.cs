@@ -12,5 +12,8 @@ namespace PortalPedidosAnclafBackend.Entities
         public string Idcliente { get; set; }
         public string Idvendedor { get; set; }
         public string Password { get; set; }
+
+        public virtual Cliente IdClienteNavigation{ get; set; }
+        public virtual Vendedores IdVendedorNavigation { get; set; }
     }
 }
