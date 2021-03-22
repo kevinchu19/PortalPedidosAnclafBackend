@@ -66,7 +66,7 @@ namespace PortalPedidosAnclafBackend
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.WithOrigins("http://localhost:4200", "http://localhost:44349")
+                    builder => builder.AllowAnyOrigin()//.WithOrigins("http://localhost:4200", "http://localhost:44349")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     );
