@@ -20,11 +20,13 @@ namespace PortalPedidosAnclafBackend.Models
         public string Observacion { get; set; }
         public string ObservacionLogistica { get; set; }
         public string IdVendedor { get; set; }
-
+        public string Telefono{ get; set; }
+        public string Email { get; set; }
         public DateTime Fecha { get; set; }
         public Int16 RetiradeFabrica { get; set; }
         public Int16 EsBarrioCerrado { get; set; }
-
+        public DateTime FechaDeEntrega { get; set; }
+        public Int16 PagoEnEfectivo { get; set; }
         public ICollection<PedidoItemsDTO> Items { get; set; }
 
     }

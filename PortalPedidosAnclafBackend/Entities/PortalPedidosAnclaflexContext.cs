@@ -305,23 +305,51 @@ namespace PortalPedidosAnclafBackend.Entities
                         .HasCharSet("utf8")
                         .HasCollation("utf8_bin");
 
+
+                entity.Property(e => e.PagoEnEfectivo)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
                 entity.Property(e => e.IdVendedor)
                     .HasColumnType("varchar(6)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Telefono)
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Email)
+                    .HasColumnType("varchar(120)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
 
                 entity.Property(e => e.Fecha)
                     .HasColumnType("datetime")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
-                entity.HasOne(d => d.IdClienteNavigation)
+                entity.Property(e => e.FechaDeEntrega)
+                    .HasColumnType("datetime")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+
+                entity.HasOne(d => d.Cliente)
                             .WithMany(p => p.Pedidos)
                             .HasForeignKey(d => d.IdCliente)
                             .OnDelete(DeleteBehavior.ClientSetNull)
                             .HasConstraintName("FK_Pedidos_Cliente");
+                
+                entity.HasOne(d => d.ProvinciaEntregaNavigation)
+                            .WithMany(p => p.IdPedidoNavigation)
+                            .HasForeignKey(d => d.ProvinciaEntrega)
+                            .HasConstraintName("FK_Pedidos_Provincias");
 
-                entity.HasOne(d => d.IdNavigation)
+                entity.HasOne(d => d.IdEntregaNavigation)
                     .WithMany(p => p.Pedidos)
                     .HasForeignKey(d => new { d.IdCliente, d.IdEntrega })
                     .HasConstraintName("FK_Pedidos_DireccionesEntrega");

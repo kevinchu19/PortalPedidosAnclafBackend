@@ -16,8 +16,6 @@ namespace PortalPedidosAnclafBackend.Repositories
 
         public async Task<IEnumerable<Producto>> GetByTermino(string termino, int skip, int take)
         {
-            //return await Context.Set<Producto>().Where(c => c.Descripcion.ToUpper().Contains(termino.ToUpper()) ||
-            //                                                c.Id.ToUpper().Contains(termino.ToUpper())).Skip(skip).Take(take).ToListAsync();
             string[] palabras = termino.Split(' ');
             string query = "SELECT * FROM productos where 1=1 ";
             foreach (var palabra in palabras)
@@ -27,6 +25,27 @@ namespace PortalPedidosAnclafBackend.Repositories
             
             return await Context.Set<Producto>().FromSqlRaw(query).Skip(skip).Take(take).ToListAsync();
         }
+
+        public async Task<IEnumerable<Producto>> GetByTerminoForOrder(string termino, int skip, int take, string listaPrecios, string cliente)
+        {
+            string[] palabras = termino.Split(' ');
+            string query = "SELECT * FROM productos where 1=1 ";
+            
+            query += $" AND IFNULL((SELECT Precio FROM listasdeprecio";
+            query += $" WHERE idproducto = productos.id ";
+            query += $" AND listasdeprecio.id = '{listaPrecios}'";
+            query += $" AND listasdeprecio.fecha <= now()";
+            query += $" ORDER BY listasdeprecio.fecha DESC LIMIT 1 ),0) <> 0 ";
+            
+            query += $" AND (ClienteExclusivo is null OR ClienteExclusivo = '{cliente}')";
+            foreach (var palabra in palabras)
+            {
+                query = query + $"and ((UPPER(id) like '%{palabra.ToUpper()}%') or (UPPER(descripcion) like '%{palabra.ToUpper()}%'))";
+            }
+
+            return await Context.Set<Producto>().FromSqlRaw(query).Skip(skip).Take(take).ToListAsync();
+        }
+
 
         public async Task<ProductoDTO> GetByIdYListaPrecios(string id, string listaPrecio, string grupoBonificacion)
         {

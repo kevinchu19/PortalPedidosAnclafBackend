@@ -29,8 +29,15 @@ namespace PortalPedidosAnclafBackend.Entities
         public Int16 EsBarrioCerrado { get; set; }
         public string IdVendedor { get; set; }
         public DateTime Fecha { get; set; }
-        public virtual Cliente IdClienteNavigation { get; set; }
-        public virtual Clientesdireccionesentrega IdNavigation { get; set; }
+        public string Telefono { get; set; }
+
+        public string Email { get; set; }
+        public DateTime FechaDeEntrega { get; set; }
+        public Int16 PagoEnEfectivo { get; set; }
+        public virtual Cliente Cliente { get; set; }
+        public virtual Clientesdireccionesentrega IdEntregaNavigation { get; set; }
+
+        public virtual Provincia ProvinciaEntregaNavigation { get; set; }
         public virtual ICollection<Pedidositem> Items { get; set; }
     }
 }

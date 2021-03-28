@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+
 
 #nullable disable
 
@@ -32,10 +34,14 @@ namespace PortalPedidosAnclafBackend.Entities
         public string TransportistaRedespacho { get; set; }
         public string IdVendedor { get; set; }
         public string GrupoBonificacion { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Clientesdireccionesentrega> Clientesdireccionesentregas { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Pedido> Pedidos { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Usuario> Usuarios { get; set; }
         public Provincia ProvinciaFacturacionNavigation { get; set; }
+        [JsonIgnore]
         public Provincia ProvinciaEntregaNavigation { get; set; }
     }
 }

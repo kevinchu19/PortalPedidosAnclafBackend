@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PortalPedidosAnclafBackend.Entities;
 using PortalPedidosAnclafBackend.Models;
+using PortalPedidosAnclafBackend.Repositories.Helpers;
 using PortalPedidosAnclafBackend.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -44,10 +46,14 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<PedidoDTO>> Get(string idCliente, int skip, int take)
+        public async Task<ActionResult<PagedList<Pedido>>> Get(string idCliente, 
+                                                               string idVendedor, 
+                                                               string idPedido,
+                                                               string fechaDesde,
+                                                               string fechaHasta,
+                                                               [FromQuery] PaginationParameters parameters)
         {
-            var pedidos = Mapper.Map<IEnumerable<Pedido>, IEnumerable<PedidoDTO> >
-                (await Repository.Pedidos.GetByIdCliente(idCliente, skip, take));
+            var pedidos = await Repository.Pedidos.GetByParameters(idCliente, idVendedor,idPedido, fechaDesde, fechaHasta, parameters);
 
             return Ok(pedidos);
         }

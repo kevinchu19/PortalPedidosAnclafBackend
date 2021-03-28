@@ -20,9 +20,9 @@ namespace PortalPedidosAnclafBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Producto>>> GetByTermino(string termino, int skip, int take)
+        public async Task<ActionResult<IEnumerable<Producto>>> GetByTerminoForOrder(string termino, int skip, int take, string listaPrecios, string cliente)
         {
-            return  Ok(await Repository.Productos.GetByTermino(termino, skip, take));
+            return  Ok(await Repository.Productos.GetByTerminoForOrder(termino, skip, take, listaPrecios, cliente));
         }
         
         [HttpGet("{id}")]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
@@ -18,7 +19,9 @@ namespace PortalPedidosAnclafBackend.Entities
         public string TipoProducto { get; set; }
         public string Rubro1 { get; set; }
         public string Rubro2 { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Listasdeprecio> Listasdeprecios { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Pedidositem> Pedidositems { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
     {
         Task<IEnumerable<Producto>> GetByTermino(string termino, int skip, int take);
         Task<ProductoDTO> GetByIdYListaPrecios(string id, string listaPrecios, string grupoBonificacion);
-
+        Task<IEnumerable<Producto>> GetByTerminoForOrder(string termino, int skip, int take, string listaPrecios, string cliente);
     }
 
 
