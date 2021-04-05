@@ -289,7 +289,12 @@ namespace PortalPedidosAnclafBackend.Entities
                         .HasColumnType("smallint")
                         .HasCharSet("utf8")
                         .HasCollation("utf8_bin");
-                    
+                
+                entity.Property(e => e.Transferido)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
                 entity.Property(e => e.Observacion)
                         .HasColumnType("longtext")
                         .HasCharSet("utf8")

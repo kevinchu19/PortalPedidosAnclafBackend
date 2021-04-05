@@ -78,6 +78,14 @@
               "target": "Package",
               "version": "[5.0.0-alpha.2, )"
             },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.10.0, )"
+            },
+            "Serilog.Sinks.MySQL": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
             "System.Data.Entity.Repository": {
               "target": "Package",
               "version": "[2.0.0.1, )"

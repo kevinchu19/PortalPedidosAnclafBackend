@@ -23,6 +23,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.HttpOverrides;
+using PortalPedidosAnclafBackend.Services;
+using Serilog;
 
 namespace PortalPedidosAnclafBackend
 {
@@ -38,6 +40,26 @@ namespace PortalPedidosAnclafBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHostedService<ConsumeScopedServiceHostedService>();
+            services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
+
+            services.AddSingleton<Serilog.ILogger>(options =>
+            {
+                var connstring = Configuration["Serilog:SerilogConnectionString"];
+                var tableName = Configuration["Serilog:TableName"];
+
+                return new LoggerConfiguration()
+                            .WriteTo
+                            .MySQL(
+                                connectionString: connstring,
+                                tableName: tableName,
+                                restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
+                            .CreateLogger();
+
+            });
+
+
+
 
             var key = Configuration["key"];
             services.AddAuthentication(x =>
