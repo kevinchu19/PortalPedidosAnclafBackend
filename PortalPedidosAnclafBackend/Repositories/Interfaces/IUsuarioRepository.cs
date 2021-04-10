@@ -8,5 +8,6 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
 {
     public interface IUsuarioRepository: IRepository<Usuario>
     {
+        Task<Usuario> GetByStringId(string id);
     }
 }

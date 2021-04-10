@@ -33,7 +33,7 @@ namespace PortalPedidosAnclafBackend.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> LoginWithJwt([FromBody] UserInfo usuario)
         {
-            var _usuario = await Repository.Usuarios.Get(usuario.Id);
+            var _usuario = await Repository.Usuarios.GetByStringId(usuario.Id);
 
             if (_usuario == null)
             {

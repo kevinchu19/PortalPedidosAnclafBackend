@@ -15,6 +15,14 @@ namespace PortalPedidosAnclafBackend.Repositories
         public PedidoRepository(PortalPedidosAnclaflexContext context): base(context)
         {}
 
+        public async Task ActualizaPedidoTransferido(int id)
+        {
+            Pedido pedido = await this.Get(id);
+            pedido.Transferido = 1;
+        }
+
+
+
         public async Task<PagedList<Pedido>> GetByParameters(string idCliente, string idVendedor, string idPedido, 
                                                              string fechaDesde, string fechaHasta, PaginationParameters parameters)
         {
@@ -49,7 +57,9 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                                 .Select(c => new Pedido()
                                                                                 {
                                                                                     Id = c.Id,
-                                                                                    IdCliente = c.IdCliente.Replace("0"," "),
+                                                                                    IdCliente = Convert.ToInt32(c.IdCliente)
+                                                                                                .ToString()
+                                                                                                .PadLeft(6, ' '),
                                                                                     IdEntrega = c.IdEntrega,
                                                                                     DireccionEntrega = c.DireccionEntrega,
                                                                                     PaisEntrega = c.PaisEntrega,
