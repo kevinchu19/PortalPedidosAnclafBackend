@@ -25,13 +25,13 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
         private IUsuarioRepository _usuarios{ get; set; }
 
         private ITransportistaRedespachoRepository _transportistasRedespacho { get; set; }
-
+        private IBonificacionRepository _bonificaciones { get; set; }
+        private IVendedorRepository _vendedores { get; set; }
+        private IListaDePrecioRepository _listasDePrecio { get; set; }
         public UnitOfWork(PortalPedidosAnclaflexContext context)
         {
             Context = context;
         }
-        
-        
 
         public IClienteRepository Clientes { 
             get
@@ -125,6 +125,42 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
                     _transportistasRedespacho = new TransportistaRedespachoRepository(Context);
                 }
                 return _transportistasRedespacho;
+            }
+        }
+
+        public IBonificacionRepository Bonificaciones
+        {
+            get
+            {
+                if (_bonificaciones == null)
+                {
+                    _bonificaciones = new BonificacionRepository(Context);
+                }
+                return _bonificaciones;
+            }
+        }
+
+        public IVendedorRepository Vendedores
+        {
+            get
+            {
+                if (_vendedores == null)
+                {
+                    _vendedores = new VendedorRepository(Context);
+                }
+                return _vendedores;
+            }
+        }
+
+        public IListaDePrecioRepository ListasDePrecio
+        {
+            get
+            {
+                if (_listasDePrecio == null)
+                {
+                    _listasDePrecio = new ListaDePrecioRepository(Context);
+                }
+                return _listasDePrecio;
             }
         }
         public async Task<int> Complete()

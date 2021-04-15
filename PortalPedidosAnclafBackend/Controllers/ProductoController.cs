@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PortalPedidosAnclafBackend.Entities;
+using PortalPedidosAnclafBackend.Helpers.Response;
 using PortalPedidosAnclafBackend.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,23 @@ namespace PortalPedidosAnclafBackend.Controllers
         public async Task<ActionResult<Producto>> Get(string id, string listaPrecios, string grupoBonificacion)
         {
             return Ok(await Repository.Productos.GetByIdYListaPrecios(id, listaPrecios, grupoBonificacion));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<BaseResponse<Producto>>> Post([FromBody] Producto producto)
+        {
+            await Repository.Productos.Add(producto);
+
+            if (await Repository.Complete() > 0)
+            {
+                return Ok(new BaseResponse<Producto>("Registro generado con éxito", producto));
+            }
+            else
+            {
+                return BadRequest(new BaseResponse<Producto>("Ocurrió un error al dar de alta el registro"));
+            }
+
+
         }
     }
 

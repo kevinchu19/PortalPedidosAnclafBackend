@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PortalPedidosAnclafBackend.Entities;
+using PortalPedidosAnclafBackend.Helpers.Response;
 using PortalPedidosAnclafBackend.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,23 @@ namespace PortalPedidosAnclafBackend.Controllers
         public async Task<ActionResult<IEnumerable<Transportistasredespacho>>> GetByTermino(string termino, int skip, int take)
         {
             return Ok(await Repository.TransportistaRedespacho.GetByTermino(termino, skip, take));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<BaseResponse<Transportistasredespacho>>> Post([FromBody] Transportistasredespacho transportistasRedespacho)
+        {
+            await Repository.TransportistaRedespacho.Add(transportistasRedespacho);
+
+            if (await Repository.Complete() > 0)
+            {
+                return Ok(new BaseResponse<Transportistasredespacho>("Registro generado con éxito", transportistasRedespacho));
+            }
+            else
+            {
+                return BadRequest(new BaseResponse<Transportistasredespacho>("Ocurrió un error al dar de alta el registro"));
+            }
+
+
         }
 
     }

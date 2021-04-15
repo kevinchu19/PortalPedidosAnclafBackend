@@ -53,3 +53,10 @@ C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBacken
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.dll
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.pdb
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.genruntimeconfig.cache
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\Google.Protobuf.dll
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\MySql.Data.dll
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\Serilog.dll
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\Serilog.Sinks.MySQL.dll
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using PortalPedidosAnclafBackend.Entities;
+using PortalPedidosAnclafBackend.Helpers.Response;
 using PortalPedidosAnclafBackend.Models;
 using PortalPedidosAnclafBackend.Repositories.Interfaces;
 using System;
@@ -57,6 +59,22 @@ namespace PortalPedidosAnclafBackend.Controllers
             return GenerarToken(_usuario.Id, _usuario.Idcliente, _usuario.Idvendedor, _usuario.Descripcion);
         }
 
+        [HttpPost]
+        public async Task<ActionResult<BaseResponse<Usuario>>> Post([FromBody] Usuario usuario)
+        {
+            await Repository.Usuarios.Add(usuario);
+
+            if (await Repository.Complete() > 0)
+            {
+                return Ok(new BaseResponse<Usuario>("Registro generado con éxito", usuario));
+            }
+            else
+            {
+                return BadRequest(new BaseResponse<Usuario>("Ocurrió un error al dar de alta el registro"));
+            }
+
+
+        }
         private IActionResult GenerarToken(string usuario, string cliente, string vendedor, string descripcion)
         {
             var key = Configuration["key"];
@@ -86,5 +104,7 @@ namespace PortalPedidosAnclafBackend.Controllers
             });
 
         }
+
+
     }
 }

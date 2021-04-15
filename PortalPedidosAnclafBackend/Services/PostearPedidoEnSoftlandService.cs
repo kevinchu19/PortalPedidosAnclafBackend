@@ -46,7 +46,7 @@ namespace PortalPedidosAnclafBackend.Services
                 _logger.Information(
                     $"Scoped Processing Service is working. Count: {0}", executionCount);
 
-                IEnumerable<PedidoDTO> pedidos = _mapper.Map<IEnumerable<Pedido>,IEnumerable<PedidoDTO>>(await _repository.Pedidos.GetForSoftland(0,1));
+                IEnumerable<PedidoDTO> pedidos = _mapper.Map<IEnumerable<Pedido>,IEnumerable<PedidoDTO>>(await _repository.Pedidos.GetForSoftland(0, Convert.ToInt32(_configuration["HostSoftland:CantidadPedidosPorProceso"])));
                 string pedidosString = JsonSerializer.Serialize(pedidos, new JsonSerializerOptions { WriteIndented = true });
 
                 _logger.Information($"{ pedidosString }");

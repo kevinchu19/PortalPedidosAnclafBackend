@@ -15,6 +15,9 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
         IProvinciaRepository Provincias { get; }
         IUsuarioRepository Usuarios { get; }
         ITransportistaRedespachoRepository TransportistaRedespacho { get; }
+        IBonificacionRepository Bonificaciones { get; }
+        IVendedorRepository Vendedores { get; }
+        IListaDePrecioRepository ListasDePrecio { get; }
         Task<int> Complete();
     }
 }

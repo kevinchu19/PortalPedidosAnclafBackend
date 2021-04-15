@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PortalPedidosAnclafBackend.Entities;
+using PortalPedidosAnclafBackend.Helpers.Response;
 using PortalPedidosAnclafBackend.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,5 +30,21 @@ namespace PortalPedidosAnclafBackend.Controllers
             return Ok(await Repository.Provincias.GetByTermino(termino, skip, take));
         }
 
+        [HttpPost]
+        public async Task<ActionResult<BaseResponse<Provincia>>> Post([FromBody] Provincia provincia)
+        {
+            await Repository.Provincias.Add(provincia);
+
+            if (await Repository.Complete() > 0)
+            {
+                return Ok(new BaseResponse<Provincia>("Registro generado con éxito", provincia));
+            }
+            else
+            {
+                return BadRequest(new BaseResponse<Provincia>("Ocurrió un error al dar de alta el registro"));
+            }
+
+
+        }
     }
 }
