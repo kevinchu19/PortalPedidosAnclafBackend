@@ -35,9 +35,9 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Cliente>>> Get(int id)
+        public async Task<ActionResult<IEnumerable<Cliente>>> Get(string id)
         {
-            return Ok(await Repository.Clientes.Get(id));
+            return Ok(await Repository.Clientes.GetString(id));
         }
 
 

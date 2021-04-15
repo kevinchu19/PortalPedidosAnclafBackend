@@ -29,5 +29,9 @@ namespace PortalPedidosAnclafBackend.Repositories
 
         }
 
+        public async Task<Cliente> GetString(string id)
+        {
+            return await Context.Set<Cliente>().FindAsync(id);
+        }
     }
 }
