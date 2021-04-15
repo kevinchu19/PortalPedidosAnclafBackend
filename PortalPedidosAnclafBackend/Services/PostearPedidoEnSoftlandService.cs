@@ -61,7 +61,7 @@ namespace PortalPedidosAnclafBackend.Services
                     {
                         try 
                         {
-                            await _repository.Pedidos.ActualizaPedidoTransferido(pedido.Id);
+                            await _repository.Pedidos.ActualizaPedidoTransferido(pedido.Id, 1);
                             await _repository.Complete();
                         }
                         catch (Exception ex)
@@ -74,6 +74,8 @@ namespace PortalPedidosAnclafBackend.Services
 
                     else
                     {
+                        await _repository.Pedidos.ActualizaPedidoTransferido(pedido.Id, 9);
+                        await _repository.Complete();
                         _logger.Error($"({content[i].estado}) Error al procesar pedido {pedido.Id}: { content[i].mensaje }");
                     }
 

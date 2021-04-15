@@ -15,10 +15,10 @@ namespace PortalPedidosAnclafBackend.Repositories
         public PedidoRepository(PortalPedidosAnclaflexContext context): base(context)
         {}
 
-        public async Task ActualizaPedidoTransferido(int id)
+        public async Task ActualizaPedidoTransferido(int id, short nuevoEstado)
         {
             Pedido pedido = await this.Get(id);
-            pedido.Transferido = 1;
+            pedido.Transferido = nuevoEstado;
         }
 
 
