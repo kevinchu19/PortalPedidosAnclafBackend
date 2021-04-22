@@ -26,8 +26,16 @@ namespace PortalPedidosAnclafBackend.Services
         {
             _logger.Information(
                 "Consume Scoped Service Hosted Service running.");
+            try
+            {
+                await DoWork(stoppingToken);
+            }
+            catch (Exception ex)
+            {
 
-            await DoWork(stoppingToken);
+                _logger.Fatal($"Error al ejecutar el servicio {ex.Message}");
+            }
+            
         }
 
         private async Task DoWork(CancellationToken stoppingToken)
