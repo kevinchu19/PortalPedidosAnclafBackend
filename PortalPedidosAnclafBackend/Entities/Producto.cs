@@ -19,6 +19,20 @@ namespace PortalPedidosAnclafBackend.Entities
         public string TipoProducto { get; set; }
         public string Rubro1 { get; set; }
         public string Rubro2 { get; set; }
+        public int Activo { get; set; }
+        public DateTime Created_At
+        {
+            get
+            {
+                return this._createdAt.HasValue
+                   ? this._createdAt.Value
+                   : DateTime.Now;
+            }
+
+            set { this._createdAt = value; }
+        }
+
+        private DateTime? _createdAt = null;
         [JsonIgnore]
         public virtual ICollection<Listasdeprecio> Listasdeprecios { get; set; }
         [JsonIgnore]

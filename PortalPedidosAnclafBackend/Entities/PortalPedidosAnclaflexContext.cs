@@ -132,6 +132,16 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
+                entity.Property(e => e.Activo)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Created_At)
+                    .HasColumnType("datetime")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
             });
 
             modelBuilder.Entity<Clientesdireccionesentrega>(entity =>
@@ -191,6 +201,16 @@ namespace PortalPedidosAnclafBackend.Entities
                    .HasCharSet("utf8")
                    .HasCollation("utf8_bin");
 
+                entity.Property(e => e.Activo)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Created_At)
+                    .HasColumnType("datetime")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
                 entity.HasOne(d => d.IdClienteNavigation)
                     .WithMany(p => p.Clientesdireccionesentregas)
                     .HasForeignKey(d => d.IdCliente)
@@ -217,6 +237,16 @@ namespace PortalPedidosAnclafBackend.Entities
                 entity.Property(e => e.Fecha)
                     .HasColumnType("date")
                     .HasColumnName("fecha");
+
+                entity.Property(e => e.Activo)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Created_At)
+                    .HasColumnType("datetime")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
 
                 entity.Property(e => e.Idproducto)
                     .HasColumnType("varchar(40)")
@@ -342,7 +372,6 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
-
                 entity.HasOne(d => d.Cliente)
                             .WithMany(p => p.Pedidos)
                             .HasForeignKey(d => d.IdCliente)
@@ -430,7 +459,17 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasColumnType("varchar(45)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
-                
+
+                entity.Property(e => e.Activo)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Created_At)
+                    .HasColumnType("datetime")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
             });
             modelBuilder.Entity<Provincia>(entity =>
             {
@@ -445,6 +484,16 @@ namespace PortalPedidosAnclafBackend.Entities
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
                     .HasColumnType("varchar(60)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Activo)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Created_At)
+                    .HasColumnType("datetime")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
@@ -481,6 +530,16 @@ namespace PortalPedidosAnclafBackend.Entities
                     .IsRequired()
                     .HasColumnType("varchar(6)")
                     .HasColumnName("descripcion")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Activo)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Created_At)
+                    .HasColumnType("datetime")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
             });
@@ -520,6 +579,16 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
+                entity.Property(e => e.Activo)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Created_At)
+                    .HasColumnType("datetime")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
                 entity.HasOne(d => d.IdClienteNavigation)
                     .WithMany(p => p.Usuarios)
                     .HasForeignKey(d => d.Idcliente)
@@ -546,6 +615,16 @@ namespace PortalPedidosAnclafBackend.Entities
                     .IsRequired()
                     .HasColumnType("varchar(60)")
                     .HasColumnName("descripcion")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Activo)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Created_At)
+                    .HasColumnType("datetime")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
             });
@@ -585,6 +664,16 @@ namespace PortalPedidosAnclafBackend.Entities
                 entity.Property(e => e.Valorrubro)
                     .HasColumnType("varchar(45)")
                     .HasColumnName("valorrubro")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Activo)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Created_At)
+                    .HasColumnType("datetime")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
             });

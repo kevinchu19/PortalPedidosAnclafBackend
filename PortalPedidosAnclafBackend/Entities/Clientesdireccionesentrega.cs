@@ -22,7 +22,20 @@ namespace PortalPedidosAnclafBackend.Entities
         public string LocalidadEntrega { get; set; }
         public string ProvinciaEntrega { get; set; }
         public string TransportistaRedespacho { get; set; }
+        public int Activo { get; set; }
+        public DateTime Created_At
+        {
+            get
+            {
+                return this._createdAt.HasValue
+                   ? this._createdAt.Value
+                   : DateTime.Now;
+            }
 
+            set { this._createdAt = value; }
+        }
+
+        private DateTime? _createdAt = null;
         [JsonIgnore]
         public virtual Cliente IdClienteNavigation { get; set; }
         [JsonIgnore]

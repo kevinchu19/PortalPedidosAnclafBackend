@@ -15,5 +15,20 @@ namespace PortalPedidosAnclafBackend.Entities
         public decimal? Bonificacion1 { get; set; }
         public decimal? Bonificacion2 { get; set; }
         public decimal? Bonificacion3 { get; set; }
+        public int Activo { get; set; }
+
+        public DateTime Created_At
+        {
+            get
+            {
+                return this._createdAt.HasValue
+                   ? this._createdAt.Value
+                   : DateTime.Now;
+            }
+
+            set { this._createdAt = value; }
+        }
+
+        private DateTime? _createdAt = null;
     }
 }

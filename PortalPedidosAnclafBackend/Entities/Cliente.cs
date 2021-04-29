@@ -34,6 +34,21 @@ namespace PortalPedidosAnclafBackend.Entities
         public string TransportistaRedespacho { get; set; }
         public string IdVendedor { get; set; }
         public string GrupoBonificacion { get; set; }
+        public int Activo { get; set; }
+
+        public DateTime Created_At
+        {
+            get
+            {
+                return this._createdAt.HasValue
+                   ? this._createdAt.Value
+                   : DateTime.Now;
+            }
+
+            set { this._createdAt = value; }
+        }
+
+        private DateTime? _createdAt = null;
         [JsonIgnore]
         public virtual ICollection<Clientesdireccionesentrega> Clientesdireccionesentregas { get; set; }
         [JsonIgnore]
