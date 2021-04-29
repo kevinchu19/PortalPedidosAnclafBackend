@@ -59,9 +59,9 @@ namespace PortalPedidosAnclafBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<BaseResponse<Cliente>>> Put(int id, [FromBody] Cliente cliente)
+        public async Task<ActionResult<BaseResponse<Cliente>>> Put(string id, [FromBody] Cliente cliente)
         {
-            Cliente clienteEncontrado = await Repository.Clientes.Get(id);
+            Cliente clienteEncontrado = await Repository.Clientes.GetString(id);
 
             if (clienteEncontrado != null)
             {
