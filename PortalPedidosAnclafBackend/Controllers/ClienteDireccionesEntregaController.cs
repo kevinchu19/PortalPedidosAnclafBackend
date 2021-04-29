@@ -58,7 +58,7 @@ namespace PortalPedidosAnclafBackend.Controllers
 
             if (direccionEntregaEncontrado!=null)
             {
-                Repository.ClienteDireccionesEntrega.Detach(direccionEntrega);
+                Repository.ClienteDireccionesEntrega.Detach(direccionEntregaEncontrado);
                 Repository.ClienteDireccionesEntrega.Update(direccionEntrega);
 
                 if (await Repository.Complete() > 0)
