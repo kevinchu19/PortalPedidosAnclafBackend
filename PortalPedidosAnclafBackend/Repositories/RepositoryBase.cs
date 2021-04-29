@@ -31,5 +31,7 @@ namespace PortalPedidosAnclafBackend.Repositories
         public void Remove(TEntity entity) => Context.Set<TEntity>().Remove(entity);
 
         public void RemoveRange(IEnumerable<TEntity> entities) => Context.Set<TEntity>().RemoveRange(entities);
+
+        public void Update(TEntity entity) => Context.Set<TEntity>().Update(entity);
     }
 }

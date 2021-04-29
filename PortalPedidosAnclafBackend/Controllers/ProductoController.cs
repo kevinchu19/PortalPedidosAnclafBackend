@@ -48,6 +48,23 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BaseResponse<Producto>>> Post(int id, [FromBody] Producto producto)
+        {
+            Repository.Productos.Update(producto);
+
+            if (await Repository.Complete() > 0)
+            {
+                return Ok(new BaseResponse<Producto>("Registro actualizado con éxito", producto));
+            }
+            else
+            {
+                return BadRequest(new BaseResponse<Producto>("Ocurrió un error al actualizar de alta el registro"));
+            }
+
+
+        }
     }
 
 }

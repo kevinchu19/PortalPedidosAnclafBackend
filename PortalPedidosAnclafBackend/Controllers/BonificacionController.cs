@@ -41,5 +41,22 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BaseResponse<Bonificacion>>> Post(int id,[FromBody] Bonificacion bonificacion)
+        {
+            Repository.Bonificaciones.Update(bonificacion);
+
+            if (await Repository.Complete() > 0)
+            {
+                return Ok(new BaseResponse<Bonificacion>("Registro actualizado con éxito", bonificacion));
+            }
+            else
+            {
+                return BadRequest(new BaseResponse<Bonificacion>("Ocurrió un error al actualizar de alta el registro"));
+            }
+
+
+        }
     }
 }
