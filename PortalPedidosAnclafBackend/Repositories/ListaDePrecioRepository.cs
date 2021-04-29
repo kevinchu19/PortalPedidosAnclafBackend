@@ -11,6 +11,11 @@ namespace PortalPedidosAnclafBackend.Repositories
     {
         public ListaDePrecioRepository(PortalPedidosAnclaflexContext context) : base(context)
         { }
+        public async Task<Listasdeprecio> Get(string idLista, string idProducto, DateTime fecha)
+        {
+            return await Context.Set<Listasdeprecio>().FindAsync(new object[] { idLista, idProducto, fecha });
+        }
+
 
     }
 }

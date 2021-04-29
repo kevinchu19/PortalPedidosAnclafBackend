@@ -12,5 +12,6 @@ namespace PortalPedidosAnclafBackend.Repositories
         public VendedorRepository(PortalPedidosAnclaflexContext context) : base(context)
         { }
 
+        public virtual async Task<Vendedores> Get(string id) => await Context.Set<Vendedores>().FindAsync(id);
     }
 }

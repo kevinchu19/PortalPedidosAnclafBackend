@@ -36,5 +36,11 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
                                                                                c.IdCliente == keyParameter))
                                                                   .FirstOrDefaultAsync();
         }
+
+        public async Task<Clientesdireccionesentrega> Get(string idCliente, string id)
+        {
+            return await Context.Set<Clientesdireccionesentrega>().FindAsync(new object[] { idCliente, id});
+        }
+
     }
 }

@@ -41,5 +41,34 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         }
+
+
+        [HttpPut("{idLista}/{idProducto}/{fecha}")]
+        public async Task<ActionResult<BaseResponse<Listasdeprecio>>> Put(string idLista, string idProducto, DateTime fecha, [FromBody] Listasdeprecio listaPrecio)
+        {
+            Listasdeprecio listaPrecioEncontrado = await Repository.ListasDePrecio.Get(idLista, idProducto, fecha);
+
+            if (listaPrecioEncontrado != null)
+            {
+                Repository.ListasDePrecio.Detach(listaPrecioEncontrado);
+                
+                Repository.ListasDePrecio.Update(listaPrecio);
+
+                if (await Repository.Complete() > 0)
+                {
+                    return Ok(new BaseResponse<Listasdeprecio>("Registro actualizado con éxito", listaPrecio));
+                }
+                else
+                {
+                    return BadRequest(new BaseResponse<Listasdeprecio>("Error", "Ocurrió un error al actualizar el registro"));
+                }
+            }
+
+            return NotFound(new BaseResponse<Listasdeprecio>("Not Found", "No se encontró la direccion"));
+
+
+        }
+
+
     }
 }

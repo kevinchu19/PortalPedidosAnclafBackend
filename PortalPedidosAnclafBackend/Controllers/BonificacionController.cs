@@ -43,18 +43,26 @@ namespace PortalPedidosAnclafBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<BaseResponse<Bonificacion>>> Post(int id,[FromBody] Bonificacion bonificacion)
+        public async Task<ActionResult<BaseResponse<Bonificacion>>> Put(int id, [FromBody] Bonificacion bonificacion)
         {
-            Repository.Bonificaciones.Update(bonificacion);
+            Bonificacion bonificacionEncontrado = await Repository.Bonificaciones.Get(id);
 
-            if (await Repository.Complete() > 0)
+            if (bonificacionEncontrado != null)
             {
-                return Ok(new BaseResponse<Bonificacion>("Registro actualizado con éxito", bonificacion));
+                Repository.Bonificaciones.Detach(bonificacionEncontrado);
+                Repository.Bonificaciones.Update(bonificacion);
+
+                if (await Repository.Complete() > 0)
+                {
+                    return Ok(new BaseResponse<Bonificacion>("Registro actualizado con éxito", bonificacion));
+                }
+                else
+                {
+                    return BadRequest(new BaseResponse<Bonificacion>("Error", "Ocurrió un error al actualizar el registro"));
+                }
             }
-            else
-            {
-                return BadRequest(new BaseResponse<Bonificacion>("Ocurrió un error al actualizar de alta el registro"));
-            }
+
+            return NotFound(new BaseResponse<Bonificacion>("Not Found", "No se encontró la bonificacion"));
 
 
         }

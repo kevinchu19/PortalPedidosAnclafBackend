@@ -50,18 +50,26 @@ namespace PortalPedidosAnclafBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<BaseResponse<Producto>>> Post(int id, [FromBody] Producto producto)
+        public async Task<ActionResult<BaseResponse<Producto>>> Put(string id, [FromBody] Producto producto)
         {
-            Repository.Productos.Update(producto);
+            Producto productoEncontrado = await Repository.Productos.Get(id);
 
-            if (await Repository.Complete() > 0)
+            if (productoEncontrado!=null)
             {
-                return Ok(new BaseResponse<Producto>("Registro actualizado con éxito", producto));
+                Repository.Productos.Detach(productoEncontrado);
+                Repository.Productos.Update(producto);
+
+                if (await Repository.Complete() > 0)
+                {
+                    return Ok(new BaseResponse<Producto>("Registro actualizado con éxito", producto));
+                }
+                else
+                {
+                    return BadRequest(new BaseResponse<Producto>("Error","Ocurrió un error al actualizar el registro"));
+                }
             }
-            else
-            {
-                return BadRequest(new BaseResponse<Producto>("Ocurrió un error al actualizar de alta el registro"));
-            }
+
+            return NotFound(new BaseResponse<Producto>("Not Found","No se encontró el producto"));
 
 
         }

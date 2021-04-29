@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PortalPedidosAnclafBackend.Repositories
 {
-    public class RepositoryBase<TEntity>: IRepository<TEntity> where TEntity: class
+    public class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext Context;
 
@@ -32,6 +32,14 @@ namespace PortalPedidosAnclafBackend.Repositories
 
         public void RemoveRange(IEnumerable<TEntity> entities) => Context.Set<TEntity>().RemoveRange(entities);
 
-        public void Update(TEntity entity) => Context.Set<TEntity>().Update(entity);
+        public void Update(TEntity entity) {
+            Context.Entry<TEntity>(entity).State = EntityState.Modified; 
+            //Context.Set<TEntity>().Update(entity);
+        }
+
+        public void Detach(TEntity entity)
+        {
+            Context.Entry<TEntity>(entity).State = EntityState.Detached;
+        }
     }
 }

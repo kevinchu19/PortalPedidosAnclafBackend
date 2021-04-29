@@ -8,5 +8,6 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
 {
     public interface IVendedorRepository : IRepository<Vendedores>
     {
+        Task<Vendedores> Get(string id);
     }
 }

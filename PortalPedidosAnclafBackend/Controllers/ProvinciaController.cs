@@ -46,5 +46,30 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BaseResponse<Provincia>>> Put(string id, [FromBody] Provincia provincia)
+        {
+            Provincia provinciaEncontrado = await Repository.Provincias.Get(id);
+
+            if (provinciaEncontrado != null)
+            {
+                Repository.Provincias.Detach(provinciaEncontrado);
+                Repository.Provincias.Update(provincia);
+
+                if (await Repository.Complete() > 0)
+                {
+                    return Ok(new BaseResponse<Provincia>("Registro actualizado con éxito", provincia));
+                }
+                else
+                {
+                    return BadRequest(new BaseResponse<Provincia>("Error", "Ocurrió un error al actualizar el registro"));
+                }
+            }
+
+            return NotFound(new BaseResponse<Provincia>("Not Found", "No se encontró la provincia"));
+
+
+        }
     }
 }

@@ -57,5 +57,30 @@ namespace PortalPedidosAnclafBackend.Controllers
 
             
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BaseResponse<Cliente>>> Put(int id, [FromBody] Cliente cliente)
+        {
+            Cliente clienteEncontrado = await Repository.Clientes.Get(id);
+
+            if (clienteEncontrado != null)
+            {
+                Repository.Clientes.Detach(clienteEncontrado);
+                Repository.Clientes.Update(cliente);
+
+                if (await Repository.Complete() > 0)
+                {
+                    return Ok(new BaseResponse<Cliente>("Registro actualizado con éxito", cliente));
+                }
+                else
+                {
+                    return BadRequest(new BaseResponse<Cliente>("Error", "Ocurrió un error al actualizar el registro"));
+                }
+            }
+
+            return NotFound(new BaseResponse<Cliente>("Not Found", "No se encontró el cliente"));
+
+
+        }
     }
 }

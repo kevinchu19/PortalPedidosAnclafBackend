@@ -26,5 +26,7 @@ namespace PortalPedidosAnclafBackend.Repositories
             }
             return await Context.Set<Transportistasredespacho>().FromSqlRaw(query).Skip(skip).Take(take).ToListAsync();
         }
+
+        public virtual async Task<Transportistasredespacho> Get(string id) => await Context.Set<Transportistasredespacho>().FindAsync(id);
     }
 }

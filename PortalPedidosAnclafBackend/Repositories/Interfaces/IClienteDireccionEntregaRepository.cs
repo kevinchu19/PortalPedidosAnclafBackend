@@ -10,6 +10,7 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
     {
         Task<IEnumerable<Clientesdireccionesentrega>> GetByTerminoAndKeyParameter(string termino, string keyParameter,int skip, int take);
         Task<Clientesdireccionesentrega> GetByIdAndKeyParameter(string id, string keyParameter);
+        Task<Clientesdireccionesentrega> Get(string idCliente, string id);
     }
 
 }

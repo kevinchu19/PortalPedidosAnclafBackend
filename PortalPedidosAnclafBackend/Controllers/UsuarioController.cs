@@ -105,6 +105,31 @@ namespace PortalPedidosAnclafBackend.Controllers
 
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BaseResponse<Usuario>>> Put(string id, [FromBody] Usuario usuario)
+        {
+            Usuario usuarioEncontrado = await Repository.Usuarios.GetByStringId(id);
+
+            if (usuarioEncontrado != null)
+            {
+                Repository.Usuarios.Detach(usuarioEncontrado);
+                Repository.Usuarios.Update(usuario);
+
+                if (await Repository.Complete() > 0)
+                {
+                    return Ok(new BaseResponse<Usuario>("Registro actualizado con éxito", usuario));
+                }
+                else
+                {
+                    return BadRequest(new BaseResponse<Usuario>("Error", "Ocurrió un error al actualizar el registro"));
+                }
+            }
+
+            return NotFound(new BaseResponse<Usuario>("Not Found", "No se encontró el usuario"));
+
+
+        }
+
 
     }
 }

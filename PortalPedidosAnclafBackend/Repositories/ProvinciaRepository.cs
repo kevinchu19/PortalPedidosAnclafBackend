@@ -26,5 +26,7 @@ namespace PortalPedidosAnclafBackend.Repositories
             }
             return await Context.Set<Provincia>().FromSqlRaw(query).Skip(skip).Take(take).ToListAsync();
         }
+
+        public virtual async Task<Provincia> Get(string id) => await Context.Set<Provincia>().FindAsync(id);
     }
 }

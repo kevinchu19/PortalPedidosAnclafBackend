@@ -50,6 +50,31 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         }
+
+        [HttpPut("{idCliente}/{id}")]
+        public async Task<ActionResult<BaseResponse<Clientesdireccionesentrega>>> Put(string idCliente, string id, [FromBody] Clientesdireccionesentrega direccionEntrega)
+        {
+            Clientesdireccionesentrega direccionEntregaEncontrado = await Repository.ClienteDireccionesEntrega.Get(idCliente, id);
+
+            if (direccionEntregaEncontrado!=null)
+            {
+                Repository.ClienteDireccionesEntrega.Detach(direccionEntrega);
+                Repository.ClienteDireccionesEntrega.Update(direccionEntrega);
+
+                if (await Repository.Complete() > 0)
+                {
+                    return Ok(new BaseResponse<Clientesdireccionesentrega>("Registro actualizado con éxito", direccionEntrega));
+                }
+                else
+                {
+                    return BadRequest(new BaseResponse<Clientesdireccionesentrega>("Error","Ocurrió un error al actualizar el registro"));
+                }
+            }
+
+            return NotFound(new BaseResponse<Clientesdireccionesentrega>("Not Found","No se encontró la direccion"));
+
+
+        }
     }
 
 }

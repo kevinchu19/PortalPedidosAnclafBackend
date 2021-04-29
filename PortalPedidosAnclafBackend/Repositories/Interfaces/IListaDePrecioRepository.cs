@@ -8,5 +8,6 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
 {
     public interface IListaDePrecioRepository : IRepository<Listasdeprecio>
     {
+        Task<Listasdeprecio> Get(string idLista, string idProducto, DateTime fecha);
     }
 }

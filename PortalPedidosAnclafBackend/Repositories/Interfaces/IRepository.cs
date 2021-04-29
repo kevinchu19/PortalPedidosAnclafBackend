@@ -18,5 +18,6 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
         void RemoveRange(IEnumerable<TEntity> entities);
 
         void Update(TEntity entity);
+        void Detach(TEntity entity);
     }
 }

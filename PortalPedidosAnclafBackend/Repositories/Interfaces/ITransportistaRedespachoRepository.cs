@@ -9,5 +9,6 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
     public interface ITransportistaRedespachoRepository : IRepository<Transportistasredespacho>
     {
         Task<IEnumerable<Transportistasredespacho>> GetByTermino(string termino, int skip, int take);
+        Task<Transportistasredespacho> Get(string id);
     }
 }

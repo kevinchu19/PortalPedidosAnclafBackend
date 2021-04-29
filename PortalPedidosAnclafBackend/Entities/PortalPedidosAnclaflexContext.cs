@@ -220,7 +220,7 @@ namespace PortalPedidosAnclafBackend.Entities
 
             modelBuilder.Entity<Listasdeprecio>(entity =>
             {
-                entity.HasKey(e => new { e.Id, e.Fecha, e.Idproducto })
+                entity.HasKey(e => new { e.Id, e.Idproducto, e.Fecha })
                     .HasName("PRIMARY")
                     .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0 });
 

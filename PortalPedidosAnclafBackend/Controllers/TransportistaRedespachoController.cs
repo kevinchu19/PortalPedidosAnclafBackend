@@ -47,6 +47,31 @@ namespace PortalPedidosAnclafBackend.Controllers
 
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BaseResponse<Transportistasredespacho>>> Put(string id, [FromBody] Transportistasredespacho transportistaredespacho)
+        {
+            Transportistasredespacho transportistaredespachoEncontrado = await Repository.TransportistaRedespacho.Get(id);
+
+            if (transportistaredespachoEncontrado != null)
+            {
+                Repository.TransportistaRedespacho.Detach(transportistaredespachoEncontrado);
+                Repository.TransportistaRedespacho.Update(transportistaredespacho);
+
+                if (await Repository.Complete() > 0)
+                {
+                    return Ok(new BaseResponse<Transportistasredespacho>("Registro actualizado con éxito", transportistaredespacho));
+                }
+                else
+                {
+                    return BadRequest(new BaseResponse<Transportistasredespacho>("Error", "Ocurrió un error al actualizar el registro"));
+                }
+            }
+
+            return NotFound(new BaseResponse<Transportistasredespacho>("Not Found", "No se encontró al Transportista"));
+
+
+        }
+
     }
 
 }

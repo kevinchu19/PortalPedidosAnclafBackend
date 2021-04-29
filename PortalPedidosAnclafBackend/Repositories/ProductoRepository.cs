@@ -94,5 +94,8 @@ namespace PortalPedidosAnclafBackend.Repositories
                                             })   
                                             .FirstOrDefaultAsync();
         }
+
+        public virtual async Task<Producto> Get(string id) => await Context.Set<Producto>().FindAsync(id);
+
     }
 }
