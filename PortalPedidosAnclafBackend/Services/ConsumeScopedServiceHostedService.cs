@@ -47,8 +47,8 @@ namespace PortalPedidosAnclafBackend.Services
 
         private async void DoWork(object state)
         {
-            _logger.Information(
-                "Consume Scoped Service Hosted Service is working.");
+            //_logger.Information(
+            //    "Consume Scoped Service Hosted Service is working.");
 
             using (var scope = Services.CreateScope())
             {
