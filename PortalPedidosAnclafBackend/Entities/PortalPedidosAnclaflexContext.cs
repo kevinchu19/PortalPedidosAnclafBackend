@@ -465,6 +465,11 @@ namespace PortalPedidosAnclafBackend.Entities
                         .HasCharSet("utf8")
                         .HasCollation("utf8_bin");
 
+                entity.Property(e => e.ClienteExclusivo)
+                    .HasColumnType("varchar(45)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
                 entity.Property(e => e.Created_At)
                     .HasColumnType("datetime")
                     .HasCharSet("utf8")

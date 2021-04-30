@@ -10,6 +10,7 @@ namespace PortalPedidosAnclafBackend.Helpers.Response
         public int Estado { get; set; }
         public string Titulo { get; set; }
         public string Mensaje { get; set; }
+        public T Resource { get; set; }
 
         public BaseResponse(string titulo)
         {
@@ -23,6 +24,7 @@ namespace PortalPedidosAnclafBackend.Helpers.Response
             Estado = 200;
             Mensaje = "Registro generado con éxito";
             Titulo = titulo;
+            Resource = resource;
         }
 
         public BaseResponse(string titulo, string message)

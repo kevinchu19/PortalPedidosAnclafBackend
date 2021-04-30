@@ -20,6 +20,7 @@ namespace PortalPedidosAnclafBackend.Entities
         public string Rubro1 { get; set; }
         public string Rubro2 { get; set; }
         public int Activo { get; set; }
+        public string ClienteExclusivo { get; set; }
         public DateTime Created_At
         {
             get
