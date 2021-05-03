@@ -415,6 +415,8 @@ namespace PortalPedidosAnclafBackend.Entities
                 
                 entity.Property(e => e.Bonificacion3).HasPrecision(10);
 
+                entity.Property(e => e.Bonificacion4).HasPrecision(10);
+
                 entity.Property(e => e.Bonificacion).HasPrecision(10);
 
                 entity.HasOne(d => d.IdPedidoNavigation)
@@ -651,6 +653,7 @@ namespace PortalPedidosAnclafBackend.Entities
                 entity.Property(e => e.Bonificacion3)
                     .HasPrecision(10, 2)
                     .HasColumnName("bonificacion3");
+
 
                 entity.Property(e => e.Idgrupobonificacion)
                     .HasColumnType("varchar(6)")
