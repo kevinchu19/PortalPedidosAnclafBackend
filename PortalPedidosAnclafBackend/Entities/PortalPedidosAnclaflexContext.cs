@@ -346,6 +346,16 @@ namespace PortalPedidosAnclafBackend.Entities
                         .HasCharSet("utf8")
                         .HasCollation("utf8_bin");
 
+                entity.Property(e => e.Acopio)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
+                entity.Property(e => e.DireccionModificada)
+                        .HasColumnType("smallint")
+                        .HasCharSet("utf8")
+                        .HasCollation("utf8_bin");
+
                 entity.Property(e => e.IdVendedor)
                     .HasColumnType("varchar(6)")
                     .HasCharSet("utf8")

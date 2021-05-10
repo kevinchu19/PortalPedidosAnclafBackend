@@ -34,6 +34,8 @@ namespace PortalPedidosAnclafBackend.Entities
         public string Email { get; set; }
         public DateTime FechaDeEntrega { get; set; }
         public Int16 PagoEnEfectivo { get; set; }
+        public Int16 Acopio { get; set; }
+        public Int16 DireccionModificada { get; set; }
         public Int16 Transferido { get; set; }
 
         public virtual Cliente Cliente { get; set; }
