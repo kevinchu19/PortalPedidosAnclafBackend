@@ -18,7 +18,7 @@ namespace PortalPedidosAnclafBackend.Repositories
         {
             //return await Context.Set<Cliente>().Where(c => c.RazonSocial.ToUpper().Contains(termino.ToUpper()) ||
             //                                               c.Id.ToUpper().Contains(termino.ToUpper())).Skip(skip).Take(take).ToListAsync();
-
+            termino = String.IsNullOrEmpty(termino) ? "" : termino;
             string[] palabras = termino.Split(' ');
             string query = $"SELECT * FROM clientes where 1=1 And (UPPER(idvendedor) = '{keyParameter}' Or '{keyParameter}'='') ";
             foreach (var palabra in palabras)

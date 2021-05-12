@@ -17,7 +17,7 @@ namespace PortalPedidosAnclafBackend.Repositories
         {
             //return await Context.Set<TransportistaRedespacho>().Where(c => c.Descripcion.ToUpper().Contains(termino.ToUpper()) ||
             //                                                 c.Id.ToUpper().Contains(termino.ToUpper())).Skip(skip).Take(take).ToListAsync();
-
+            termino = String.IsNullOrEmpty(termino) ? "" : termino;
             string[] palabras = termino.Split(' ');
             string query = "SELECT * FROM transportistasredespacho where 1=1 ";
             foreach (var palabra in palabras)

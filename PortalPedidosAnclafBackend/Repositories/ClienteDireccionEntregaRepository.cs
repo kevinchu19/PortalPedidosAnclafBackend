@@ -21,6 +21,7 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
             //                                                                  c.IdCliente == keyParameter.ToUpper())
             //                                                     .Skip(skip).Take(take).ToListAsync();
 
+            termino = String.IsNullOrEmpty(termino) ? "" : termino;
             string[] palabras = termino.Split(' ');
             string query = $"SELECT * FROM clientesdireccionesentrega where UPPER(idcliente) = '{keyParameter.ToUpper()}'";
             foreach (var palabra in palabras)

@@ -28,6 +28,7 @@ namespace PortalPedidosAnclafBackend.Repositories
 
         public async Task<IEnumerable<Producto>> GetByTerminoForOrder(string termino, int skip, int take, string listaPrecios, string cliente)
         {
+            termino = String.IsNullOrEmpty(termino) ? "" : termino;
             string[] palabras = termino.Split(' ');
             string query = "SELECT * FROM productos where 1=1 ";
             
