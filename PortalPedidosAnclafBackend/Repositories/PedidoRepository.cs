@@ -78,7 +78,9 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                                     FechaDeEntrega = c.FechaDeEntrega,
                                                                                     PagoEnEfectivo = c.PagoEnEfectivo,
                                                                                     Transferido = c.Transferido,
-                                                                                    Items = c.Items
+                                                                                    Items = c.Items,
+                                                                                    Acopio = c.Acopio,
+                                                                                    DireccionModificada = c.DireccionModificada
                                                                                 })
                                                                                 .Where(c=> c.Transferido == 0)
                                                                                 .Skip(skip)
