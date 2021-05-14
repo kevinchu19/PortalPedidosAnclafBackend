@@ -30,7 +30,7 @@ namespace PortalPedidosAnclafBackend.Repositories
         {
             termino = String.IsNullOrEmpty(termino) ? "" : termino;
             string[] palabras = termino.Split(' ');
-            string query = "SELECT * FROM productos where 1=1 ";
+            string query = "SELECT * FROM productos where activo = 1 ";
             
             query += $" AND IFNULL((SELECT Precio FROM listasdeprecio";
             query += $" WHERE idproducto = productos.id ";
