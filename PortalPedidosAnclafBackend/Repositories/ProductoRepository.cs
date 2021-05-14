@@ -17,7 +17,7 @@ namespace PortalPedidosAnclafBackend.Repositories
         public async Task<IEnumerable<Producto>> GetByTermino(string termino, int skip, int take)
         {
             string[] palabras = termino.Split(' ');
-            string query = "SELECT * FROM productos where 1=1 ";
+            string query = "SELECT * FROM productos where activo = 1  ";
             foreach (var palabra in palabras)
             {
                 query = query + $"and ((UPPER(id) like '%{palabra.ToUpper()}%') or (UPPER(descripcion) like '%{palabra.ToUpper()}%'))";

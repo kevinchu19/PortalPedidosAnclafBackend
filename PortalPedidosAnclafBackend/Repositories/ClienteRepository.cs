@@ -20,7 +20,7 @@ namespace PortalPedidosAnclafBackend.Repositories
             //                                               c.Id.ToUpper().Contains(termino.ToUpper())).Skip(skip).Take(take).ToListAsync();
             termino = String.IsNullOrEmpty(termino) ? "" : termino;
             string[] palabras = termino.Split(' ');
-            string query = $"SELECT * FROM clientes where 1=1 And (UPPER(idvendedor) = '{keyParameter}' Or '{keyParameter}'='') ";
+            string query = $"SELECT * FROM clientes where activo = 1 And (UPPER(idvendedor) = '{keyParameter}' Or '{keyParameter}'='') ";
             foreach (var palabra in palabras)
             {
                 query = query + $"and ((UPPER(id) like '%{palabra.ToUpper()}%') or (UPPER(razonsocial) like '%{palabra.ToUpper()}%'))";
