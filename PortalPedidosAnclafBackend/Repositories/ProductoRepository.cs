@@ -71,6 +71,7 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                                                         (bonificacion.Idnumerorubro == 1 && bonificacion.Valorrubro == producto.Rubro1 ||
                                                                                                          bonificacion.Idnumerorubro == 2 && bonificacion.Valorrubro == producto.Rubro2
                                                                                                         ))
+                                                                        .OrderByDescending(c => c.Created_At)
                                                                         .Take(1)
                                                                         .Select(c => (c.Bonificacion1 != null ? c.Bonificacion1: 0))
                                                                         .FirstOrDefault(),
@@ -80,6 +81,7 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                                                         (bonificacion.Idnumerorubro == 1 && bonificacion.Valorrubro == producto.Rubro1 ||
                                                                                                          bonificacion.Idnumerorubro == 2 && bonificacion.Valorrubro == producto.Rubro2
                                                                                                         ))
+                                                                        .OrderByDescending(c => c.Created_At)
                                                                         .Take(1)
                                                                         .Select(c => (c.Bonificacion2 != null ? c.Bonificacion2 : 0))
                                                                         .FirstOrDefault(),
@@ -89,6 +91,7 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                                                         (bonificacion.Idnumerorubro == 1 && bonificacion.Valorrubro == producto.Rubro1 ||
                                                                                                          bonificacion.Idnumerorubro == 2 && bonificacion.Valorrubro == producto.Rubro2
                                                                                                         ))
+                                                                        .OrderByDescending(c => c.Created_At)
                                                                         .Take(1)
                                                                         .Select(c => (c.Bonificacion3 != null ? c.Bonificacion3 : 0))
                                                                         .FirstOrDefault()
