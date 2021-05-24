@@ -146,6 +146,7 @@ namespace PortalPedidosAnclafBackend.Controllers
             if (usuarioEncontrado != null)
             {
                 Repository.Usuarios.Detach(usuarioEncontrado);
+                usuario.Password = _passwordService.Hash(usuario.Password);
                 Repository.Usuarios.Update(usuario);
 
                 if (await Repository.Complete() > 0)
