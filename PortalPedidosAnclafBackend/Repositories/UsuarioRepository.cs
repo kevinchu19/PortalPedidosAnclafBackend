@@ -12,6 +12,6 @@ namespace PortalPedidosAnclafBackend.Repositories
     {
         public UsuarioRepository(PortalPedidosAnclaflexContext context) : base(context)
         { }
-        public async Task<Usuario> GetByStringId(string id) => await Context.Set<Usuario>().Where(c => c.Id == id && c.Activo == 1).FirstOrDefaultAsync();
+        public async Task<Usuario> GetByStringId(string id) => await Context.Set<Usuario>().Where(c => c.Id == id).FirstOrDefaultAsync();
     }
 }

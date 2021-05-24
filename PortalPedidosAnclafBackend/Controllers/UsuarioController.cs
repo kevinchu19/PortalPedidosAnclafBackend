@@ -41,11 +41,34 @@ namespace PortalPedidosAnclafBackend.Controllers
         
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("login/renew")]
-        public IActionResult RenewToken()
+        public async Task<IActionResult> RenewToken()
         {
+            
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             if (identity != null)
             {
+                var _usuario = await Repository.Usuarios.GetByStringId(identity.Name);
+
+                if (_usuario == null)
+                {
+                    return Unauthorized(new UserToken
+                    {
+                        Token = "",
+                        ExpirationDate = DateTime.Now,
+                        Mensaje = "El usuario no existe"
+                    });
+                }
+
+                if (_usuario.Activo == 0)
+                {
+                    return Unauthorized(new UserToken
+                    {
+                        Token = "",
+                        ExpirationDate = DateTime.Now,
+                        Mensaje = "El usuario ha sido deshabilitado"
+                    });
+                }
+
                 string usuario = identity.Name;
                 string cliente = identity.FindFirst("cliente").Value;
                 string vendedor = identity.FindFirst("vendedor").Value;
@@ -76,7 +99,17 @@ namespace PortalPedidosAnclafBackend.Controllers
                     Mensaje = "El usuario no existe"
                 });
             }
-            
+
+            if (_usuario.Activo == 0)
+            {
+                return Unauthorized(new UserToken
+                {
+                    Token = "",
+                    ExpirationDate = DateTime.Now,
+                    Mensaje = "El usuario ha sido deshabilitado"
+                });
+            }
+
             if (!_passwordService.Check(_usuario.Password, usuario.Password))
             {
                 return Unauthorized(new UserToken
