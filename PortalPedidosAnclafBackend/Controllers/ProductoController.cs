@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortalPedidosAnclafBackend.Entities;
 using PortalPedidosAnclafBackend.Helpers.Response;
 using PortalPedidosAnclafBackend.Repositories.Interfaces;
@@ -20,12 +22,14 @@ namespace PortalPedidosAnclafBackend.Controllers
             Repository = repository;
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Producto>>> GetByTerminoForOrder(string termino, int skip, int take, string listaPrecios, string cliente)
         {
             return  Ok(await Repository.Productos.GetByTerminoForOrder(termino, skip, take, listaPrecios, cliente));
         }
-        
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Producto>> Get(string id, string listaPrecios, string grupoBonificacion)
         {

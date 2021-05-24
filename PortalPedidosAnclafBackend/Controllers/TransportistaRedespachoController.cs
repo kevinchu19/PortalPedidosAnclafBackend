@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortalPedidosAnclafBackend.Entities;
 using PortalPedidosAnclafBackend.Helpers.Response;
@@ -24,6 +26,7 @@ namespace PortalPedidosAnclafBackend.Controllers
             Mapper = mapper;
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Transportistasredespacho>>> GetByTermino(string termino, int skip, int take)
         {

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PortalPedidosAnclafBackend.Entities;
@@ -14,6 +16,7 @@ namespace PortalPedidosAnclafBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PedidoController : ControllerBase
     {
         public IUnitOfWork Repository { get; }

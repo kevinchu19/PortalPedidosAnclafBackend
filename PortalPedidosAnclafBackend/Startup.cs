@@ -25,6 +25,8 @@ using System.Text;
 using Microsoft.AspNetCore.HttpOverrides;
 using PortalPedidosAnclafBackend.Services;
 using Serilog;
+using PortalPedidosAnclafBackend.Helpers.Options;
+using PortalPedidosAnclafBackend.Services.Interfaces;
 
 namespace PortalPedidosAnclafBackend
 {
@@ -40,6 +42,8 @@ namespace PortalPedidosAnclafBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
+            services.AddScoped<IPasswordHasher, PasswordService>();
 
             services.AddMvc(Options =>{})
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null)
@@ -83,6 +87,7 @@ namespace PortalPedidosAnclafBackend
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
+
             });
 
 

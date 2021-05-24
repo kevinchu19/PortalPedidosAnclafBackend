@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortalPedidosAnclafBackend.Entities;
 using PortalPedidosAnclafBackend.Helpers.Response;
@@ -21,13 +23,15 @@ namespace PortalPedidosAnclafBackend.Controllers
         {
             Repository = repository;
         }
-
+        
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Clientesdireccionesentrega>>> GetByTerminoAndKeyParameter(string termino, string keyParameter, int skip, int take)
         {
             return Ok(await Repository.ClienteDireccionesEntrega.GetByTerminoAndKeyParameter(termino, keyParameter, skip, take));
         }
-
+        
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}/{numerocliente}")]
         public async Task<ActionResult<IEnumerable<Clientesdireccionesentrega>>> GetByIdAndKeyParameter(string id, string numeroCliente)
         {
@@ -50,6 +54,7 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         }
+
 
         [HttpPut("{idCliente}/{id}")]
         public async Task<ActionResult<BaseResponse<Clientesdireccionesentrega>>> Put(string idCliente, string id, [FromBody] Clientesdireccionesentrega direccionEntrega)
