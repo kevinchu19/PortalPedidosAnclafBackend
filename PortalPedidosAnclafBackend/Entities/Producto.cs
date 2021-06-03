@@ -21,6 +21,8 @@ namespace PortalPedidosAnclafBackend.Entities
         public string Rubro2 { get; set; }
         public int Activo { get; set; }
         public string ClienteExclusivo { get; set; }
+        public string Visibilidad { get; set; } = "T";
+
         public DateTime Created_At
         {
             get
@@ -34,6 +36,8 @@ namespace PortalPedidosAnclafBackend.Entities
         }
 
         private DateTime? _createdAt = null;
+
+
         [JsonIgnore]
         public virtual ICollection<Listasdeprecio> Listasdeprecios { get; set; }
         [JsonIgnore]

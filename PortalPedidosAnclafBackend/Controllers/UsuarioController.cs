@@ -75,7 +75,7 @@ namespace PortalPedidosAnclafBackend.Controllers
                 string descripcion = identity.FindFirst("descripcion").Value;
                 return GenerarToken(usuario, cliente, vendedor, descripcion);
             }
-
+            
             return Unauthorized(new UserToken
             {
                 Token = "",

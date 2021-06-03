@@ -7,6 +7,7 @@ using PortalPedidosAnclafBackend.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PortalPedidosAnclafBackend.Controllers
@@ -26,7 +27,10 @@ namespace PortalPedidosAnclafBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Producto>>> GetByTerminoForOrder(string termino, int skip, int take, string listaPrecios, string cliente)
         {
-            return  Ok(await Repository.Productos.GetByTerminoForOrder(termino, skip, take, listaPrecios, cliente));
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            string tipoUsuario = identity.FindFirst("cliente").Value == "" ? "V" : "C";
+
+            return  Ok(await Repository.Productos.GetByTerminoForOrder(termino, skip, take, listaPrecios, cliente, tipoUsuario));
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

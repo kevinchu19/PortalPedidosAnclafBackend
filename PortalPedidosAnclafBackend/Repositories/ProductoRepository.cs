@@ -26,7 +26,7 @@ namespace PortalPedidosAnclafBackend.Repositories
             return await Context.Set<Producto>().FromSqlRaw(query).Skip(skip).Take(take).ToListAsync();
         }
 
-        public async Task<IEnumerable<Producto>> GetByTerminoForOrder(string termino, int skip, int take, string listaPrecios, string cliente)
+        public async Task<IEnumerable<Producto>> GetByTerminoForOrder(string termino, int skip, int take, string listaPrecios, string cliente, string tipoUsuario)
         {
             termino = String.IsNullOrEmpty(termino) ? "" : termino;
             string[] palabras = termino.Split(' ');
@@ -39,6 +39,7 @@ namespace PortalPedidosAnclafBackend.Repositories
             query += $" ORDER BY listasdeprecio.fecha DESC LIMIT 1 ),0) <> 0 ";
             
             query += $" AND (ClienteExclusivo is null OR ClienteExclusivo = '{cliente}')";
+            query += $" AND (visibilidad = 'T' OR visibilidad = '{tipoUsuario}')";
             foreach (var palabra in palabras)
             {
                 query = query + $"and ((UPPER(id) like '%{palabra.ToUpper()}%') or (UPPER(descripcion) like '%{palabra.ToUpper()}%'))";
