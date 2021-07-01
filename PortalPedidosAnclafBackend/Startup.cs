@@ -40,6 +40,14 @@ namespace PortalPedidosAnclafBackend
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+
+        public void ConfigureProductionServices(IServiceCollection services)
+        {
+            ConfigureServices(services);
+            services.AddHostedService<ConsumeScopedServiceHostedService>();
+            services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
@@ -49,10 +57,7 @@ namespace PortalPedidosAnclafBackend
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-
-            services.AddHostedService<ConsumeScopedServiceHostedService>();
-            services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
-
+            
             services.AddSingleton<Serilog.ILogger>(options =>
             {
                 var connstring = Configuration["Serilog:SerilogConnectionString"];
