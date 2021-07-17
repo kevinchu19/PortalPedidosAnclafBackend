@@ -55,9 +55,11 @@ namespace PortalPedidosAnclafBackend.Services
                 var scopedProcessingService =
                     scope.ServiceProvider
                         .GetRequiredService<IScopedProcessingService>();
+
                 try
                 {
-                    await scopedProcessingService.DoWork();
+                    //await scopedProcessingService.DoWork();
+                    var a = 1;
                 }catch(Exception ex)
                 {
                     _logger.Fatal(ex.Message);
