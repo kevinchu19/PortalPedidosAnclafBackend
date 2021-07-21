@@ -28,6 +28,14 @@ namespace PortalPedidosAnclafBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<BaseResponse<Bonificacion>>> Post([FromBody] Bonificacion bonificacion)
         {
+
+            Bonificacion bonificacionEncontrado = await Repository.Bonificaciones.Get(bonificacion.Id);
+
+            if (bonificacionEncontrado != null)
+            {
+                return BadRequest(new BaseResponse<Bonificacion>("Bad request", "El registro ya existe"));
+            }
+            
             await Repository.Bonificaciones.Add(bonificacion);
 
             if (await Repository.Complete() > 0)
@@ -36,7 +44,7 @@ namespace PortalPedidosAnclafBackend.Controllers
             }
             else
             {
-                return BadRequest(new BaseResponse<Bonificacion>("Ocurrió un error al dar de alta el registro"));
+                return BadRequest(new BaseResponse<Bonificacion>("Bad request", "Ocurrió un error al dar de alta el registro"));
             }
 
 

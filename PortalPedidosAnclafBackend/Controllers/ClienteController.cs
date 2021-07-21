@@ -47,6 +47,13 @@ namespace PortalPedidosAnclafBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<BaseResponse<Cliente>>> Post([FromBody] Cliente cliente)
         {
+            Cliente clienteEncontrado = await Repository.Clientes.GetString(cliente.Id);
+
+            if (clienteEncontrado != null)
+            {
+                return BadRequest(new BaseResponse<Cliente>("Bad request", "El registro ya existe"));
+            }
+
             await Repository.Clientes.Add(cliente);
             
             if (await Repository.Complete() > 0)
@@ -55,7 +62,7 @@ namespace PortalPedidosAnclafBackend.Controllers
             }
             else
             {
-                return BadRequest(new BaseResponse<Cliente>("Ocurrió un error al dar de alta el registro"));
+                return BadRequest(new BaseResponse<Cliente>("Bad request", "Ocurrió un error al dar de alta el registro"));
             }
 
             

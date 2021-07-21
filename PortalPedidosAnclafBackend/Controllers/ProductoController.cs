@@ -43,6 +43,13 @@ namespace PortalPedidosAnclafBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<BaseResponse<Producto>>> Post([FromBody] Producto producto)
         {
+            Producto productoEncontrado = await Repository.Productos.Get(producto.Id);
+
+            if (productoEncontrado != null)
+            {
+                return BadRequest(new BaseResponse<Producto>("Bad request","El registro ya existe."));
+            }
+            
             await Repository.Productos.Add(producto);
 
             if (await Repository.Complete() > 0)
@@ -51,7 +58,7 @@ namespace PortalPedidosAnclafBackend.Controllers
             }
             else
             {
-                return BadRequest(new BaseResponse<Producto>("Ocurrió un error al dar de alta el registro"));
+                return BadRequest(new BaseResponse<Producto>("Bad request", "Ocurrió un error al dar de alta el registro"));
             }
 
 
