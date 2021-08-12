@@ -48,7 +48,7 @@ namespace PortalPedidosAnclafBackend.Repositories
                 .Include(e=> e.IdEntregaNavigation)
                 .Include(e => e.ProvinciaEntregaNavigation)
                 .Include(c => c.Cliente).ThenInclude(p => p.ProvinciaFacturacionNavigation)
-                .OrderBy(c => c.Id),
+                .OrderByDescending(c => c.Id),
                 parameters.PageNumber,
                 parameters.PageSize);
         }
@@ -80,7 +80,8 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                                     Transferido = c.Transferido,
                                                                                     Items = c.Items,
                                                                                     Acopio = c.Acopio,
-                                                                                    DireccionModificada = c.DireccionModificada
+                                                                                    DireccionModificada = c.DireccionModificada,
+                                                                                    IdUsuario = c.IdUsuario
                                                                                 })
                                                                                 .Where(c=> c.Transferido == 0)
                                                                                 .Skip(skip)

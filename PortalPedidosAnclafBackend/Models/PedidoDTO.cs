@@ -29,6 +29,8 @@ namespace PortalPedidosAnclafBackend.Models
         public Int16 PagoEnEfectivo { get; set; }
         public Int16 Acopio { get; set; }
         public Int16 DireccionModificada { get; set; }
+
+        public string IdUsuario { get; set; }
         public ICollection<PedidoItemsDTO> Items { get; set; }
 
     }

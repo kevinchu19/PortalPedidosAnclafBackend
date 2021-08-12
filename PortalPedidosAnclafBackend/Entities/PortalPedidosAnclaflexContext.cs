@@ -29,6 +29,8 @@ namespace PortalPedidosAnclafBackend.Entities
         public virtual DbSet<Transportistasredespacho> Transportistasredespachos { get; set; }
 
         public virtual DbSet<Bonificacion> Bonificaciones { get; set; }
+        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
         }
@@ -381,6 +383,12 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasColumnType("datetime")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
+
+                entity.Property(e => e.IdUsuario)
+                   .HasColumnType("varchar(100)")
+                   .HasCharSet("utf8")
+                   .HasCollation("utf8_bin");
+
 
                 entity.HasOne(d => d.Cliente)
                             .WithMany(p => p.Pedidos)
