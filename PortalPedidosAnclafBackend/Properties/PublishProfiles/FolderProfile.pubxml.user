@@ -5,5 +5,6 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\Publish</_PublishTargetUrl>
+    <History>True|2021-08-20T14:15:18.2233391Z;</History>
   </PropertyGroup>
 </Project>

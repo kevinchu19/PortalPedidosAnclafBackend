@@ -52,7 +52,18 @@ namespace PortalPedidosAnclafBackend.Services
             _logger.Information($"{ pedidosString }");
             HttpResponseMessage stringTask = await client.PostAsync($"{_configuration["HostSoftland:BasePath"]}/api/pedido", new StringContent(pedidosString, Encoding.UTF8, "application/json"));
             var stream = await stringTask.Content.ReadAsStreamAsync();
-            var content = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse[]>(stream);
+
+            ApiSoftlandResponse[] content = new ApiSoftlandResponse[] { };
+            try
+            {
+                content = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse[]>(stream);
+            }
+            catch (Exception)
+            {
+                _logger.Error($"Error al procesar pedido: No se obtuvo respuesta del servidor");
+                return;
+
+            }
 
 
             foreach ((PedidoDTO pedido, Int32 i) in pedidos.Select((pedido, i) => (pedido, i)))
