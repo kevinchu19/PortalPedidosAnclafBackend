@@ -68,7 +68,7 @@ namespace PortalPedidosAnclafBackend.Services
                 }
                 catch(Exception ex)
                 {
-                    _logger.Fatal(ex.Message);
+                    _logger.Fatal($"{ex.Message}: {ex.StackTrace}");
                 }
                 
             }
