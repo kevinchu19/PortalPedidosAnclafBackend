@@ -50,21 +50,32 @@ namespace PortalPedidosAnclafBackend.Services
             string pedidosString = JsonSerializer.Serialize(pedidos, new JsonSerializerOptions { WriteIndented = true });
 
             _logger.Information($"{ pedidosString }");
-            HttpResponseMessage stringTask = await client.PostAsync($"{_configuration["HostSoftland:BasePath"]}/api/pedido", new StringContent(pedidosString, Encoding.UTF8, "application/json"));
-            var stream = await stringTask.Content.ReadAsStreamAsync();
 
             ApiSoftlandResponse[] content = new ApiSoftlandResponse[] { };
+            HttpResponseMessage stringTask = new HttpResponseMessage();
+            
             try
             {
-                content = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse[]>(stream);
+                stringTask = await client.PostAsync($"{_configuration["HostSoftland:BasePath"]}/api/pedido", new StringContent(pedidosString, Encoding.UTF8, "application/json"));
+                
             }
             catch (Exception)
             {
-                _logger.Error($"Error al procesar pedido: No se obtuvo respuesta del servidor");
-                return;
+                _logger.Error($"Error al procesar pedido: No se obtuvo respuesta del servidor: {_configuration["HostSoftland:BasePath"]}");
 
+                try
+                {
+                    stringTask = await client.PostAsync($"{_configuration["HostSoftland:BasePathSecundario"]}/api/pedido", new StringContent(pedidosString, Encoding.UTF8, "application/json"));
+                }
+                catch
+                {
+                    _logger.Error($"Error al procesar pedido: No se obtuvo respuesta del servidor: {_configuration["HostSoftland:BasePathSecundario"]}");
+                    return;
+                }
             }
 
+            var stream = await stringTask.Content.ReadAsStreamAsync();
+            content = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse[]>(stream);
 
             foreach ((PedidoDTO pedido, Int32 i) in pedidos.Select((pedido, i) => (pedido, i)))
             {
@@ -85,8 +96,9 @@ namespace PortalPedidosAnclafBackend.Services
 
                 else
                 {
-                    await _repository.Pedidos.ActualizaPedidoTransferido(pedido.Id, 9);
-                    await _repository.Complete();
+                    //28/09/2021: Provisorio para que reintente siempre reprocesar pedidos
+                    //await _repository.Pedidos.ActualizaPedidoTransferido(pedido.Id, 9);
+                    //await _repository.Complete();
                     _logger.Error($"({content[i].estado}) Error al procesar pedido {pedido.Id}: { content[i].mensaje }");
                 }
 
