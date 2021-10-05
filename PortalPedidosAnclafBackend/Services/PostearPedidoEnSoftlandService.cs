@@ -53,7 +53,6 @@ namespace PortalPedidosAnclafBackend.Services
 
             ApiSoftlandResponse[] content = new ApiSoftlandResponse[] { };
             HttpResponseMessage stringTask = new HttpResponseMessage();
-            
             try
             {
                 stringTask = await client.PostAsync($"{_configuration["HostSoftland:BasePath"]}/api/pedido", new StringContent(pedidosString, Encoding.UTF8, "application/json"));
@@ -66,6 +65,8 @@ namespace PortalPedidosAnclafBackend.Services
                 try
                 {
                     stringTask = await client.PostAsync($"{_configuration["HostSoftland:BasePathSecundario"]}/api/pedido", new StringContent(pedidosString, Encoding.UTF8, "application/json"));
+                    var stream = await stringTask.Content.ReadAsStreamAsync();
+                    content = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse[]>(stream);
                 }
                 catch
                 {
@@ -74,9 +75,7 @@ namespace PortalPedidosAnclafBackend.Services
                 }
             }
 
-            var stream = await stringTask.Content.ReadAsStreamAsync();
-            content = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse[]>(stream);
-
+            
             foreach ((PedidoDTO pedido, Int32 i) in pedidos.Select((pedido, i) => (pedido, i)))
             {
                 if (content[i].estado == 200)
