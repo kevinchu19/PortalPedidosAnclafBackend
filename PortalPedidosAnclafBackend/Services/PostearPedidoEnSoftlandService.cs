@@ -56,7 +56,8 @@ namespace PortalPedidosAnclafBackend.Services
             try
             {
                 stringTask = await client.PostAsync($"{_configuration["HostSoftland:BasePath"]}/api/pedido", new StringContent(pedidosString, Encoding.UTF8, "application/json"));
-                
+                var stream = await stringTask.Content.ReadAsStreamAsync();
+                content = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse[]>(stream);
             }
             catch (Exception)
             {
@@ -74,7 +75,6 @@ namespace PortalPedidosAnclafBackend.Services
                     return;
                 }
             }
-
             
             foreach ((PedidoDTO pedido, Int32 i) in pedidos.Select((pedido, i) => (pedido, i)))
             {
@@ -94,10 +94,11 @@ namespace PortalPedidosAnclafBackend.Services
                 }
 
                 else
-                {
+                { 
                     //28/09/2021: Provisorio para que reintente siempre reprocesar pedidos
                     //await _repository.Pedidos.ActualizaPedidoTransferido(pedido.Id, 9);
                     //await _repository.Complete();
+                    
                     _logger.Error($"({content[i].estado}) Error al procesar pedido {pedido.Id}: { content[i].mensaje }");
                 }
 

@@ -44,14 +44,16 @@ namespace PortalPedidosAnclafBackend
         public void ConfigureProductionServices(IServiceCollection services)
         {
             ConfigureServices(services);
-            services.AddHostedService<ConsumeScopedServiceHostedService>();
-            services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
+            
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
             services.AddScoped<IPasswordHasher, PasswordService>();
+            
+            services.AddHostedService<ConsumeScopedServiceHostedService>();
+            services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
 
             services.AddMvc(Options =>{})
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null)
