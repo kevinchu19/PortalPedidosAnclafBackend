@@ -45,6 +45,9 @@ namespace PortalPedidosAnclafBackend
         {
             ConfigureServices(services);
             
+            services.AddHostedService<ConsumeScopedServiceHostedService>();
+            services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
+
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -52,9 +55,6 @@ namespace PortalPedidosAnclafBackend
             services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
             services.AddScoped<IPasswordHasher, PasswordService>();
             
-            services.AddHostedService<ConsumeScopedServiceHostedService>();
-            services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
-
             services.AddMvc(Options =>{})
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);

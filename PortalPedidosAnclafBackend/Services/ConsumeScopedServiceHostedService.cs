@@ -38,7 +38,7 @@ namespace PortalPedidosAnclafBackend.Services
 
             try
             {
-                _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+                _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromMinutes(2));
             }
             catch (Exception ex)
             {
