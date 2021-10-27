@@ -57,7 +57,14 @@ namespace PortalPedidosAnclafBackend.Services
             {
                 stringTask = await client.PostAsync($"{_configuration["HostSoftland:BasePath"]}/api/pedido", new StringContent(pedidosString, Encoding.UTF8, "application/json"));
                 var stream = await stringTask.Content.ReadAsStreamAsync();
-                content = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse[]>(stream);
+                try
+                {
+                    content = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse[]>(stream);
+                }
+                catch 
+                {
+                    content[0] = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse>(stream);
+                }
             }
             catch (Exception)
             {
@@ -67,7 +74,14 @@ namespace PortalPedidosAnclafBackend.Services
                 {
                     stringTask = await client.PostAsync($"{_configuration["HostSoftland:BasePathSecundario"]}/api/pedido", new StringContent(pedidosString, Encoding.UTF8, "application/json"));
                     var stream = await stringTask.Content.ReadAsStreamAsync();
-                    content = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse[]>(stream);
+                    try
+                    {
+                        content = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse[]>(stream);
+                    }
+                    catch
+                    {
+                        content[0] = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse>(stream);
+                    }
                 }
                 catch
                 {
@@ -87,8 +101,7 @@ namespace PortalPedidosAnclafBackend.Services
                     }
                     catch (Exception ex)
                     {
-                        var a = ex.Message;
-                            
+                        var a = ex.Message;       
                     }
                         
                 }
