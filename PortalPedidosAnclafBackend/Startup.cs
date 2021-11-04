@@ -48,7 +48,7 @@ namespace PortalPedidosAnclafBackend
             
             services.AddHostedService<ConsumeScopedServiceHostedService>();
             services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
-
+            
 
         }
 

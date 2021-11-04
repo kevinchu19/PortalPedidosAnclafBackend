@@ -14,7 +14,7 @@ namespace PortalPedidosAnclafBackend.Services
         private readonly ILogger _logger;
         private Timer _timer { get; set; }
 
-        private static SemaphoreSlim _semaphoreSlimAction = new SemaphoreSlim(0,1);
+        private static SemaphoreSlim _semaphoreSlimAction = new SemaphoreSlim(1,1);
 
 
         public ConsumeScopedServiceHostedService(IServiceScopeFactory services,
@@ -38,7 +38,7 @@ namespace PortalPedidosAnclafBackend.Services
 
             try
             {
-                _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromMinutes(2));
+                _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace PortalPedidosAnclafBackend.Services
         {
             //_logger.Information(
             //    "Consume Scoped Service Hosted Service is working.");
-
+            
             await _semaphoreSlimAction.WaitAsync();
 
             using (var scope = Services.CreateScope())
