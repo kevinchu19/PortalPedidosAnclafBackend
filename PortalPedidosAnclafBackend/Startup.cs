@@ -45,13 +45,16 @@ namespace PortalPedidosAnclafBackend
         {
             ConfigureServices(services);
             
+            
             services.AddHostedService<ConsumeScopedServiceHostedService>();
             services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
+
 
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
             services.AddScoped<IPasswordHasher, PasswordService>();
             

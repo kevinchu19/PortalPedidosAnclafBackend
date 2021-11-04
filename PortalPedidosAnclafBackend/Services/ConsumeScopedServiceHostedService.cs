@@ -14,7 +14,7 @@ namespace PortalPedidosAnclafBackend.Services
         private readonly ILogger _logger;
         private Timer _timer { get; set; }
 
-        private static SemaphoreSlim _semaphoreSlimAction = new SemaphoreSlim(1);
+        private static SemaphoreSlim _semaphoreSlimAction = new SemaphoreSlim(0,1);
 
 
         public ConsumeScopedServiceHostedService(IServiceScopeFactory services,
