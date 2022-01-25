@@ -150,6 +150,7 @@ namespace PortalPedidosAnclafBackend
             //    app.UseDeveloperExceptionPage();
             //}
 
+
             app.UseDeveloperExceptionPage();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {

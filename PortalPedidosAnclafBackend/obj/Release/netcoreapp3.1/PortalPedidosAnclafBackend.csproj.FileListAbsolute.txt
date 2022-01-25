@@ -61,3 +61,4 @@ C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBacken
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.csproj.AssemblyReference.cache
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\scopedcss\bundle\PortalPedidosAnclafBackend.styles.css
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\appsettings.Staging.json
