@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortalPedidosAnclafBackend.Entities;
 using PortalPedidosAnclafBackend.Helpers.Response;
+using PortalPedidosAnclafBackend.Models;
 using PortalPedidosAnclafBackend.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -24,14 +27,33 @@ namespace PortalPedidosAnclafBackend.Controllers
             Mapper = mapper;
         }
 
-      
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("pendientes")]
+        [HttpGet]
+        public async Task<ActionResult<ICollection<CuentaCorrientePendientesDTO>>> GetPendientesByCliente(string cliente)
+        {
+            ICollection<CuentaCorrientePendientesDTO> pendientes = new List<CuentaCorrientePendientesDTO>() { };
+
+            pendientes = Mapper.Map<ICollection<CuentaCorrientePendientesDTO>>(await Repository.CuentaCorriente.GetPendientesByClienteAsync(cliente));
+
+            return Ok(pendientes);
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet]
+        public async Task<ActionResult<ICollection<CuentaCorriente>>> GetByCliente(string cliente)
+        {
+            
+            return Ok(await Repository.CuentaCorriente.GetByClienteAsync(cliente));
+        }
+
+
+
         [HttpPost]
         public async Task<ActionResult<BaseResponse<CuentaCorriente>>> Post([FromBody] CuentaCorriente cuentaCorriente)
         {
 
-            CuentaCorriente cuentaCorrienteEncontrado = await Repository.CuentaCorriente.Get(cuentaCorriente.Empresa, cuentaCorriente.Codigoformulario,cuentaCorriente.Numeroformulario,
-                                                                                          cuentaCorriente.Empresaaplicacion, cuentaCorriente.Formularioaplicacion, cuentaCorriente.Numeroformularioaplicacion,
-                                                                                          cuentaCorriente.Cuota);
+            CuentaCorriente cuentaCorrienteEncontrado = await Repository.CuentaCorriente.Get(cuentaCorriente.Id);
 
             if (cuentaCorrienteEncontrado != null)
             {

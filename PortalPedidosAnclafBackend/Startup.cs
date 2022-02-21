@@ -136,6 +136,9 @@ namespace PortalPedidosAnclafBackend
 
                 configuration.CreateMap<Pedidositem,PedidoItemsDTO>()
                 .ReverseMap();
+
+                configuration.CreateMap<CuentaCorriente, CuentaCorrientePendientesDTO>()
+                .ReverseMap();
             }
                 , typeof(Startup));
 

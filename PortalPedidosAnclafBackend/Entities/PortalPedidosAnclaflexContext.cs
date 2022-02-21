@@ -712,10 +712,7 @@ namespace PortalPedidosAnclafBackend.Entities
 
             modelBuilder.Entity<CuentaCorriente>(entity =>
             {
-                entity.HasKey(e => new { e.Empresa, e.Codigoformulario, e.Numeroformulario, e.Empresaaplicacion, e.Formularioaplicacion, e.Numeroformularioaplicacion, e.Cuota })
-                    .HasName("PRIMARY")
-                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0, 0, 0, 0, 0 });
-
+                
                 entity.ToTable("cuentascorrientes");
 
                 entity.HasComment("		");

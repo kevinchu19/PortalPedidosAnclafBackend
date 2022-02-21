@@ -7,6 +7,7 @@ namespace PortalPedidosAnclafBackend.Entities
 {
     public partial class CuentaCorriente
     {
+        public int Id { get; set; }
         public string Empresa { get; set; }
         public string Codigoformulario { get; set; }
         public int Numeroformulario { get; set; }
