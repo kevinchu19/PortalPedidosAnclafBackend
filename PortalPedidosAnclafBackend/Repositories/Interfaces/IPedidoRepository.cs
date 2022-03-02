@@ -13,5 +13,7 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
         Task<PagedList<Pedido>> GetByParameters(string idCliente,string idVendedor, string idPedido, string fechaDesde, string fechaHasta, PaginationParameters parameters);
         Task<IEnumerable<Pedido>> GetForSoftland (int skip, int take);
         Task ActualizaPedidoTransferido(int id, short nuevoEstado);
+
+        Task<IEnumerable<Pedido>> GetByParametersForTF(string idCliente, string idVendedor, string fechaDesde, string fechaHasta);
     }
 }

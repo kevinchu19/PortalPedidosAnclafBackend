@@ -53,6 +53,29 @@ namespace PortalPedidosAnclafBackend.Repositories
                 parameters.PageSize);
         }
 
+
+        public async Task<IEnumerable<Pedido>> GetByParametersForTF(string idCliente, string idVendedor, string fechaDesde, string fechaHasta)
+        {
+            return await Context.Set<Pedido>()
+                .Where(c => ((c.IdCliente == idCliente ||
+                                idCliente == "" ||
+                                idCliente == null) &&
+                                (c.IdVendedor == idVendedor ||
+                                idVendedor == "" ||
+                                idVendedor == null)&&
+                                 (c.Fecha >= Convert.ToDateTime(fechaDesde) ||
+                                fechaDesde == "" ||
+                                fechaDesde == null) &&
+                                (c.Fecha <= Convert.ToDateTime(fechaHasta) ||
+                                fechaHasta == "" ||
+                                fechaHasta == null)))
+                .Include(i => i.Items).ThenInclude(p => p.IdProductoNavigation)
+                .Include(c => c.Cliente)
+                .OrderByDescending(c => c.Id)
+                .ToListAsync();
+        }
+
+
         public async Task<IEnumerable<Pedido>> GetForSoftland(int skip, int take) => await Context.Set<Pedido>()
                                                                                 .Select(c => new Pedido()
                                                                                 {
