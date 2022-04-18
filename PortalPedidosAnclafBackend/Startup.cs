@@ -137,7 +137,9 @@ namespace PortalPedidosAnclafBackend
                 configuration.CreateMap<Pedidositem,PedidoItemsDTO>()
                 .ReverseMap();
 
-                configuration.CreateMap<CuentaCorriente, CuentaCorrientePendientesDTO>()
+                configuration.CreateMap<CuentaCorriente, CuentaCorrienteDTO>()
+                .ForMember(dest => dest.FechaMovimiento, opt => opt.MapFrom(src => src.Fechamovimiento.ToString("dd/MM/yyyy")))
+                .ForMember(dest => dest.FechaVencimiento, opt => opt.MapFrom(src => src.Fechavencimiento.ToString("dd/MM/yyyy")))
                 .ReverseMap();
             }
                 , typeof(Startup));

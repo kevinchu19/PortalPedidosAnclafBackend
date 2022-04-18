@@ -27,28 +27,7 @@ namespace PortalPedidosAnclafBackend.Controllers
             Mapper = mapper;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Route("pendientes")]
-        [HttpGet]
-        public async Task<ActionResult<ICollection<CuentaCorrientePendientesDTO>>> GetPendientesByCliente(string cliente)
-        {
-            ICollection<CuentaCorrientePendientesDTO> pendientes = new List<CuentaCorrientePendientesDTO>() { };
-
-            pendientes = Mapper.Map<ICollection<CuentaCorrientePendientesDTO>>(await Repository.CuentaCorriente.GetPendientesByClienteAsync(cliente));
-
-            return Ok(pendientes);
-        }
-
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet]
-        public async Task<ActionResult<ICollection<CuentaCorriente>>> GetByCliente(string cliente)
-        {
-            
-            return Ok(await Repository.CuentaCorriente.GetByClienteAsync(cliente));
-        }
-
-
-
+     
         [HttpPost]
         public async Task<ActionResult<BaseResponse<CuentaCorriente>>> Post([FromBody] CuentaCorriente cuentaCorriente)
         {

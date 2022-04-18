@@ -32,7 +32,7 @@ namespace PortalPedidosAnclafBackend.Controllers
         public async Task<ActionResult<IEnumerable<PedidoDTO>>> Post([FromBody] PedidoDTO json)
         {
             var pedido = Mapper.Map<PedidoDTO, Pedido>(json);
-            
+
             await Repository.Pedidos.Add(pedido);
             int PostPedidoOk = await Repository.Complete();
 
@@ -44,22 +44,31 @@ namespace PortalPedidosAnclafBackend.Controllers
             {
                 return BadRequest();
             }
-            
+
         }
 
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<Pedido>>> Get(string idCliente, 
-                                                               string idVendedor, 
+        public async Task<ActionResult<PagedList<Pedido>>> Get(string idCliente,
+                                                               string idVendedor,
                                                                string idPedido,
                                                                string fechaDesde,
                                                                string fechaHasta,
                                                                [FromQuery] PaginationParameters parameters)
         {
-            var pedidos = await Repository.Pedidos.GetByParameters(idCliente, idVendedor,idPedido, fechaDesde, fechaHasta, parameters);
+            var pedidos = await Repository.Pedidos.GetByParameters(idCliente, idVendedor, idPedido, fechaDesde, fechaHasta, parameters);
 
             return Ok(pedidos);
         }
 
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Pedido>> GetById(int id)
+        {
+            var pedido = await Repository.Pedidos.GetById(id);
+
+            return Ok(pedido);
+        }
     }
 }

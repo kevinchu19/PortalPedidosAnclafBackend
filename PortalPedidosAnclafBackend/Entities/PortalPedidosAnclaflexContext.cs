@@ -406,6 +406,7 @@ namespace PortalPedidosAnclafBackend.Entities
                     .WithMany(p => p.Pedidos)
                     .HasForeignKey(d => new { d.IdCliente, d.IdEntrega })
                     .HasConstraintName("FK_Pedidos_DireccionesEntrega");
+
             });
 
             modelBuilder.Entity<Pedidositem>(entity =>

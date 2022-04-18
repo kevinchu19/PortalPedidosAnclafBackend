@@ -41,11 +41,33 @@ namespace PortalPedidosAnclafBackend.Controllers
                     Fecha = p.Fecha.ToString("dd/MM/yyyy"),
                     DireccionEntrega = p.DireccionEntrega,
                     RazonSocial = p.Cliente.RazonSocial,
-                    Importe = p.Items.Sum(item => item.Cantidad * (item.Precio - (item.Precio * item.Bonificacion / 100))).ToString("0.00")
+                    Importe = String.Format("{0:n}", p.Items.Sum(item => item.Cantidad * (item.Precio - (item.Precio * item.Bonificacion / 100))))
                 });
             });
 
             return Ok(response);
+        }
+
+
+        [HttpGet("cuentacorriente")]
+        public async Task<ActionResult<ICollection<CuentaCorriente>>> GetCuentaCorrienteByCliente(string cliente, string fechaDesde,string fechaHasta)
+        {
+            ICollection<CuentaCorrienteDTO> cuentaCorriente = new List<CuentaCorrienteDTO>() { };
+
+            cuentaCorriente = Mapper.Map<ICollection<CuentaCorrienteDTO>>(await Repository.CuentaCorriente.GetByClienteAsync(cliente, fechaDesde, fechaHasta));
+            
+            return Ok(cuentaCorriente);
+        }
+
+
+        [HttpGet("cuentacorriente/pendientes")]
+        public async Task<ActionResult<ICollection<CuentaCorrienteDTO>>> GetCuentaCorrientePendientesByCliente(string cliente, string fechaDesde, string fechaHasta)
+        {
+            ICollection<CuentaCorrienteDTO> pendientes = new List<CuentaCorrienteDTO>() { };
+            
+            pendientes = Mapper.Map<ICollection<CuentaCorrienteDTO>>(await Repository.CuentaCorriente.GetPendientesByClienteAsync(cliente, fechaDesde, fechaHasta));
+
+            return Ok(pendientes);
         }
 
     }
