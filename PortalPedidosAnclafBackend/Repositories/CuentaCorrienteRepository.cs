@@ -13,17 +13,34 @@ namespace PortalPedidosAnclafBackend.Repositories
         public CuentaCorrienteRepository(PortalPedidosAnclaflexContext context) : base(context)
         { }
 
-        public async Task<ICollection<CuentaCorriente>> GetByClienteAsync(string cliente, string fechaDesde, string fechaHasta)
+
+        public async Task<CuentaCorriente> Get(CuentaCorriente primaryKey)
         {
-            return await Context.Set<CuentaCorriente>().Where(c => c.Idcliente == cliente
+            return await Context.Set<CuentaCorriente>().FindAsync(primaryKey.Empresa,primaryKey.Codigoformulario, primaryKey.Numeroformulario,
+                primaryKey.Empresaaplicacion, primaryKey.Formularioaplicacion,primaryKey.Numeroformularioaplicacion, 
+                primaryKey.Cuota);
+        }
+        public async Task<ICollection<CuentaCorriente>> GetByClienteAsync(string cliente, string idVendedor, string fechaDesde, string fechaHasta)
+        {
+            return await Context.Set<CuentaCorriente>().Where(c => (c.Idcliente == cliente ||
+                                                                    cliente == "" ||
+                                                                    cliente == null) &&
+                                                                    (c.IdVendedor == idVendedor ||
+                                                                    idVendedor == "" ||
+                                                                    idVendedor == null)
                                                               && c.Fechamovimiento >= Convert.ToDateTime(fechaDesde)
                                                               && c.Fechamovimiento <= Convert.ToDateTime(fechaHasta)).ToListAsync();
         }
 
-        public async Task<ICollection<CuentaCorriente>> GetPendientesByClienteAsync(string cliente, string fechaDesde, string fechaHasta)
+        public async Task<ICollection<CuentaCorriente>> GetPendientesByClienteAsync(string cliente, string idVendedor, string fechaDesde, string fechaHasta)
         {
             return await Context.Set<CuentaCorriente>()
-                .Where(c => c.Idcliente == cliente
+                .Where(c => (c.Idcliente == cliente ||
+                                cliente == "" ||
+                                cliente == null) &&
+                                (c.IdVendedor == idVendedor ||
+                                idVendedor == "" ||
+                                idVendedor == null)
                     && c.Fechamovimiento >= Convert.ToDateTime(fechaDesde)
                     && c.Fechamovimiento <= Convert.ToDateTime(fechaHasta))
                 .GroupBy(c => new { c.Idcliente, c.Empresaaplicacion,c.Formularioaplicacion, c.Numeroformularioaplicacion, c.Fechavencimiento})

@@ -50,22 +50,22 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         [HttpGet("cuentacorriente")]
-        public async Task<ActionResult<ICollection<CuentaCorriente>>> GetCuentaCorrienteByCliente(string cliente, string fechaDesde,string fechaHasta)
+        public async Task<ActionResult<ICollection<CuentaCorriente>>> GetCuentaCorrienteByCliente(string cliente, string idVendedor, string fechaDesde,string fechaHasta)
         {
             ICollection<CuentaCorrienteDTO> cuentaCorriente = new List<CuentaCorrienteDTO>() { };
 
-            cuentaCorriente = Mapper.Map<ICollection<CuentaCorrienteDTO>>(await Repository.CuentaCorriente.GetByClienteAsync(cliente, fechaDesde, fechaHasta));
+            cuentaCorriente = Mapper.Map<ICollection<CuentaCorrienteDTO>>(await Repository.CuentaCorriente.GetByClienteAsync(cliente, idVendedor, fechaDesde, fechaHasta));
             
             return Ok(cuentaCorriente);
         }
 
 
         [HttpGet("cuentacorriente/pendientes")]
-        public async Task<ActionResult<ICollection<CuentaCorrienteDTO>>> GetCuentaCorrientePendientesByCliente(string cliente, string fechaDesde, string fechaHasta)
+        public async Task<ActionResult<ICollection<CuentaCorrienteDTO>>> GetCuentaCorrientePendientesByCliente(string cliente,string idVendedor, string fechaDesde, string fechaHasta)
         {
             ICollection<CuentaCorrienteDTO> pendientes = new List<CuentaCorrienteDTO>() { };
             
-            pendientes = Mapper.Map<ICollection<CuentaCorrienteDTO>>(await Repository.CuentaCorriente.GetPendientesByClienteAsync(cliente, fechaDesde, fechaHasta));
+            pendientes = Mapper.Map<ICollection<CuentaCorrienteDTO>>(await Repository.CuentaCorriente.GetPendientesByClienteAsync(cliente, idVendedor, fechaDesde, fechaHasta));
 
             return Ok(pendientes);
         }

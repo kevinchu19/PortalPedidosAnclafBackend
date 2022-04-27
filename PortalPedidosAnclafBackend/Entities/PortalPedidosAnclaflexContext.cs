@@ -716,6 +716,11 @@ namespace PortalPedidosAnclafBackend.Entities
                 
                 entity.ToTable("cuentascorrientes");
 
+                entity.HasKey(e => new { e.Empresa, e.Codigoformulario, e.Numeroformulario, e.Empresaaplicacion, 
+                    e.Formularioaplicacion, e.Numeroformularioaplicacion, e.Cuota})
+                    .HasName("PRIMARY")
+                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0 });
+
                 entity.HasComment("		");
 
                 entity.Property(e => e.Empresa)
@@ -770,6 +775,37 @@ namespace PortalPedidosAnclafBackend.Entities
                 entity.Property(e => e.Importenacional)
                     .HasPrecision(18, 2)
                     .HasColumnName("importenacional");
+                
+                entity.Property(e => e.IdVendedor)
+                  .IsRequired()
+                  .HasColumnType("varchar(6)")
+                  .HasColumnName("idvendedor")
+                  .HasCharSet("utf8")
+                  .HasCollation("utf8_bin");
+
+                entity.Property(e => e.TipoRegistro)
+                  .IsRequired()
+                  .HasColumnType("char(1)")
+                  .HasColumnName("tiporegistro")
+                  .HasCharSet("utf8")
+                  .HasCollation("utf8_bin");
+
+                entity.Property(e => e.PdfPath)
+                  .IsRequired()
+                  .HasColumnType("varchar(300)")
+                  .HasColumnName("pdfpath")
+                  .HasCharSet("utf8")
+                  .HasCollation("utf8_bin");
+
+                entity.HasOne(d => d.IdClienteNavigation)
+                         .WithMany(p => p.CuentaCorriente)
+                         .HasForeignKey(d => d.Idcliente)
+                         .HasConstraintName("FK_ctacte_clientes");
+
+                entity.HasOne(d => d.IdVendedorNavigation)
+                       .WithMany(p => p.CuentaCorriente)
+                       .HasForeignKey(d => d.IdVendedor)
+                       .HasConstraintName("FK_ctacte_vendedores");
             });
 
             OnModelCreatingPartial(modelBuilder);

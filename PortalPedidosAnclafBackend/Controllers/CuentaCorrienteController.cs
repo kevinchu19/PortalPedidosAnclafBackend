@@ -8,6 +8,7 @@ using PortalPedidosAnclafBackend.Models;
 using PortalPedidosAnclafBackend.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace PortalPedidosAnclafBackend.Controllers
         public async Task<ActionResult<BaseResponse<CuentaCorriente>>> Post([FromBody] CuentaCorriente cuentaCorriente)
         {
 
-            CuentaCorriente cuentaCorrienteEncontrado = await Repository.CuentaCorriente.Get(cuentaCorriente.Id);
+            CuentaCorriente cuentaCorrienteEncontrado = await Repository.CuentaCorriente.Get(cuentaCorriente);
 
             if (cuentaCorrienteEncontrado != null)
             {
@@ -56,7 +57,7 @@ namespace PortalPedidosAnclafBackend.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<BaseResponse<CuentaCorriente>>> Put(int id, [FromBody] CuentaCorriente cuentaCorriente)
         {
-            CuentaCorriente cuentaCorrienteEncontrado = await Repository.CuentaCorriente.Get(id);
+            CuentaCorriente cuentaCorrienteEncontrado = await Repository.CuentaCorriente.Get(cuentaCorriente);
 
             if (cuentaCorrienteEncontrado != null)
             {
@@ -77,5 +78,7 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         }
+
+        
     }
 }

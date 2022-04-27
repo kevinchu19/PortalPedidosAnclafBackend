@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -7,7 +8,6 @@ namespace PortalPedidosAnclafBackend.Entities
 {
     public partial class CuentaCorriente
     {
-        public int Id { get; set; }
         public string Empresa { get; set; }
         public string Codigoformulario { get; set; }
         public int Numeroformulario { get; set; }
@@ -20,5 +20,13 @@ namespace PortalPedidosAnclafBackend.Entities
         public DateTime Fechavencimiento { get; set; }
         public decimal Importenacional { get; set; }
         public decimal Importeextranjera { get; set; }
+        public string IdVendedor { get; set; }
+        public string TipoRegistro { get; set; }
+        public string PdfPath { get; set; }
+
+        [JsonIgnore]
+        public virtual Cliente IdClienteNavigation { get; set; }
+        [JsonIgnore]
+        public virtual Vendedores IdVendedorNavigation { get; set; }
     }
 }
