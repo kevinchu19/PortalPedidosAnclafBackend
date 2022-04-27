@@ -28,6 +28,7 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
         private IBonificacionRepository _bonificaciones { get; set; }
         private IVendedorRepository _vendedores { get; set; }
         private IListaDePrecioRepository _listasDePrecio { get; set; }
+        private ICuentaCorrienteRepository _cuentaCorriente{ get; set; }
         public UnitOfWork(PortalPedidosAnclaflexContext context)
         {
             Context = context;
@@ -161,6 +162,18 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
                     _listasDePrecio = new ListaDePrecioRepository(Context);
                 }
                 return _listasDePrecio;
+            }
+        }
+
+        public ICuentaCorrienteRepository CuentaCorriente
+        {
+            get
+            {
+                if (_cuentaCorriente == null)
+                {
+                    _cuentaCorriente  = new CuentaCorrienteRepository (Context);
+                }
+                return _cuentaCorriente;
             }
         }
         public async Task<int> Complete()

@@ -21,7 +21,12 @@ namespace PortalPedidosAnclafBackend.Repositories
             pedido.Transferido = nuevoEstado;
         }
 
-
+        public async Task<Pedido> GetById(int id) => await Context.Set<Pedido>().Include(i => i.Items).ThenInclude(p => p.IdProductoNavigation)
+                                                                                .Include(e => e.IdEntregaNavigation)
+                                                                                .Include(e => e.ProvinciaEntregaNavigation)
+                                                                                .Include(c => c.Cliente).ThenInclude(p => p.ProvinciaFacturacionNavigation)
+                                                                                .Where(p=> p.Id == id)                                                                    
+                                                                                .FirstOrDefaultAsync();
 
         public async Task<PagedList<Pedido>> GetByParameters(string idCliente, string idVendedor, string idPedido, 
                                                              string fechaDesde, string fechaHasta, PaginationParameters parameters)
@@ -52,6 +57,29 @@ namespace PortalPedidosAnclafBackend.Repositories
                 parameters.PageNumber,
                 parameters.PageSize);
         }
+
+
+        public async Task<IEnumerable<Pedido>> GetByParametersForTF(string idCliente, string idVendedor, string fechaDesde, string fechaHasta)
+        {
+            return await Context.Set<Pedido>()
+                .Where(c => ((c.IdCliente == idCliente ||
+                                idCliente == "" ||
+                                idCliente == null) &&
+                                (c.IdVendedor == idVendedor ||
+                                idVendedor == "" ||
+                                idVendedor == null)&&
+                                 (c.Fecha >= Convert.ToDateTime(fechaDesde) ||
+                                fechaDesde == "" ||
+                                fechaDesde == null) &&
+                                (c.Fecha <= Convert.ToDateTime(fechaHasta) ||
+                                fechaHasta == "" ||
+                                fechaHasta == null)))
+                .Include(i => i.Items).ThenInclude(p => p.IdProductoNavigation)
+                .Include(c => c.Cliente)
+                .OrderByDescending(c => c.Id)
+                .ToListAsync();
+        }
+
 
         public async Task<IEnumerable<Pedido>> GetForSoftland(int skip, int take) => await Context.Set<Pedido>()
                                                                                 .Select(c => new Pedido()

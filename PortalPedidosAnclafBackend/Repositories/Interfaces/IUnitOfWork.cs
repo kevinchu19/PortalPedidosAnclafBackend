@@ -18,6 +18,7 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
         IBonificacionRepository Bonificaciones { get; }
         IVendedorRepository Vendedores { get; }
         IListaDePrecioRepository ListasDePrecio { get; }
+        ICuentaCorrienteRepository CuentaCorriente { get; }
         Task<int> Complete();
     }
 }

@@ -1,6 +1,7 @@
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PubTmp\Out\PortalPedidosAnclafBackend.exe
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Development.json
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Staging.json
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PubTmp\Out\PortalPedidosAnclafBackend.dll
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PubTmp\Out\PortalPedidosAnclafBackend.runtimeconfig.json
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PubTmp\Out\PortalPedidosAnclafBackend.pdb
