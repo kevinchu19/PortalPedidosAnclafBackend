@@ -39,7 +39,7 @@ namespace PortalPedidosAnclafBackend.Controllers
             {
                 return BadRequest(new BaseResponse<CuentaCorriente>("Bad request", "El registro ya existe"));
             }
-            
+
             await Repository.CuentaCorriente.Add(cuentaCorriente);
 
             if (await Repository.Complete() > 0)
