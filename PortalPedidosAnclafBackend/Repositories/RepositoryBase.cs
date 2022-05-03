@@ -23,6 +23,7 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                                     .Take(take)
                                                                                     .ToListAsync();
 
+
         public async Task Add(TEntity entity) => await Context.Set<TEntity>().AddAsync(entity);
 
         public async Task AddRange(IEnumerable<TEntity> entities) => await Context.Set<TEntity>().AddRangeAsync(entities);

@@ -50,12 +50,12 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         [HttpGet("cuentacorriente")]
-        public async Task<ActionResult<ICollection<CuentaCorriente>>> GetCuentaCorrienteByCliente(string cliente, string idVendedor, string fechaDesde,string fechaHasta)
+        public async Task<ActionResult<ICollection<object>>> GetCuentaCorrienteByCliente(string cliente, string idVendedor, string fechaDesde,string fechaHasta)
         {
-            ICollection<CuentaCorrienteDTO> cuentaCorriente = new List<CuentaCorrienteDTO>() { };
+            //ICollection<object> cuentaCorriente = new List<object>() { };
 
-            cuentaCorriente = Mapper.Map<ICollection<CuentaCorrienteDTO>>(await Repository.CuentaCorriente.GetByClienteAsync(cliente, idVendedor, fechaDesde, fechaHasta));
-            
+            //cuentaCorriente = Mapper.Map<ICollection<object>>(await Repository.CuentaCorriente.GetByClienteAsync(cliente, idVendedor, fechaDesde, fechaHasta));
+            var cuentaCorriente = await Repository.CuentaCorriente.GetByClienteAsync(cliente, idVendedor, fechaDesde, fechaHasta);
             return Ok(cuentaCorriente);
         }
 

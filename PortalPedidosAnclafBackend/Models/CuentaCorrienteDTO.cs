@@ -16,6 +16,7 @@ namespace PortalPedidosAnclafBackend.Models
         public string FechaVencimiento { get; set; }
         public string ImporteNacional { get; set; }
         public string PdfPath { get; set; }
+        public string RazonSocial { get; set; }
 
     }
 }
