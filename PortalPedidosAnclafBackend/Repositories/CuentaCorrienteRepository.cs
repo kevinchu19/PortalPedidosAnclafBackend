@@ -22,35 +22,19 @@ namespace PortalPedidosAnclafBackend.Repositories
                 primaryKey.Cuota);
         }
 
-        public async Task<ICollection<object>> GetByClienteAsync(string cliente, string idVendedor, string fechaDesde, string fechaHasta)
+        public async Task<ICollection<CuentaCorriente>> GetByClienteAsync(string cliente, string idVendedor, string fechaDesde, string fechaHasta)
         {
-            var a =  await Context.Set<CuentaCorrienteDTO>().Join(Context.Set<Cliente>(),
-                                                             cta => cta.Idcliente,
-                                                             cliente => cliente.Id,
-                                                             (cta, cliente) => new CuentaCorrienteDTO(){
-                                                                 Empresa=cta.Empresa,
-                                                                 CodigoFormulario = cta.Codigoformulario,
-                                                                 cta.Numeroformulario,
-                                                                 cta.Empresaaplicacion,
-                                                                 cta.Formularioaplicacion,
-                                                                 cta.Numeroformularioaplicacion,
-                                                                 cta.Cuota,
-                                                                 cta.Fechamovimiento,
-                                                                 cta.Fechavencimiento,
-                                                                 cta.IdVendedor,
-                                                                 cta.Importenacional,
-                                                                 cta.Importeextranjera,
-                                                                 cta.Idcliente,
-                                                                 cliente.RazonSocial
-                                                             }).Where(c => (c.Idcliente == cliente ||
+            return  await Context.Set<CuentaCorriente>().Where(c => (c.Idcliente == cliente ||
                                                                     cliente == "" ||
                                                                     cliente == null) &&
                                                                     (c.IdVendedor == idVendedor ||
                                                                     idVendedor == "" ||
                                                                     idVendedor == null)
                                                               && c.Fechamovimiento >= Convert.ToDateTime(fechaDesde)
-                                                              && c.Fechamovimiento <= Convert.ToDateTime(fechaHasta)).ToListAsync();
-            return (ICollection<object>)a;
+                                                              && c.Fechamovimiento <= Convert.ToDateTime(fechaHasta))
+                .Include( c=> c.IdClienteNavigation)
+                .ToListAsync();
+            
         }
 
         public async Task<ICollection<CuentaCorriente>> GetPendientesByClienteAsync(string cliente, string idVendedor, string fechaDesde, string fechaHasta)
@@ -66,7 +50,6 @@ namespace PortalPedidosAnclafBackend.Repositories
                     && c.Fechamovimiento <= Convert.ToDateTime(fechaHasta))
                 .GroupBy(c => new { c.Idcliente, c.Empresaaplicacion,c.Formularioaplicacion, c.Numeroformularioaplicacion, c.Fechavencimiento})
                 .Where(c=> c.Sum( c=> c.Importenacional) != 0 )
-                
                 .Select(pendiente => new CuentaCorriente()
                 {
                     Empresa = pendiente.Key.Empresaaplicacion,
@@ -80,9 +63,10 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                             && c.Numeroformulario == c.Numeroformularioaplicacion)
                                                                     .Select(c=> c.Fechamovimiento!=null ? c.Fechamovimiento : c.Fechavencimiento)
                                                                     .First(),
-                    Importenacional = pendiente.Sum(c=> c.Importenacional)
-
+                    Importenacional = pendiente.Sum(c=> c.Importenacional),
+                    IdClienteNavigation = Context.Set<Cliente>().Where(c=>c.Id== pendiente.Key.Idcliente).First()
                 })
+                
                 .ToListAsync();
         }
 

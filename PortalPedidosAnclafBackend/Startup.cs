@@ -140,6 +140,7 @@ namespace PortalPedidosAnclafBackend
                 configuration.CreateMap<CuentaCorriente, CuentaCorrienteDTO>()
                 .ForMember(dest => dest.FechaMovimiento, opt => opt.MapFrom(src => src.Fechamovimiento.ToString("dd/MM/yyyy")))
                 .ForMember(dest => dest.FechaVencimiento, opt => opt.MapFrom(src => src.Fechavencimiento.ToString("dd/MM/yyyy")))
+                .ForMember(dest => dest.RazonSocial, opt => opt.MapFrom(src => src.IdClienteNavigation.RazonSocial))
                 .ReverseMap();
             }
                 , typeof(Startup));
