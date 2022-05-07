@@ -1,4 +1,5 @@
 ﻿using PortalPedidosAnclafBackend.Entities;
+using PortalPedidosAnclafBackend.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

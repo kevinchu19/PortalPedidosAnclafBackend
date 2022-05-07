@@ -41,7 +41,7 @@ namespace PortalPedidosAnclafBackend.Controllers
                     Fecha = p.Fecha.ToString("dd/MM/yyyy"),
                     DireccionEntrega = p.DireccionEntrega,
                     RazonSocial = p.Cliente.RazonSocial,
-                    Importe = String.Format("{0:n}", p.Items.Sum(item => item.Cantidad * (item.Precio - (item.Precio * item.Bonificacion / 100))))
+                    importeNacional = p.Items.Sum(item => item.Cantidad * (item.Precio - (item.Precio * item.Bonificacion / 100)))
                 });
             });
 
@@ -50,12 +50,12 @@ namespace PortalPedidosAnclafBackend.Controllers
 
 
         [HttpGet("cuentacorriente")]
-        public async Task<ActionResult<ICollection<CuentaCorriente>>> GetCuentaCorrienteByCliente(string cliente, string idVendedor, string fechaDesde,string fechaHasta)
+        public async Task<ActionResult<ICollection<CuentaCorrienteDTO>>> GetCuentaCorrienteByCliente(string cliente, string idVendedor, string fechaDesde,string fechaHasta)
         {
-            ICollection<CuentaCorrienteDTO> cuentaCorriente = new List<CuentaCorrienteDTO>() { };
-
-            cuentaCorriente = Mapper.Map<ICollection<CuentaCorrienteDTO>>(await Repository.CuentaCorriente.GetByClienteAsync(cliente, idVendedor, fechaDesde, fechaHasta));
+            ICollection<CuentaCorrienteDTO> cuentaCorriente = new List<CuentaCorrienteDTO>() { }; 
             
+            cuentaCorriente = Mapper.Map < ICollection < CuentaCorrienteDTO >> (await Repository.CuentaCorriente.GetByClienteAsync(cliente, idVendedor, fechaDesde, fechaHasta));
+
             return Ok(cuentaCorriente);
         }
 

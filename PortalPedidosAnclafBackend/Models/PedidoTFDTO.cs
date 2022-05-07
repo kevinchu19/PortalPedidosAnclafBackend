@@ -11,6 +11,6 @@ namespace PortalPedidosAnclafBackend.Models
         public string RazonSocial { get; set; }
         public string DireccionEntrega { get; set; }
         public string Fecha { get; set; }
-        public string Importe { get; set; }
+        public decimal importeNacional { get; set; }
     }
 }
