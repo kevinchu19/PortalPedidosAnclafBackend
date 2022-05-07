@@ -41,7 +41,7 @@ namespace PortalPedidosAnclafBackend.Controllers
                     Fecha = p.Fecha.ToString("dd/MM/yyyy"),
                     DireccionEntrega = p.DireccionEntrega,
                     RazonSocial = p.Cliente.RazonSocial,
-                    Importe = String.Format("{0:n}", p.Items.Sum(item => item.Cantidad * (item.Precio - (item.Precio * item.Bonificacion / 100))))
+                    importeNacional = p.Items.Sum(item => item.Cantidad * (item.Precio - (item.Precio * item.Bonificacion / 100)))
                 });
             });
 

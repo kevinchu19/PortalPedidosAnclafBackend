@@ -119,8 +119,15 @@ namespace PortalPedidosAnclafBackend
                options.UseMySql(Configuration.GetConnectionString("PortalPedidosAnclaflex"),
                new MySqlServerVersion(new Version(8, 0, 23)),
                mySqlOptions => mySqlOptions
-                .CharSetBehavior(CharSetBehavior.NeverAppend))
+                .EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: System.TimeSpan.FromSeconds(20),
+                    errorNumbersToAdd: null)
+                .CharSetBehavior(CharSetBehavior.NeverAppend)
+                )
                 .EnableSensitiveDataLogging()
+                
+                
                );
 
             //Unit of work
