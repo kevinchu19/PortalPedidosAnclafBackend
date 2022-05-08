@@ -57,7 +57,7 @@ namespace PortalPedidosAnclafBackend.Repositories
                     && !codigosInternosExcluidos.Contains(c.Formularioaplicacion)
                     && c.Empresaaplicacion == "ANCLAF01")
                 .OrderBy(c=>c.Idcliente).ThenBy(c => c.Fechamovimiento)
-                .GroupBy(c => new { c.Idcliente, c.Empresaaplicacion, c.Formularioaplicacion, c.Numeroformularioaplicacion, c.Fechavencimiento, c.PdfPath })
+                .GroupBy(c => new { c.Idcliente, c.Empresaaplicacion, c.Formularioaplicacion, c.Numeroformularioaplicacion, c.Fechavencimiento})
                 .Where(c => c.Sum(c => c.Importenacional) != 0)
                 .Select(pendiente => new CuentaCorriente()
                 {
@@ -65,7 +65,13 @@ namespace PortalPedidosAnclafBackend.Repositories
                     Codigoformulario = pendiente.Key.Formularioaplicacion,
                     Numeroformulario = pendiente.Key.Numeroformularioaplicacion,
                     Fechavencimiento = pendiente.Key.Fechavencimiento,
-                    PdfPath = pendiente.Key.PdfPath,
+                    PdfPath = Context.Set<CuentaCorriente>().Where(c => c.Empresa == pendiente.Key.Empresaaplicacion
+                                                                            && c.Codigoformulario == pendiente.Key.Formularioaplicacion
+                                                                            && c.Numeroformulario == pendiente.Key.Numeroformularioaplicacion
+                                                                            && c.Codigoformulario == c.Formularioaplicacion
+                                                                            && c.Numeroformulario == c.Numeroformularioaplicacion)
+                                                                    .Select(c => c.PdfPath)
+                                                                    .First(),
                     Fechamovimiento = Context.Set<CuentaCorriente>().Where(c => c.Empresa == pendiente.Key.Empresaaplicacion
                                                                             && c.Codigoformulario == pendiente.Key.Formularioaplicacion
                                                                             && c.Numeroformulario == pendiente.Key.Numeroformularioaplicacion
