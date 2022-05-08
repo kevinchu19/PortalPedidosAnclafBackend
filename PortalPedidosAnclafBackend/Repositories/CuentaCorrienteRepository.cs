@@ -57,7 +57,7 @@ namespace PortalPedidosAnclafBackend.Repositories
                     && !codigosInternosExcluidos.Contains(c.Formularioaplicacion)
                     && c.Empresaaplicacion == "ANCLAF01")
                 .OrderBy(c=>c.Idcliente).ThenBy(c => c.Fechamovimiento)
-                .GroupBy(c => new { c.Idcliente, c.Empresaaplicacion, c.Formularioaplicacion, c.Numeroformularioaplicacion, c.Fechavencimiento })
+                .GroupBy(c => new { c.Idcliente, c.Empresaaplicacion, c.Formularioaplicacion, c.Numeroformularioaplicacion, c.Fechavencimiento, c.PdfPath })
                 .Where(c => c.Sum(c => c.Importenacional) != 0)
                 .Select(pendiente => new CuentaCorriente()
                 {
@@ -65,6 +65,7 @@ namespace PortalPedidosAnclafBackend.Repositories
                     Codigoformulario = pendiente.Key.Formularioaplicacion,
                     Numeroformulario = pendiente.Key.Numeroformularioaplicacion,
                     Fechavencimiento = pendiente.Key.Fechavencimiento,
+                    PdfPath = pendiente.Key.PdfPath,
                     Fechamovimiento = Context.Set<CuentaCorriente>().Where(c => c.Empresa == pendiente.Key.Empresaaplicacion
                                                                             && c.Codigoformulario == pendiente.Key.Formularioaplicacion
                                                                             && c.Numeroformulario == pendiente.Key.Numeroformularioaplicacion
@@ -74,6 +75,7 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                     .First(),
                     Importenacional = pendiente.Sum(c => c.Importenacional),
                     IdClienteNavigation = Context.Set<Cliente>().Where(c => c.Id == pendiente.Key.Idcliente).First()
+                    
                 })
                 
                 .ToListAsync();
