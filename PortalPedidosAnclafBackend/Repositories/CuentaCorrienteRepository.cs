@@ -37,9 +37,30 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                               && !codigosInternosExcluidos.Contains(c.Codigoformulario)
                                                               && c.Empresa == "ANCLAF01"
                                                               )
-                .Include( c=> c.IdClienteNavigation)
+                
                 .OrderBy(c => c.Fechamovimiento)
-                .ToListAsync();
+                .GroupBy(c => new { c.Idcliente, c.Fechamovimiento, c.Empresa, c.Codigoformulario, c.Numeroformulario, c.PdfPath })
+                .Select(historico => new CuentaCorriente()
+                {
+                    Empresa = historico.Key.Empresa,
+                    Codigoformulario = historico.Key.Codigoformulario,
+                    Numeroformulario = historico.Key.Numeroformulario,
+                    Fechavencimiento = Context.Set<CuentaCorriente>().Where(c => c.Empresa == historico.Key.Empresa
+                                                                            && c.Codigoformulario == historico.Key.Codigoformulario
+                                                                            && c.Numeroformulario == historico.Key.Numeroformulario
+                                                                            //&& c.Codigoformulario == c.Formularioaplicacion
+                                                                            //&& c.Numeroformulario == c.Numeroformularioaplicacion
+                                                                            )
+                                                                            .Select(c => c.Fechavencimiento)
+                                                                            .First(),
+                    PdfPath = historico.Key.PdfPath,
+                    Fechamovimiento = historico.Key.Fechamovimiento,
+                    Importenacional = historico.Sum(c => c.Importenacional),
+                    IdClienteNavigation = Context.Set<Cliente>().Where(c => c.Id == historico.Key.Idcliente).First()
+
+                })
+                .ToListAsync()
+                ;
             
         }
 
@@ -52,12 +73,12 @@ namespace PortalPedidosAnclafBackend.Repositories
                                 (c.IdVendedor == idVendedor ||
                                 idVendedor == "" ||
                                 idVendedor == null)
-                    && c.Fechamovimiento >= Convert.ToDateTime(fechaDesde)
-                    && c.Fechamovimiento <= Convert.ToDateTime(fechaHasta)
+                    //&& c.Fechamovimiento >= Convert.ToDateTime(fechaDesde)
+                    //&& c.Fechamovimiento <= Convert.ToDateTime(fechaHasta)
                     && !codigosInternosExcluidos.Contains(c.Formularioaplicacion)
                     && c.Empresaaplicacion == "ANCLAF01")
-                .OrderBy(c=>c.Idcliente).ThenBy(c => c.Fechamovimiento)
-                .GroupBy(c => new { c.Idcliente, c.Empresaaplicacion, c.Formularioaplicacion, c.Numeroformularioaplicacion, c.Fechavencimiento})
+                .OrderBy(c => c.Idcliente).ThenBy(c => c.Fechavencimiento)
+                .GroupBy(c => new { c.Idcliente, c.Fechavencimiento, c.Empresaaplicacion, c.Formularioaplicacion, c.Numeroformularioaplicacion})
                 .Where(c => c.Sum(c => c.Importenacional) != 0)
                 .Select(pendiente => new CuentaCorriente()
                 {
