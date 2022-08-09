@@ -6,6 +6,7 @@ using PortalPedidosAnclafBackend.Models;
 using PortalPedidosAnclafBackend.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -56,6 +57,8 @@ namespace PortalPedidosAnclafBackend.Controllers
             
             cuentaCorriente = Mapper.Map < ICollection < CuentaCorrienteDTO >> (await Repository.CuentaCorriente.GetByClienteAsync(cliente, idVendedor, fechaDesde, fechaHasta));
 
+            cuentaCorriente = cuentaCorriente.OrderBy(c => DateTime.ParseExact(c.FechaMovimiento, "dd/MM/yyyy", CultureInfo.InvariantCulture)).ToList();
+
             return Ok(cuentaCorriente);
         }
 
@@ -66,6 +69,8 @@ namespace PortalPedidosAnclafBackend.Controllers
             ICollection<CuentaCorrienteDTO> pendientes = new List<CuentaCorrienteDTO>() { };
             
             pendientes = Mapper.Map<ICollection<CuentaCorrienteDTO>>(await Repository.CuentaCorriente.GetPendientesByClienteAsync(cliente, idVendedor, fechaDesde, fechaHasta));
+
+            pendientes = pendientes.OrderBy(c => DateTime.ParseExact(c.FechaMovimiento, "dd/MM/yyyy", CultureInfo.InvariantCulture)).ToList();
 
             return Ok(pendientes);
         }

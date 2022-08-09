@@ -12,8 +12,8 @@ namespace PortalPedidosAnclafBackend.Models
         public int NumeroFormulario{ get; set; }
         public string FormularioAplicacion { get; set; }
         public int NumeroFormularioAplicacion { get; set; }
-        public string FechaMovimiento { get; set; }
-        public string FechaVencimiento { get; set; }
+        public string? FechaMovimiento { get; set; }
+        public string? FechaVencimiento { get; set; }
         public string ImporteNacional { get; set; }
         public string PdfPath { get; set; }
         public string RazonSocial { get; set; }
