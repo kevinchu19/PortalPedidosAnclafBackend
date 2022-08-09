@@ -12,5 +12,6 @@ namespace PortalPedidosAnclafBackend.Models
         public string DireccionEntrega { get; set; }
         public string Fecha { get; set; }
         public decimal importeNacional { get; set; }
+        public string Estado { get; set; }
     }
 }

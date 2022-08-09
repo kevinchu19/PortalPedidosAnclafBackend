@@ -390,6 +390,10 @@ namespace PortalPedidosAnclafBackend.Entities
                    .HasCharSet("utf8")
                    .HasCollation("utf8_bin");
 
+                entity.Property(e => e.Estado)
+                   .HasColumnType("varchar(100)")
+                   .HasCharSet("utf8")
+                   .HasCollation("utf8_bin");
 
                 entity.HasOne(d => d.Cliente)
                             .WithMany(p => p.Pedidos)
