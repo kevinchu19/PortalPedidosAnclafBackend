@@ -1,4 +1,5 @@
-﻿using PortalPedidosAnclafBackend.Entities;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using PortalPedidosAnclafBackend.Entities;
 using PortalPedidosAnclafBackend.Models;
 using PortalPedidosAnclafBackend.Repositories.Helpers;
 using System;
@@ -15,5 +16,6 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
         Task ActualizaPedidoTransferido(int id, short nuevoEstado);
         Task<Pedido> GetById(int id);
         Task<IEnumerable<Pedido>> GetByParametersForTF(string idCliente, string idVendedor, string fechaDesde, string fechaHasta);
+        Task<Pedido> ActualizarEstado(int idPedido, string nuevoEstado);
     }
 }

@@ -39,6 +39,7 @@ namespace PortalPedidosAnclafBackend.Entities
         public Int16 Transferido { get; set; }
 
         public string IdUsuario{ get; set; }
+        public string Estado { get; set; }
 
         public virtual Cliente Cliente { get; set; }
         public virtual Clientesdireccionesentrega IdEntregaNavigation { get; set; }

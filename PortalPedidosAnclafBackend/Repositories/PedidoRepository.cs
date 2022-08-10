@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.EntityFrameworkCore;
 using PortalPedidosAnclafBackend.Entities;
 using PortalPedidosAnclafBackend.Models;
 using PortalPedidosAnclafBackend.Repositories.Helpers;
@@ -19,6 +20,13 @@ namespace PortalPedidosAnclafBackend.Repositories
         {
             Pedido pedido = await this.Get(id);
             pedido.Transferido = nuevoEstado;
+        }
+
+        public async Task<Pedido> ActualizarEstado(int idPedido, string nuevoEstado)
+        {
+            Pedido pedidoAActualizar = await this.Get(idPedido);
+            pedidoAActualizar.Estado = nuevoEstado;
+            return pedidoAActualizar;
         }
 
         public async Task<Pedido> GetById(int id) => await Context.Set<Pedido>().Include(i => i.Items).ThenInclude(p => p.IdProductoNavigation)
@@ -115,6 +123,5 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                                 .Skip(skip)
                                                                                 .Take(take)
                                                                                 .ToListAsync();
-        
     }
 }

@@ -55,8 +55,8 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                             .First(),
                     PdfPath = historico.Key.PdfPath,
                     Fechamovimiento = historico.Key.Fechamovimiento,
-                    Importenacional = historico.Sum(c => c.Importenacional),
-                    IdClienteNavigation = Context.Set<Cliente>().Where(c => c.Id == historico.Key.Idcliente).First()
+                    Importenacional = historico.Sum(c => c.Importenacional)//,
+                    //IdClienteNavigation = Context.Set<Cliente>().Where(c => c.Id == historico.Key.Idcliente).First()
 
                 })
                 .ToListAsync()
@@ -83,20 +83,20 @@ namespace PortalPedidosAnclafBackend.Repositories
                 .Select(pendiente => new CuentaCorriente()
                 {
                     Empresa = pendiente.Key.Empresaaplicacion,
-                    Codigoformulario = pendiente.Key.Formularioaplicacion,
+                    Codigoformulario = pendiente.Key.Formularioaplicacion.Replace("AC","RC"),
                     Numeroformulario = pendiente.Key.Numeroformularioaplicacion,
                     Fechavencimiento = pendiente.Key.Fechavencimiento,
                     PdfPath = Context.Set<CuentaCorriente>().Where(c => c.Empresa == pendiente.Key.Empresaaplicacion
-                                                                            && c.Codigoformulario == pendiente.Key.Formularioaplicacion
+                                                                            && c.Codigoformulario == pendiente.Key.Formularioaplicacion.Replace("AC", "RC")
                                                                             && c.Numeroformulario == pendiente.Key.Numeroformularioaplicacion
-                                                                            && c.Codigoformulario == c.Formularioaplicacion
+                                                                            && (c.Codigoformulario == c.Formularioaplicacion || c.Codigoformulario =="RC")
                                                                             && c.Numeroformulario == c.Numeroformularioaplicacion)
                                                                     .Select(c => c.PdfPath)
                                                                     .First(),
                     Fechamovimiento = Context.Set<CuentaCorriente>().Where(c => c.Empresa == pendiente.Key.Empresaaplicacion
-                                                                            && c.Codigoformulario == pendiente.Key.Formularioaplicacion
+                                                                            && c.Codigoformulario == pendiente.Key.Formularioaplicacion.Replace("AC", "RC")
                                                                             && c.Numeroformulario == pendiente.Key.Numeroformularioaplicacion
-                                                                            && c.Codigoformulario == c.Formularioaplicacion
+                                                                            && (c.Codigoformulario == c.Formularioaplicacion || c.Codigoformulario == "RC")
                                                                             && c.Numeroformulario == c.Numeroformularioaplicacion)
                                                                     .Select(c => c.Fechamovimiento != null ? c.Fechamovimiento : c.Fechavencimiento)
                                                                     .First(),
