@@ -95,7 +95,8 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                         .OrderByDescending(c => c.Created_At)
                                                                         .Take(1)
                                                                         .Select(c => (c.Bonificacion3 != null ? c.Bonificacion3 : 0))
-                                                                        .FirstOrDefault()
+                                                                        .FirstOrDefault(),
+                                                Pesokg = producto.Pesokg
                                             })   
                                             .FirstOrDefaultAsync();
         }
