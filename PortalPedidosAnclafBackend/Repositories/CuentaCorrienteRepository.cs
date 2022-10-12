@@ -55,8 +55,8 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                             .First(),
                     PdfPath = historico.Key.PdfPath,
                     Fechamovimiento = historico.Key.Fechamovimiento,
-                    Importenacional = historico.Sum(c => c.Importenacional)//,
-                    //IdClienteNavigation = Context.Set<Cliente>().Where(c => c.Id == historico.Key.Idcliente).First()
+                    Importenacional = historico.Sum(c => c.Importenacional),
+                    IdClienteNavigation = Context.Set<Cliente>().Where(c => c.Id == historico.Key.Idcliente).First()
 
                 })
                 .ToListAsync()

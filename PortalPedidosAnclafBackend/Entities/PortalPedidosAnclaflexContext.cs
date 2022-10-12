@@ -506,6 +506,8 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
 
+                entity.Property(e => e.Pesokg).HasPrecision(18);
+
             });
             modelBuilder.Entity<Provincia>(entity =>
             {
