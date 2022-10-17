@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -27,6 +28,9 @@ namespace PortalPedidosAnclafBackend.Entities
         }
 
         private DateTime? _createdAt = null;
+        [JsonIgnore]
         public virtual ICollection<Usuario> Usuarios { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<CuentaCorriente> CuentaCorriente { get; set; }
     }
 }

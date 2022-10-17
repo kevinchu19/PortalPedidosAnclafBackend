@@ -29,7 +29,8 @@ namespace PortalPedidosAnclafBackend.Entities
         public virtual DbSet<Transportistasredespacho> Transportistasredespachos { get; set; }
 
         public virtual DbSet<Bonificacion> Bonificaciones { get; set; }
-        
+
+        public virtual DbSet<CuentaCorriente> Cuentascorrientes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -389,6 +390,10 @@ namespace PortalPedidosAnclafBackend.Entities
                    .HasCharSet("utf8")
                    .HasCollation("utf8_bin");
 
+                entity.Property(e => e.Estado)
+                   .HasColumnType("varchar(100)")
+                   .HasCharSet("utf8")
+                   .HasCollation("utf8_bin");
 
                 entity.HasOne(d => d.Cliente)
                             .WithMany(p => p.Pedidos)
@@ -405,6 +410,7 @@ namespace PortalPedidosAnclafBackend.Entities
                     .WithMany(p => p.Pedidos)
                     .HasForeignKey(d => new { d.IdCliente, d.IdEntrega })
                     .HasConstraintName("FK_Pedidos_DireccionesEntrega");
+
             });
 
             modelBuilder.Entity<Pedidositem>(entity =>
@@ -499,6 +505,8 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasColumnType("datetime")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Pesokg).HasPrecision(18);
 
             });
             modelBuilder.Entity<Provincia>(entity =>
@@ -707,6 +715,103 @@ namespace PortalPedidosAnclafBackend.Entities
                     .HasColumnType("datetime")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_bin");
+            });
+
+            modelBuilder.Entity<CuentaCorriente>(entity =>
+            {
+                
+                entity.ToTable("cuentascorrientes");
+
+                entity.HasKey(e => new { e.Empresa, e.Codigoformulario, e.Numeroformulario, e.Empresaaplicacion, 
+                    e.Formularioaplicacion, e.Numeroformularioaplicacion, e.Cuota})
+                    .HasName("PRIMARY")
+                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0 });
+
+                entity.HasComment("		");
+
+                entity.Property(e => e.Empresa)
+                    .HasColumnType("varchar(45)")
+                    .HasColumnName("empresa")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Codigoformulario)
+                    .HasColumnType("varchar(6)")
+                    .HasColumnName("codigoformulario")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Numeroformulario).HasColumnName("numeroformulario");
+
+                entity.Property(e => e.Empresaaplicacion)
+                    .HasColumnType("varchar(45)")
+                    .HasColumnName("empresaaplicacion")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Formularioaplicacion)
+                    .HasColumnType("varchar(6)")
+                    .HasColumnName("formularioaplicacion")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Numeroformularioaplicacion).HasColumnName("numeroformularioaplicacion");
+
+                entity.Property(e => e.Cuota).HasColumnName("cuota");
+
+                entity.Property(e => e.Fechamovimiento)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fechamovimiento");
+
+                entity.Property(e => e.Fechavencimiento)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fechavencimiento");
+
+                entity.Property(e => e.Idcliente)
+                    .IsRequired()
+                    .HasColumnType("varchar(20)")
+                    .HasColumnName("idcliente")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_bin");
+
+                entity.Property(e => e.Importeextranjera)
+                    .HasPrecision(18, 2)
+                    .HasColumnName("importeextranjera");
+
+                entity.Property(e => e.Importenacional)
+                    .HasPrecision(18, 2)
+                    .HasColumnName("importenacional");
+                
+                entity.Property(e => e.IdVendedor)
+                  .IsRequired()
+                  .HasColumnType("varchar(6)")
+                  .HasColumnName("idvendedor")
+                  .HasCharSet("utf8")
+                  .HasCollation("utf8_bin");
+
+                entity.Property(e => e.TipoRegistro)
+                  .IsRequired()
+                  .HasColumnType("char(1)")
+                  .HasColumnName("tiporegistro")
+                  .HasCharSet("utf8")
+                  .HasCollation("utf8_bin");
+
+                entity.Property(e => e.PdfPath)
+                  .IsRequired()
+                  .HasColumnType("varchar(300)")
+                  .HasColumnName("pdfpath")
+                  .HasCharSet("utf8")
+                  .HasCollation("utf8_bin");
+
+                entity.HasOne(d => d.IdClienteNavigation)
+                         .WithMany(p => p.CuentaCorriente)
+                         .HasForeignKey(d => d.Idcliente)
+                         .HasConstraintName("FK_ctacte_clientes");
+
+                entity.HasOne(d => d.IdVendedorNavigation)
+                       .WithMany(p => p.CuentaCorriente)
+                       .HasForeignKey(d => d.IdVendedor)
+                       .HasConstraintName("FK_ctacte_vendedores");
             });
 
             OnModelCreatingPartial(modelBuilder);

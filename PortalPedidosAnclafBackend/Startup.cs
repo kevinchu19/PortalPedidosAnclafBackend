@@ -119,8 +119,15 @@ namespace PortalPedidosAnclafBackend
                options.UseMySql(Configuration.GetConnectionString("PortalPedidosAnclaflex"),
                new MySqlServerVersion(new Version(8, 0, 23)),
                mySqlOptions => mySqlOptions
-                .CharSetBehavior(CharSetBehavior.NeverAppend))
+                .EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: System.TimeSpan.FromSeconds(20),
+                    errorNumbersToAdd: null)
+                .CharSetBehavior(CharSetBehavior.NeverAppend)
+                )
                 .EnableSensitiveDataLogging()
+                
+                
                );
 
             //Unit of work
@@ -136,6 +143,12 @@ namespace PortalPedidosAnclafBackend
 
                 configuration.CreateMap<Pedidositem,PedidoItemsDTO>()
                 .ReverseMap();
+
+                configuration.CreateMap<CuentaCorriente, CuentaCorrienteDTO>()
+                .ForMember(dest => dest.FechaMovimiento, opt => opt.MapFrom(src => src.Fechamovimiento.ToString("dd/MM/yyyy")))
+                .ForMember(dest => dest.FechaVencimiento, opt => opt.MapFrom(src => src.Fechavencimiento.ToString("dd/MM/yyyy")))
+                .ForMember(dest => dest.RazonSocial, opt => opt.MapFrom(src => src.IdClienteNavigation.RazonSocial))
+                .ReverseMap();
             }
                 , typeof(Startup));
 
@@ -149,6 +162,7 @@ namespace PortalPedidosAnclafBackend
             //{
             //    app.UseDeveloperExceptionPage();
             //}
+
 
             app.UseDeveloperExceptionPage();
             app.UseForwardedHeaders(new ForwardedHeadersOptions

@@ -23,6 +23,8 @@ namespace PortalPedidosAnclafBackend.Entities
         public string ClienteExclusivo { get; set; }
         public string Visibilidad { get; set; } = "T";
 
+        public decimal Pesokg { get; set; }
+
         public DateTime Created_At
         {
             get

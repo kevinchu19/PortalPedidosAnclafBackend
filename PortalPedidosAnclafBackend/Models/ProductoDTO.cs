@@ -17,5 +17,7 @@ namespace PortalPedidosAnclafBackend.Models
         public decimal? Bonificacion2 { get; set; }
         public decimal? Bonificacion3 { get; set; }
 
+        public decimal? Pesokg { get; set; }
+
     }
 }
