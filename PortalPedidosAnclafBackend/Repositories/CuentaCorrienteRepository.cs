@@ -39,7 +39,7 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                               )
                 
                 .OrderBy(c => c.Fechamovimiento)
-                .GroupBy(c => new { c.Idcliente, c.Fechamovimiento, c.Empresa, c.Codigoformulario, c.Numeroformulario, c.PdfPath })
+                .GroupBy(c => new { c.Idcliente, c.Fechamovimiento, c.Empresa, c.Codigoformulario, c.Numeroformulario})
                 .Select(historico => new CuentaCorriente()
                 {
                     Empresa = historico.Key.Empresa,
@@ -53,7 +53,7 @@ namespace PortalPedidosAnclafBackend.Repositories
                                                                             )
                                                                             .Select(c => c.Fechavencimiento)
                                                                             .First(),
-                    PdfPath = historico.Key.PdfPath,
+                    PdfPath = historico.Max(c=>c.PdfPath),
                     Fechamovimiento = historico.Key.Fechamovimiento,
                     Importenacional = historico.Sum(c => c.Importenacional),
                     IdClienteNavigation = Context.Set<Cliente>().Where(c => c.Id == historico.Key.Idcliente).First()
