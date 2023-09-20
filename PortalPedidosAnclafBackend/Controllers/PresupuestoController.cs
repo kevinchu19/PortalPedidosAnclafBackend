@@ -19,12 +19,12 @@ namespace PortalPedidosAnclafBackend.Controllers
     [Route("api/[controller]")]
     [ApiController]
     
-    public class PedidoController : ControllerBase
+    public class PresupuestoController : ControllerBase
     {
         public IUnitOfWork Repository { get; }
         public IMapper Mapper { get; }
 
-        public PedidoController(IUnitOfWork repository, IMapper mapper)
+        public PresupuestoController(IUnitOfWork repository, IMapper mapper)
         {
             Repository = repository;
             Mapper = mapper;
@@ -32,16 +32,16 @@ namespace PortalPedidosAnclafBackend.Controllers
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
-        public async Task<ActionResult<IEnumerable<PedidoDTO>>> Post([FromBody] PedidoDTO json)
+        public async Task<ActionResult<IEnumerable<PresupuestoDTO>>> Post([FromBody] PresupuestoDTO json)
         {
-            var pedido = Mapper.Map<PedidoDTO, Pedido>(json);
+            var presupuesto = Mapper.Map<PresupuestoDTO, Presupuesto>(json);
 
-            await Repository.Pedidos.Add(pedido);
-            int PostPedidoOk = await Repository.Complete();
+            await Repository.Presupuestos.Add(presupuesto);
+            int PostPresupuestoOk = await Repository.Complete();
 
-            if (PostPedidoOk > 0)
+            if (PostPresupuestoOk > 0)
             {
-                return Ok(Mapper.Map<Pedido, PedidoDTO>(pedido));
+                return Ok(Mapper.Map<Presupuesto, PresupuestoDTO>(presupuesto));
             }
             else
             {
@@ -52,53 +52,53 @@ namespace PortalPedidosAnclafBackend.Controllers
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
-        public async Task<ActionResult<PagedList<Pedido>>> Get(string idCliente,
+        public async Task<ActionResult<PagedList<Presupuesto>>> Get(string idCliente,
                                                                string idVendedor,
-                                                               string idPedido,
+                                                               string idPresupuesto,
                                                                string fechaDesde,
                                                                string fechaHasta,
                                                                [FromQuery] PaginationParameters parameters)
         {
-            var pedidos = await Repository.Pedidos.GetByParameters(idCliente, idVendedor, idPedido, fechaDesde, fechaHasta, parameters);
+            var presupuestos = await Repository.Presupuestos.GetByParameters(idCliente, idVendedor, idPresupuesto, fechaDesde, fechaHasta, parameters);
 
-            return Ok(pedidos);
+            return Ok(presupuestos);
         }
 
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Pedido>> GetById(int id)
+        public async Task<ActionResult<Presupuesto>> GetById(int id)
         {
-            var pedido = await Repository.Pedidos.GetById(id);
+            var presupuesto = await Repository.Presupuestos.GetById(id);
 
-            return Ok(pedido);
+            return Ok(presupuesto);
         }
 
         [HttpPatch]
-        public async Task<ActionResult<Pedido>> Patch(int idPedido, string estado)
+        public async Task<ActionResult<Presupuesto>> Patch(int idPresupuesto, string estado)
         {
 
-            Pedido pedidoEncontrado = await Repository.Pedidos.Get(idPedido);
+            Presupuesto presupuestoEncontrado = await Repository.Presupuestos.Get(idPresupuesto);
 
-            if (pedidoEncontrado != null)
+            if (presupuestoEncontrado != null)
             {
-                Repository.Pedidos.Detach(pedidoEncontrado);
+                Repository.Presupuestos.Detach(presupuestoEncontrado);
                 
-                Pedido pedido = await Repository.Pedidos.ActualizarEstado(idPedido, estado);
+                Presupuesto presupuesto = await Repository.Presupuestos.ActualizarEstado(idPresupuesto, estado);
                 
                 await Repository.Complete();
                 
                 if (await Repository.Complete() > 0)
                 {
-                    return Ok(new BaseResponse<Pedido>("Registro actualizado con éxito", pedido));
+                    return Ok(new BaseResponse<Presupuesto>("Registro actualizado con éxito", presupuesto));
                 }
                 else
                 {
-                    return BadRequest(new BaseResponse<Pedido>("Error", "Ocurrió un error al actualizar el registro"));
+                    return BadRequest(new BaseResponse<Presupuesto>("Error", "Ocurrió un error al actualizar el registro"));
                 }
             }
 
-            return NotFound(new BaseResponse<Pedido>("Not Found", "No se encontró el pedido"));
+            return NotFound(new BaseResponse<Presupuesto>("Not Found", "No se encontró el presupuesto"));
 
             
             

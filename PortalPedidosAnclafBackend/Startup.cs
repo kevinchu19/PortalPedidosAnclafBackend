@@ -48,7 +48,8 @@ namespace PortalPedidosAnclafBackend
             
             services.AddHostedService<ConsumeScopedServiceHostedService>();
             services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
-            
+            services.AddScoped<IScopedProcessingService, PostearPresupuestoEnSoftlandService>();
+
 
         }
 
@@ -123,9 +124,8 @@ namespace PortalPedidosAnclafBackend
                     maxRetryCount: 5,
                     maxRetryDelay: System.TimeSpan.FromSeconds(20),
                     errorNumbersToAdd: null)
-                .CharSetBehavior(CharSetBehavior.NeverAppend)
                 )
-                .EnableSensitiveDataLogging()
+               .EnableSensitiveDataLogging()
                 
                 
                );
@@ -143,6 +143,13 @@ namespace PortalPedidosAnclafBackend
 
                 configuration.CreateMap<Pedidositem,PedidoItemsDTO>()
                 .ReverseMap();
+
+                configuration.CreateMap<Presupuesto, PresupuestoDTO>()
+             .ReverseMap();
+
+                configuration.CreateMap<Presupuestositem, PresupuestoItemsDTO>()
+                .ReverseMap();
+
 
                 configuration.CreateMap<CuentaCorriente, CuentaCorrienteDTO>()
                 .ForMember(dest => dest.FechaMovimiento, opt => opt.MapFrom(src => src.Fechamovimiento.ToString("dd/MM/yyyy")))
