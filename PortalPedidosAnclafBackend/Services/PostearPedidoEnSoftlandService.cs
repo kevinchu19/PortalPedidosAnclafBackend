@@ -66,7 +66,7 @@ namespace PortalPedidosAnclafBackend.Services
                     content[0] = await JsonSerializer.DeserializeAsync<ApiSoftlandResponse>(stream);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _logger.Error($"Error al procesar pedido: No se obtuvo respuesta del servidor: {_configuration["HostSoftland:BasePath"]}");
 
@@ -92,6 +92,7 @@ namespace PortalPedidosAnclafBackend.Services
             
             foreach ((PedidoDTO pedido, Int32 i) in pedidos.Select((pedido, i) => (pedido, i)))
             {
+                string mensaje = content[i].mensaje;
                 if (content[i].estado == 200)
                 {
                     try 
@@ -107,12 +108,18 @@ namespace PortalPedidosAnclafBackend.Services
                 }
 
                 else
-                { 
+                {
                     //28/09/2021: Provisorio para que reintente siempre reprocesar pedidos
                     //await _repository.Pedidos.ActualizaPedidoTransferido(pedido.Id, 9);
                     //await _repository.Complete();
-                    
-                    _logger.Error($"({content[i].estado}) Error al procesar pedido {pedido.Id}: { content[i].mensaje }");
+                     
+                    _logger.Error($"({content[i].estado}) Error al procesar pedido {pedido.Id}: { mensaje}");
+                    if (mensaje == "El número de formulario ya existe")
+                    {
+                        await _repository.Pedidos.ActualizaPedidoTransferido(pedido.Id, 1);
+                        await _repository.Complete();
+                        _logger.Error($"El pedido {pedido.Id} ya existe, pero se lo marca como transferido");
+                    }
                 }
 
             }

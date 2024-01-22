@@ -44,11 +44,13 @@ namespace PortalPedidosAnclafBackend
         public void ConfigureProductionServices(IServiceCollection services)
         {
             ConfigureServices(services);
-            
-            
+
             services.AddHostedService<ConsumeScopedServiceHostedService>();
             services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
-            services.AddScoped<IScopedProcessingService, PostearPresupuestoEnSoftlandService>();
+
+
+            //services.AddScoped<IScopedProcessingService, PostearPresupuestoEnSoftlandService>();
+
 
 
         }
@@ -56,6 +58,8 @@ namespace PortalPedidosAnclafBackend
         public void ConfigureServices(IServiceCollection services)
         {
 
+
+            
             services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
             services.AddScoped<IPasswordHasher, PasswordService>();
             
