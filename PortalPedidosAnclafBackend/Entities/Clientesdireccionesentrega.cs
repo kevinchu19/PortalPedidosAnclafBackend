@@ -42,5 +42,8 @@ namespace PortalPedidosAnclafBackend.Entities
         public Provincia ProvinciaEntregaNavigation { get; set; }
         [JsonIgnore]
         public virtual ICollection<Pedido> Pedidos { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Presupuesto> Presupuestos{ get; set; }
     }
 }

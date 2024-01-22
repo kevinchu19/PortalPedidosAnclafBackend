@@ -55,6 +55,9 @@ namespace PortalPedidosAnclafBackend.Entities
         public virtual ICollection<Pedido> Pedidos { get; set; }
 
         [JsonIgnore]
+        public virtual ICollection<Presupuesto> Presupuestos { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<CuentaCorriente> CuentaCorriente { get; set; }
         [JsonIgnore]
         public virtual ICollection<Usuario> Usuarios { get; set; }

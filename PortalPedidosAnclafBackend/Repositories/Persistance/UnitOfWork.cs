@@ -18,6 +18,11 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
 
         private IPedidoItemRepository _pedidositems { get; set; }
 
+        private IPresupuestoRepository _presupuestos { get; set; }
+
+        private IPresupuestoItemRepository _presupuestositems { get; set; }
+
+
         private IProductoRepository _productos { get;  set; }
 
         private IProvinciaRepository _provincias { get; set; }
@@ -78,6 +83,31 @@ namespace PortalPedidosAnclafBackend.Repositories.Persistance
                     _pedidositems = new PedidoItemRepository(Context);
                 }
                 return _pedidositems;
+            }
+        }
+
+
+        public IPresupuestoRepository Presupuestos
+        {
+            get
+            {
+                if (_presupuestos == null)
+                {
+                    _presupuestos = new PresupuestoRepository(Context);
+                }
+                return _presupuestos;
+            }
+        }
+
+        public IPresupuestoItemRepository PresupuestosItems
+        {
+            get
+            {
+                if (_presupuestositems == null)
+                {
+                    _presupuestositems = new PresupuestoItemRepository(Context);
+                }
+                return _presupuestositems;
             }
         }
 
