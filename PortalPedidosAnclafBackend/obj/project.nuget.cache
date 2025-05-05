@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Hv5ZAKspnZevr/KPJnQL6DyZXSW/CBnz80YdLvoavxESTaSLjUvPZzWiqxTitKfeMa9yAz5RnysfuNgm8XFg1A==",
+  "dgSpecHash": "aWZYoqxegh64IebtW+XG1Ct8c3jH2GDnT8O4hry5wdniAsA4wpveot3p3/51S7cvEjmOlXpn6z7ks5vkyFXPBg==",
   "success": true,
   "projectFilePath": "C:\\Users\\ktchu\\source\\repos\\PortalPedidosAnclafBackend\\PortalPedidosAnclafBackend\\PortalPedidosAnclafBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ktchu\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
-    "C:\\Users\\ktchu\\.nuget\\packages\\entityframework\\5.0.0\\entityframework.5.0.0.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\google.protobuf\\3.5.1\\google.protobuf.3.5.1.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.13\\microsoft.aspnetcore.authentication.jwtbearer.3.1.13.nupkg.sha512",
@@ -75,7 +74,6 @@
     "C:\\Users\\ktchu\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.1\\system.configuration.configurationmanager.4.4.1.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\system.console\\4.3.0\\system.console.4.3.0.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\system.data.common\\4.3.0\\system.data.common.4.3.0.nupkg.sha512",
-    "C:\\Users\\ktchu\\.nuget\\packages\\system.data.entity.repository\\2.0.0.1\\system.data.entity.repository.2.0.0.1.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\system.diagnostics.tools\\4.3.0\\system.diagnostics.tools.4.3.0.nupkg.sha512",
@@ -132,26 +130,5 @@
     "C:\\Users\\ktchu\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\ktchu\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "El paquete \"EntityFramework 5.0.0\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\" en lugar de la plataforma de destino del proyecto \".NETCoreApp,Version=v3.1\". Puede que el paquete no sea totalmente compatible con el proyecto.",
-      "libraryId": "EntityFramework",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "El paquete \"System.Data.Entity.Repository 2.0.0.1\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\" en lugar de la plataforma de destino del proyecto \".NETCoreApp,Version=v3.1\". Puede que el paquete no sea totalmente compatible con el proyecto.",
-      "libraryId": "System.Data.Entity.Repository",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  "logs": []
 }

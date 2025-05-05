@@ -48,10 +48,6 @@ C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBacken
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-<<<<<<< HEAD
-C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.csproj.AssemblyReference.cache
-=======
->>>>>>> development
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.AssemblyInfoInputs.cache
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.AssemblyInfo.cs
