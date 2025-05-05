@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>25b64517-0663-4c48-b969-f9db94ae6382</UserSecretsId>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>   
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +25,6 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.MySQL" Version="4.0.0" />
-    <PackageReference Include="System.Data.Entity.Repository" Version="2.0.0.1" />
   </ItemGroup>
 
   <ItemGroup>
