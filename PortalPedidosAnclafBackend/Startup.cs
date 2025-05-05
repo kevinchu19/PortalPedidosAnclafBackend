@@ -70,8 +70,8 @@ namespace PortalPedidosAnclafBackend
             
             services.AddSingleton<Serilog.ILogger>(options =>
             {
-                var connstring = Configuration["Serilog:SerilogConnectionString"];
-                var tableName = Configuration["Serilog:TableName"];
+                var connstring = "Server=localhost;Port=3306;User=alamo_pedidos;Password=eUWCX8idrrEuVTcuia0=;Database=portalpedidosanclaflex";//Configuration["Serilog:SerilogConnectionString"];
+                var tableName = "APILogs";//Configuration["Serilog:TableName"];
 
                 return new LoggerConfiguration()
                             .WriteTo
