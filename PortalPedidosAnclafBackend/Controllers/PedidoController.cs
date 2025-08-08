@@ -88,8 +88,6 @@ namespace PortalPedidosAnclafBackend.Controllers
                 
                 await Repository.Complete();
                 
-                return Ok(Mapper.Map<Pedido, PedidoDTO>(pedido));
-
                 if (await Repository.Complete() > 0)
                 {
                     return Ok(new BaseResponse<Pedido>("Registro actualizado con éxito", pedido));

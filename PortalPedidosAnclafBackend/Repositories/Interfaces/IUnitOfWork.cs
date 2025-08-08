@@ -11,6 +11,9 @@ namespace PortalPedidosAnclafBackend.Repositories.Interfaces
         IClienteDireccionEntregaRepository ClienteDireccionesEntrega { get; }
         IPedidoRepository Pedidos { get; }
         IPedidoItemRepository PedidosItems { get; }
+
+        IPresupuestoRepository Presupuestos { get; }
+        IPresupuestoItemRepository PresupuestosItems { get; }
         IProductoRepository Productos { get; }
         IProvinciaRepository Provincias { get; }
         IUsuarioRepository Usuarios { get; }
