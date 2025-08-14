@@ -58,8 +58,7 @@ namespace PortalPedidosAnclafBackend
         public void ConfigureServices(IServiceCollection services)
         {
 
-
-            
+                        
             services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
             services.AddScoped<IPasswordHasher, PasswordService>();
             
