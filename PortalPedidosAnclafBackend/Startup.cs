@@ -51,9 +51,6 @@ namespace PortalPedidosAnclafBackend
         public void ConfigureServices(IServiceCollection services)
         {
 
-<<<<<<< HEAD
-                        
-=======
             if (Env.IsStaging())
             {
                 services.AddHostedService<ConsumeScopedServiceHostedService>();
@@ -66,8 +63,6 @@ namespace PortalPedidosAnclafBackend
                 services.AddScoped<IScopedProcessingService, PostearPresupuestoEnSoftlandService>();
             }
 
-
->>>>>>> development
             services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
             services.AddScoped<IPasswordHasher, PasswordService>();
             

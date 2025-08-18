@@ -1,7 +1,8 @@
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\objBKP\Release\netcoreapp3.1\PubTmp\Out\web.config
+C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\appsettings - Copia.Development.json
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\appsettings.Development.json
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\appsettings.json
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\appsettings.Staging.json
-C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\objBKP\Release\netcoreapp3.1\PubTmp\Out\web.config
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\objBKP\PortalPedidosAnclafBackend.csproj.nuget.dgspec.json
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\objBKP\project.assets.json
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\objBKP\Release\netcoreapp3.1\PortalPedidosAnclafBackend.deps.json
@@ -65,8 +66,3 @@ C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBacken
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.dll
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.pdb
 C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.genruntimeconfig.cache
-<<<<<<< HEAD
-C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\bin\Release\netcoreapp3.1\appsettings - Copia.Development.json
-=======
->>>>>>> development
-C:\Users\ktchu\source\repos\PortalPedidosAnclafBackend\PortalPedidosAnclafBackend\obj\Release\netcoreapp3.1\PortalPedidosAnclafBackend.csproj.AssemblyReference.cache
