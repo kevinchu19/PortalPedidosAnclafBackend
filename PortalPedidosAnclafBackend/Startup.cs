@@ -32,34 +32,38 @@ namespace PortalPedidosAnclafBackend
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
 
-        public void ConfigureProductionServices(IServiceCollection services)
-        {
-            ConfigureServices(services);
-
-            services.AddHostedService<ConsumeScopedServiceHostedService>();
-            services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
-
-
-            //services.AddScoped<IScopedProcessingService, PostearPresupuestoEnSoftlandService>();
-
-
-
-        }
+        //public void ConfigureProductionServices(IServiceCollection services)
+        //{
+        //    ConfigureServices(services);
+        //}
 
         public void ConfigureServices(IServiceCollection services)
         {
 
+            if (Env.IsStaging())
+            {
+                services.AddHostedService<ConsumeScopedServiceHostedService>();
+                services.AddScoped<IScopedProcessingService, PostearPresupuestoEnSoftlandService>();
+            }
+            if (Env.IsProduction())
+            {
+                services.AddHostedService<ConsumeScopedServiceHostedService>();
+                services.AddScoped<IScopedProcessingService, PostearPedidoEnSoftlandService>();
+                services.AddScoped<IScopedProcessingService, PostearPresupuestoEnSoftlandService>();
+            }
 
-            
+
             services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
             services.AddScoped<IPasswordHasher, PasswordService>();
             
