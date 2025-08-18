@@ -50,12 +50,13 @@ namespace PortalPedidosAnclafBackend
 
         public void ConfigureServices(IServiceCollection services)
         {
+            
 
-            if (Env.IsStaging())
-            {
+            //if (Env.IsStaging())
+            //{
                 services.AddHostedService<ConsumeScopedServiceHostedService>();
                 services.AddScoped<IScopedProcessingService, PostearPresupuestoEnSoftlandService>();
-            }
+            //}
             if (Env.IsProduction())
             {
                 services.AddHostedService<ConsumeScopedServiceHostedService>();
